@@ -48,6 +48,7 @@ public class CursorManager : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
+                        GetComponent<MapLoad>().ChangeMap(targetObject);
                         targetObject.SendMessage("OnChange");
                         floorChange = true;
                     }

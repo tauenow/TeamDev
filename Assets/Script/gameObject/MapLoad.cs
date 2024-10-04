@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-public class Map_Load : MonoBehaviour
+public class MapLoad : MonoBehaviour
 {
+
+    [Header("マップのデータファイル")]
     [SerializeField]
     private TextAsset textFile;
 
@@ -15,7 +17,8 @@ public class Map_Load : MonoBehaviour
     private int textYNumber; // 列数に相当
 
     bool centerPosRegister = false;//マップのセンターポジションがあるかないか
- 
+
+    [Header("赤いブロック")]
     [SerializeField]
     private GameObject redFloorPrefab;
     [SerializeField]
@@ -31,11 +34,11 @@ public class Map_Load : MonoBehaviour
     private Vector3 center;
 
     //Floorのlist
-
+    List<GameObject> floors = new();
     private void Start()
     {
         string textLines = textFile.text; // テキストの全体データの代入
-        print(textLines);
+        //print(textLines);
 
         // 改行でデータを分割して配列に代入
         textData = textLines.Split('\n');
@@ -46,7 +49,7 @@ public class Map_Load : MonoBehaviour
 
         // ２次元配列の定義
         dungeonMap = new string[textYNumber, textXNumber];//マップ
-
+        
         for (int i = 0; i < textYNumber; i++)
         {
             string[] tempWords = textData[i].Split(',');
@@ -64,14 +67,21 @@ public class Map_Load : MonoBehaviour
                             break;
 
                         case "1":
-                           
-                            Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity);
-                            
+
+                            GameObject floor1 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor1.GetComponent<Floor>().SetMapPosition(i, j, "1");
+                            floors.Add(floor1);
+                            Debug.Log(i);
+                            Debug.Log(j);
                             break;
 
                         case "2":
 
-                            Instantiate(blueFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity);
+                            GameObject floor2 = Instantiate(blueFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor2.GetComponent<Floor>().SetMapPosition(i, j, "2");
+                            floors.Add(floor2);
+
+
                             break;
                             
                     }
@@ -81,7 +91,9 @@ public class Map_Load : MonoBehaviour
                         endPos = new Vector3(transform.position.x + (textXNumber - 1),0.0f, transform.position.z - (textYNumber - 1));
 
                         center = (startPos + endPos) / 2;
+
                         Instantiate(centerObject, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity);
+                        
 
                         centerPosRegister = true;//一つ登録すればOK
                     }
@@ -89,15 +101,48 @@ public class Map_Load : MonoBehaviour
             }
         }
 
-        Instantiate(GameManager, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity);
+        //Instantiate(GameManager, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity);
     }
 
     private void Update()
     {
-       
+        
 
 
 
 
     }
+
+    public void ChangeMap(GameObject obj)//床しか入れん
+    {
+        //このｆって変数なんなん
+        GameObject floor = floors.Find(f => f.gameObject.GetComponent<Floor>()== obj.GetComponent<Floor>());
+        
+
+        float x = floor.GetComponent<Floor>().GetMapPosition().x;
+        float z = floor.GetComponent<Floor>().GetMapPosition().z;
+
+        for (int i = 0; i < textYNumber; i++)
+        {
+            string[] tempWords = textData[i].Split(',');
+
+            for (int j = 0; j < textXNumber; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
+
+                if (dungeonMap[i, j] != null)
+                {
+                   if(i == x&& j == z)
+                    {
+                        floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
+                        Debug.Log(i);
+                        Debug.Log(j);
+                    }
+                }
+            }
+        }
+
+    }
+
+    
 }

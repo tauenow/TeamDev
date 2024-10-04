@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6737862767988889508}
   - component: {fileID: 6517895528231587890}
   - component: {fileID: -7938467891881114960}
+  - component: {fileID: -2251013458482015113}
   m_Layer: 0
   m_Name: RedFloor
   m_TagString: RedFloor
@@ -118,8 +119,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828110c9545281d448b5915a30d28145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  change: 0
   Hight: 0
   tagName1: RedFloor
   tagName2: BlueFloor
   mat_red: {fileID: 2100000, guid: f86bcfb1d3fdf4f4bb870784e5b18355, type: 2}
   mat_blue: {fileID: 2100000, guid: fe0d5d41255641a4cb194e07a468dac6, type: 2}
+--- !u!114 &-2251013458482015113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3650479318699551693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d640f99b43e5e154589534a6a69d640e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

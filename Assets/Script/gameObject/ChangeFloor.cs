@@ -60,7 +60,7 @@ public class ChangeFloor : MonoBehaviour
                 Vector3 transformPos = transform.position;
                 transformPos.y -= 0.01f;
                 transform.position = transformPos;
-                Debug.Log("‰º‚ª‚è‚Ü‚·");
+                
             }
             else if (currentTime >= endTime)
             {
