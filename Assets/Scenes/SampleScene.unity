@@ -367,6 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 1
   Hight: 10
+  sideLength: 5
 --- !u!1 &1304544863
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1304544865}
   - component: {fileID: 1304544864}
+  - component: {fileID: 1304544867}
   - component: {fileID: 1304544866}
   m_Layer: 0
   m_Name: map
@@ -392,7 +394,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304544863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 316599a140fd9214b90aaf5b68da5fda, type: 3}
   m_Name: 
@@ -431,6 +433,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultCursor: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   interactCursor: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &1304544867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304544863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b2bc6661aef7243b458b49269e8f6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textFile: {fileID: 0}
+  MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
+  redFloorPrefab: {fileID: 3650479318699551693, guid: 616c27c47fbe61540aca5490d52e0f02, type: 3}
+  blueFloorPrefab: {fileID: 6428310960531333526, guid: 1851637cd4c6b1849a8d4629c54ab3d8, type: 3}
+  Goal: {fileID: 6428310960531333526, guid: 4068b444bf43059448604cec980d96cb, type: 3}
+  centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
+  GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
+  Player: {fileID: 8222468785037047076, guid: ceba17720cc2ddf48bb318fd91d26184, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField]
     private float Hight = 0.0f;
+    [SerializeField]
+    private float sideLength = 0.0f;
     bool center = false;
 
     void Start()
@@ -31,7 +33,7 @@ public class CameraControl : MonoBehaviour
                 float x = centerObject.transform.position.x;
                 Vector3 pos = centerObject.transform.position;
                 pos.y = Hight;
-                pos.x = centerObject.transform.position.x + 5.0f;//マジークナンバーごめんなさい
+                pos.z = centerObject.transform.position.z - sideLength;//マジークナンバーごめんなさい
                 transform.position = pos;
                 center = true;
             }

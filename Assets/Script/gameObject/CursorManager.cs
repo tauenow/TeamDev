@@ -42,15 +42,17 @@ public class CursorManager : MonoBehaviour
 
             if(hit.collider.gameObject.tag =="RedFloor" || hit.collider.gameObject.tag == "BlueFloor")
             {
-                targetObject.SendMessage("OnCursor");
+                Debug.Log(targetObject.GetComponent<Floor>().GetFloorState());
+                targetObject.SendMessage("OnCursor");//‚±‚±‚Í•Ï‚¦‚½‚¢
                 //ƒJ[ƒ\ƒ‹‚ª“–‚½‚Á‚Ä‚¢‚é‚Ì‚ğfloor‚Ìobject‚É“`‚¦‚½‚¢
                 if (floorChange == false)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        GetComponent<MapLoad>().ChangeMap(targetObject);
-                        targetObject.SendMessage("OnChange");
+                        GetComponent<MapManager>().ChangeMap(targetObject);
+                        targetObject.SendMessage("OnChange");//‚±‚±‚Í•Ï‚¦‚½‚¢
                         floorChange = true;
+                        
                     }
                 }
             }

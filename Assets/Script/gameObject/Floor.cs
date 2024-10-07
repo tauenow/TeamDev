@@ -8,6 +8,8 @@ public class Floor : MonoBehaviour
     private Vector3 position;//このFloorの2次元配列のポジション
     private string state;//２次元配列で登録されている文字ナンバー
 
+    private MapManager parentMap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +32,13 @@ public class Floor : MonoBehaviour
     public void SetFloorState(string num)
     {
 
-        if(num == "1")
+        if(num == "red")
         {
-            state = "2";
+            state = "blue";
         }
-        else if (num == "2")
+        else if (num == "blue")
         {
-            state = "1";
+            state = "red";
         }
 
     }
@@ -52,6 +54,40 @@ public class Floor : MonoBehaviour
     {
         return state;
     }
-    
+
+    public void SetParentmap (MapManager map)
+    {
+        parentMap = map;
+    }
+
+    public void CheckFloor()
+    {
+        //parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition() == );
+
+
+        for(int i = 0;i < 4; i++)
+        {
+            if(i == 0)
+            {
+
+            }
+            else if (i == 1)
+            {
+
+            }
+            else if (i == 2)
+            {
+
+            }
+            else if (i == 3)
+            {
+
+            }
+
+
+        }
+
+
+    }
 
 }
