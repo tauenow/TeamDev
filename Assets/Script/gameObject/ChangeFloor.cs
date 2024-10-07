@@ -100,17 +100,17 @@ public class ChangeFloor : MonoBehaviour
             }
         }
     }
-    void OnChange()
+    public void OnChange()
     {
         change = true;
         currentTime = 0.0f;
 
     }
-    bool GetChangeState()
+   public  bool GetChangeState()
     {
         return change;
     }
-    void OnCursor()
+    public void OnCursor()
     {
         cursor = true;
     }

@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316599a140fd9214b90aaf5b68da5fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 5841cf71f01c6e3498b6bf7b3df3fa1c, type: 3}
+  textFile: {fileID: 4900000, guid: 34233301a77cd444b846c96b4e1a995b, type: 3}
   redFloorPrefab: {fileID: 3650479318699551693, guid: 616c27c47fbe61540aca5490d52e0f02, type: 3}
   blueFloorPrefab: {fileID: 6428310960531333526, guid: 1851637cd4c6b1849a8d4629c54ab3d8, type: 3}
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
@@ -445,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b2bc6661aef7243b458b49269e8f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 0}
   MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
   redFloorPrefab: {fileID: 3650479318699551693, guid: 616c27c47fbe61540aca5490d52e0f02, type: 3}
   blueFloorPrefab: {fileID: 6428310960531333526, guid: 1851637cd4c6b1849a8d4629c54ab3d8, type: 3}

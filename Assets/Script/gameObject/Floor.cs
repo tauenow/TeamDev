@@ -60,30 +60,127 @@ public class Floor : MonoBehaviour
         parentMap = map;
     }
 
-    public void CheckFloor()
+    public void CheckFloor(List<Floor> oldGameObjectList)
     {
-        //parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition() == );
+
+        List<Floor> old = oldGameObjectList;
+        List<bool> bools = new List<bool>();
 
 
         for(int i = 0;i < 4; i++)
         {
             if(i == 0)
             {
+                Debug.Log(position.z + " > " + parentMap.MinPositionZ());
+                if (position.z > parentMap.MinPositionZ())
+                {
+                    Debug.Log("ê‘Ç≈Ç∑");
+                    GameObject obj1 =  parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z + 1);
+                    if (old.Find(match => match.GetComponent<Floor>() != obj1.GetComponent<Floor>()))
+                    {
+                        if(obj1.GetComponent<Floor>().GetFloorState() == "red")
+                        {
+                            bools.Add(true);
+                            old.Add(obj1.GetComponent<Floor>());
+                            obj1.GetComponent<Floor>().CheckFloor(old);
+                            Debug.Log("ê‘Ç≈Ç∑");
+                        }
+                        else if(obj1.GetComponent<Floor>().GetFloorState() == "goal")
+                        {
+                            Debug.Log("GoalÇ≈Ç∑");
+                        }
+                        else
+                        {
 
+                            Debug.Log("NoneÇ≈Ç∑");
+                            bools.Add(true);
+                        }
+                    }
+                }
             }
             else if (i == 1)
             {
+                if (position.z < parentMap.MaxPositionZ())
+                {
+                    GameObject obj2 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z - 1);
+                    if (old.Find(match => match.GetComponent<Floor>() != obj2.GetComponent<Floor>()))
+                    {
+                        if (obj2.GetComponent<Floor>().GetFloorState() == "red")
+                        {
 
+                            old.Add(obj2.GetComponent<Floor>());
+                            obj2.GetComponent<Floor>().CheckFloor(old);
+                            Debug.Log("ê‘Ç≈Ç∑");
+                        }
+                        else if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
+                        {
+                            Debug.Log("GoalÇ≈Ç∑");
+                        }
+                        else
+                        {
+                            Debug.Log("NoneÇ≈Ç∑");
+                            bools.Add(true);
+                        }
+                    }
+                }
             }
             else if (i == 2)
             {
+                if (position.x > parentMap.MinPositionX())
+                {
+                    GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+                    if (old.Find(match => match.GetComponent<Floor>() != obj3.GetComponent<Floor>()))
+                    {
+                        if (obj3.GetComponent<Floor>().GetFloorState() == "red")
+                        {
 
+                            old.Add(obj3.GetComponent<Floor>());
+                            obj3.GetComponent<Floor>().CheckFloor(old);
+                        }
+                        else if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
+                        {
+
+                        }
+                        else
+                        {
+                            Debug.Log("NoneÇ≈Ç∑");
+                            bools.Add(true);
+                        }
+                    }
+                }
             }
             else if (i == 3)
             {
+                if (position.z > 0)
+                {
+                    GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+                    if (old.Find(match => match.GetComponent<Floor>() != obj4.GetComponent<Floor>()))
+                    {
+                        if (obj4.GetComponent<Floor>().GetFloorState() == "red")
+                        {
 
+                            old.Add(obj4.GetComponent<Floor>());
+                            obj4.GetComponent<Floor>().CheckFloor(old);
+                        }
+                        else if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
+                        {
+
+                        }
+                        else
+                        {
+                            Debug.Log("NoneÇ≈Ç∑");
+                            bools.Add(true);
+                        }
+                    }
+
+                }
             }
 
+
+        }
+
+        if (bools.Find(match => match == false))
+        {
 
         }
 

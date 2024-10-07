@@ -49,10 +49,10 @@ public class CursorManager : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        GetComponent<MapManager>().ChangeMap(targetObject);
-                        targetObject.SendMessage("OnChange");//‚±‚±‚Í•Ï‚¦‚½‚¢
-                        floorChange = true;
                         
+                        floorChange = true;
+                        GetComponent<MapManager>().ChangeMap(targetObject);
+
                     }
                 }
             }
