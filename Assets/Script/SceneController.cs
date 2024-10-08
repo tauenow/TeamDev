@@ -8,14 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    // シーン切り替え
-    public void ChangeSceneToStageSelect()
-    {
-        SceneManager.LoadScene("StageSelect");
-    }
-    public void ChangeSceneToGame()
-    {
-        SceneManager.LoadScene("SampleScene");
-    }
+	// シーン切り替え
+	public void ChangeSceneToStageSelect()
+	{
+		SceneManager.LoadScene("StageSelect");
+	}
+	public void ChangeSceneToGame()
+	{
+		SceneManager.LoadScene("SampleScene");
+	}
+
+	public void ChangeSceneToTitle()
+	{
+		SceneManager.LoadScene("TitleScene");
+	}
 
 }
