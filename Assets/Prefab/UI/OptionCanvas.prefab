@@ -1121,8 +1121,9 @@ GameObject:
   - component: {fileID: 6103448342819565710}
   - component: {fileID: 3407118463473906677}
   - component: {fileID: 1233715575853857770}
-  - component: {fileID: 8584077815264478848}
-  - component: {fileID: 1053554870095342912}
+  - component: {fileID: 7898405164006194827}
+  - component: {fileID: 4348698200131156193}
+  - component: {fileID: 3377389871199350263}
   m_Layer: 5
   m_Name: TitleBack
   m_TagString: Untagged
@@ -1232,9 +1233,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8584077815264478848}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: ChangeSceneToTitle
+      - m_Target: {fileID: 7898405164006194827}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: FadeStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1244,7 +1245,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8584077815264478848
+      - m_Target: {fileID: 7898405164006194827}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DestroyOption
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7898405164006194827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1253,25 +1266,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 5636210760352566968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b205a2d8483de204fb4a2d613625b1c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1053554870095342912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5636210760352566968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5d8a3132074e73458d1800da657ed58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  option: {fileID: 6080164031773957511}
-  NextButton: {fileID: 0}
+  ScriptableObject: {fileID: 0}
+  SetNum: 0
+  option: {fileID: 0}
+  Button1: {fileID: 0}
+  Button2: {fileID: 0}
+  Button3: {fileID: 0}
   OptButton: {fileID: 0}
   map: {fileID: 0}
+--- !u!114 &4348698200131156193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636210760352566968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3038373926f0dab4c87cdfbda027c831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: a34213d293b70914da56cc82486bf235, type: 2}
+  startValue: 1
+  endValue: -1
+  fadeDuration: 2
+  nextSceneName: Scenes/TitleScene
+--- !u!114 &3377389871199350263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636210760352566968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c52c478386916449978103a897f5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1233715575853857770}
 --- !u!1 &5958116727893919475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2179,7 @@ GameObject:
   - component: {fileID: 827458650381350685}
   - component: {fileID: 5131557266584115587}
   - component: {fileID: 411247045266235830}
-  - component: {fileID: 3486527523657821121}
+  - component: {fileID: 196675007846533534}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2254,8 +2289,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3486527523657821121}
-        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+      - m_Target: {fileID: 196675007846533534}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: DestroyOption
         m_Mode: 1
         m_Arguments:
@@ -2266,7 +2301,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3486527523657821121
+--- !u!114 &196675007846533534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2275,10 +2310,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8922382065053206776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5d8a3132074e73458d1800da657ed58, type: 3}
+  m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScriptableObject: {fileID: 0}
+  SetNum: 0
   option: {fileID: 6080164031773957511}
-  NextButton: {fileID: 0}
+  Button1: {fileID: 0}
+  Button2: {fileID: 0}
+  Button3: {fileID: 0}
   OptButton: {fileID: 0}
   map: {fileID: 0}

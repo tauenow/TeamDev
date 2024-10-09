@@ -44,9 +44,34 @@ public class Option : MonoBehaviour
 	public void CreateOption()
 	{
 		option.enabled = true;
-		Button1.enabled = false;
-		Button2.enabled = false;
-		Button3.enabled = false;
+
+		if (Button1 != null)
+		{
+			Button1.enabled = false;
+		}
+		else
+		{
+			return;
+		}
+
+		if (Button2 != null)
+		{
+			Button2.enabled = false;
+		}
+		else
+		{
+			return;
+		}
+
+		if (Button3 != null)
+		{
+			Button3.enabled = false;
+		}
+		else
+		{
+			return;
+		}
+
 		OptButton.enabled = false;
 		if (map != null)
 		{
@@ -61,9 +86,34 @@ public class Option : MonoBehaviour
 	public void DestroyOption()
 	{
 		option.enabled = false;
-		Button1.enabled = true;
-		Button2.enabled = true;
-		Button3.enabled = true;
+
+		if (Button1 != null)
+		{
+			Button1.enabled = true;
+		}
+		else
+		{
+			return;
+		}
+
+		if (Button2 != null)
+		{
+			Button2.enabled = true;
+		}
+		else
+		{
+			return;
+		}
+
+		if (Button3 != null)
+		{
+			Button3.enabled = true;
+		}
+		else
+		{
+			return;
+		}
+
 		OptButton.enabled = true;
 		if (map != null)
 		{
