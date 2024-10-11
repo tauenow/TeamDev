@@ -74,7 +74,7 @@ Shader "Unlit/Transition"
 				*/
 
 				// 閾値だけ変更(出力色を返す)
-				return fixed4(1.0f, 1.0f, 1.0f, output);
+				return fixed4(col.xyz, output);
 			}
 			ENDCG
 		}
