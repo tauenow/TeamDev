@@ -35,8 +35,7 @@ public class CameraControl : MonoBehaviour
                 pos.z = centerObject.transform.position.z - sideLength;//マジークナンバーごめんなさい
                 transform.position = pos;
                 center = true;
-                Debug.Log(centerObject.transform.position.x);
-                Debug.Log(centerObject.transform.position.z);
+               
             }
             if (Input.GetMouseButton(1))//0が左クリック１が右クリック
             {

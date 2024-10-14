@@ -42,7 +42,6 @@ public class CursorManager : MonoBehaviour
 
             if(hit.collider.gameObject.tag =="RedFloor" || hit.collider.gameObject.tag == "BlueFloor")
             {
-                Debug.Log(targetObject.GetComponent<Floor>().GetFloorState());
                 targetObject.SendMessage("OnCursor");//ここは変えたい
                 //カーソルが当たっているのをfloorのobjectに伝えたい
                 if (floorChange == false)
@@ -63,7 +62,6 @@ public class CursorManager : MonoBehaviour
             SetCursor(true);
         }
 
-       
     }
     // 対象のオブジェクトを調べる処理
     void LookUpTargetObject()

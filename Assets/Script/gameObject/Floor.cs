@@ -8,7 +8,10 @@ public class Floor : MonoBehaviour
     private Vector3 position;//このFloorの2次元配列のポジション
     private string state;//２次元配列で登録されている文字ナンバー
 
-    private MapManager parentMap;
+    private MapManager parentMap = null;
+
+    private Floor oldFloor = null;//このFloorのチェックに入る前の情報
+    private int rootCount = 0;//このFloorからの分岐の数
 
     // Start is called before the first frame update
     void Start()
@@ -59,132 +62,183 @@ public class Floor : MonoBehaviour
     {
         parentMap = map;
     }
+    public void SetRootCount(int count)
+    {
+        rootCount = count;
+    }
+    public int GetRootCount()
+    {
+        return rootCount;
+    }
 
-    public void CheckFloor(List<Floor> oldGameObjectList)
+    public void SetOldFloor(Floor floor)
+    {
+        oldFloor = floor;
+    }
+    public Floor GetOldFloor()
+    {
+        return oldFloor;
+    }
+
+
+    public void CheckFloor()
+    {
+        rootCount = 0;
+        List<Floor> floors = new List<Floor>();
+        floors = parentMap.GetOldList();
+
+        if (position.z > parentMap.MinPositionZ())
+        {
+            //Debug.Log("↑を調べます");
+            GameObject obj1 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z - 1);
+
+            if (parentMap.GetOldList().Contains(obj1.GetComponent<Floor>()) == false)
+            {
+
+                //Debug.Log("探索してきたlistの中になかったのでチェックします");
+             
+                if (obj1.GetComponent<Floor>().GetFloorState() == "red")
+                {
+                    parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    //Debug.Log("↑は赤です");
+                    //rootの数と自分の情報を登録
+                    rootCount++;
+                    obj1.GetComponent<Floor>().SetOldFloor(this);
+                    obj1.GetComponent<Floor>().CheckFloor();
+
+
+                }
+                else if (obj1.GetComponent<Floor>().GetFloorState() == "goal")
+                {
+                    parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    Debug.Log("goalです");
+                    rootCount++;
+                    //ゴールしたことをマップマネージャーに伝える
+                    parentMap.InGoal();
+                }
+            }
+        }
+
+
+        if (position.z < parentMap.MaxPositionZ())
+        {
+            //Debug.Log("↓を調べます");
+            GameObject obj2 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == (GetComponent<Floor>().GetMapPosition().z + 1));
+
+            if (parentMap.GetOldList().Contains(obj2.GetComponent<Floor>()) == false)
+            {
+
+                //Debug.Log("探索してきたlistの中になかったのでチェックします");
+
+                if (obj2.GetComponent<Floor>().GetFloorState() == "red")
+                {
+                    parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    //Debug.Log("↓は赤です");
+                    rootCount++;
+                    obj2.GetComponent<Floor>().SetOldFloor(this);
+                    obj2.GetComponent<Floor>().CheckFloor();
+                }
+                else if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
+                {
+                    parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    Debug.Log("goalです");
+                    rootCount++;
+                    //ゴールしたことをマップマネージャーに伝える
+                    parentMap.InGoal();
+                }
+
+            }
+
+        }
+
+
+        if (position.x > parentMap.MinPositionX())
+        {
+            //Debug.Log("←を調べます");
+            GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+
+            if (parentMap.GetOldList().Contains(obj3.GetComponent<Floor>()) == false)
+            {
+
+                //Debug.Log("探索してきたlistの中になかったのでチェックします");
+                
+                if (obj3.GetComponent<Floor>().GetFloorState() == "red")
+                {
+                    parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    //Debug.Log("←は赤です");
+                    //rootの数と自分の情報を登録
+                    rootCount++;
+                    obj3.GetComponent<Floor>().SetOldFloor(this);
+                    obj3.GetComponent<Floor>().CheckFloor();
+                }
+                else if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
+                {
+                    parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    Debug.Log("goalです");
+                    rootCount++;
+                    //ゴールしたことをマップマネージャーに伝える
+                    parentMap.InGoal();
+                }
+
+            }
+        }
+
+        if (position.x < parentMap.MaxPositionX())
+        {
+            GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+            //Debug.Log("→を調べます");
+
+            if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
+            {
+                //探索していたlistの中になければ進む
+                if (obj4.GetComponent<Floor>().GetFloorState() == "red")
+                {
+                    parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    //Debug.Log("→は赤です");
+                    //rootの数と自分の情報を登録
+                    rootCount++;
+                    obj4.GetComponent<Floor>().SetOldFloor(this);
+                    obj4.GetComponent<Floor>().CheckFloor();
+                   
+                }
+                else if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
+                {
+                    parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    Debug.Log("goalです");
+                    rootCount++;
+                    //ゴールしたことをマップマネージャーに伝える
+                    parentMap.InGoal();
+                }
+
+            }
+
+        }
+    }
+    public void CheckOldRoot()
     {
 
-        List<Floor> old = oldGameObjectList;
-        List<bool> bools = new List<bool>();
-
-
-        for(int i = 0;i < 4; i++)
+        //rootが一つもなかったら前の情報のrootも確認
+        if (rootCount == 0)
         {
-            if(i == 0)
-            {
-                Debug.Log(position.z + " > " + parentMap.MinPositionZ());
-                if (position.z > parentMap.MinPositionZ())
-                {
-                    Debug.Log("赤です");
-                    GameObject obj1 =  parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z + 1);
-                    if (old.Find(match => match.GetComponent<Floor>() != obj1.GetComponent<Floor>()))
-                    {
-                        if(obj1.GetComponent<Floor>().GetFloorState() == "red")
-                        {
-                            bools.Add(true);
-                            old.Add(obj1.GetComponent<Floor>());
-                            obj1.GetComponent<Floor>().CheckFloor(old);
-                            Debug.Log("赤です");
-                        }
-                        else if(obj1.GetComponent<Floor>().GetFloorState() == "goal")
-                        {
-                            Debug.Log("Goalです");
-                        }
-                        else
-                        {
+            Debug.Log("戻ります");
+            if (oldFloor != null) oldFloor.CheckOldRoot();
 
-                            Debug.Log("Noneです");
-                            bools.Add(true);
-                        }
-                    }
-                }
-            }
-            else if (i == 1)
-            {
-                if (position.z < parentMap.MaxPositionZ())
-                {
-                    GameObject obj2 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z - 1);
-                    if (old.Find(match => match.GetComponent<Floor>() != obj2.GetComponent<Floor>()))
-                    {
-                        if (obj2.GetComponent<Floor>().GetFloorState() == "red")
-                        {
-
-                            old.Add(obj2.GetComponent<Floor>());
-                            obj2.GetComponent<Floor>().CheckFloor(old);
-                            Debug.Log("赤です");
-                        }
-                        else if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
-                        {
-                            Debug.Log("Goalです");
-                        }
-                        else
-                        {
-                            Debug.Log("Noneです");
-                            bools.Add(true);
-                        }
-                    }
-                }
-            }
-            else if (i == 2)
-            {
-                if (position.x > parentMap.MinPositionX())
-                {
-                    GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
-                    if (old.Find(match => match.GetComponent<Floor>() != obj3.GetComponent<Floor>()))
-                    {
-                        if (obj3.GetComponent<Floor>().GetFloorState() == "red")
-                        {
-
-                            old.Add(obj3.GetComponent<Floor>());
-                            obj3.GetComponent<Floor>().CheckFloor(old);
-                        }
-                        else if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
-                        {
-
-                        }
-                        else
-                        {
-                            Debug.Log("Noneです");
-                            bools.Add(true);
-                        }
-                    }
-                }
-            }
-            else if (i == 3)
-            {
-                if (position.z > 0)
-                {
-                    GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
-                    if (old.Find(match => match.GetComponent<Floor>() != obj4.GetComponent<Floor>()))
-                    {
-                        if (obj4.GetComponent<Floor>().GetFloorState() == "red")
-                        {
-
-                            old.Add(obj4.GetComponent<Floor>());
-                            obj4.GetComponent<Floor>().CheckFloor(old);
-                        }
-                        else if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
-                        {
-
-                        }
-                        else
-                        {
-                            Debug.Log("Noneです");
-                            bools.Add(true);
-                        }
-                    }
-
-                }
-            }
-
-
+            Debug.Log(position.x);
+            Debug.Log(position.z);
         }
-
-        if (bools.Find(match => match == false))
+        else if (rootCount >= 0)
         {
-
+            rootCount--;
+            if (rootCount == 0)
+            {
+                Debug.Log("戻ります");
+                if (oldFloor != null) oldFloor.CheckOldRoot();
+                Debug.Log(position.x);
+                Debug.Log(position.z);
+            }
         }
-
 
     }
 
+    
 }

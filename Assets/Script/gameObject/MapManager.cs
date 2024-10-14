@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class MapManager : MonoBehaviour
 {
@@ -32,8 +33,11 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private GameObject GameManager;
 
+    //プレイヤーを設定
     [SerializeField]
     private GameObject Player;
+
+    private GameObject playerObject = null;
 
     //センターのポジション決めるための変数達
     private Vector3 startPos;
@@ -41,9 +45,9 @@ public class MapManager : MonoBehaviour
     private Vector3 center;
 
     //Floorのlist
-    List<GameObject> mapObjects = new();
+    private List<GameObject> mapObjects = new();
     //チェックするときの通ったオブジェクトを格納する
-    List<Floor> oldlist = new();
+    private List<Floor> oldlist = new();
 
     //出したブロックの最小座標と最大座標を残しとく
     private float minPosX = 0.0f;
@@ -51,10 +55,18 @@ public class MapManager : MonoBehaviour
     private float maxPosX = 0.0f;
     private float maxPosZ = 0.0f;
 
+    //マップチェックTime
+    private bool mapCheck = false;
+    private float mapCheckTime = 0.0f;
+
+    //ゴールのたどり着くための変数
+    private bool onGoal;
+    private List<Vector3> playerRoot = new();
+
     private void Start()
     {
         string textLines = MapFile.text; // テキストの全体データの代入
-        print(textLines);
+        //print(textLines);
 
         // 改行でデータを分割して配列に代入
         textData = textLines.Split('\n');
@@ -62,16 +74,12 @@ public class MapManager : MonoBehaviour
         // 行数と列数の取得
         textXNumber = textData[0].Split(',').Length;
         textYNumber = textData.Length;
-
         textYNumber -= 1;
        
 
         // ２次元配列の定義
         dungeonMap = new string[textYNumber, textXNumber];//マップ
 
-        //Debug.Log("マップ");
-        Debug.Log("X" + textXNumber);
-        //Debug.Log(textYNumber);
         int state = 0;
 
         for (int i = 0; i < textYNumber; i++)
@@ -82,14 +90,7 @@ public class MapManager : MonoBehaviour
             {
                 dungeonMap[i, j] = tempWords[j];
 
-                Debug.Log(i + "," +  j + "=" + dungeonMap[i, j]);
-
                 state = int.Parse(dungeonMap[i, j]);
-
-                if (j == 6 && i == 0)
-                {
-                    Debug.Log("でてます" + state);
-                }
 
                 if (dungeonMap[i, j] != null)
                 {
@@ -105,7 +106,7 @@ public class MapManager : MonoBehaviour
                             }
 
                             GameObject floor1 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor1.GetComponent<Floor>().SetMapPosition(i, j, "red");
+                            floor1.GetComponent<Floor>().SetMapPosition(j, i, "red");
                             mapObjects.Add(floor1);
                             floor1.GetComponent<Floor>().SetParentmap(this);
 
@@ -114,7 +115,7 @@ public class MapManager : MonoBehaviour
                         case 2:
 
                             GameObject floor2 = Instantiate(blueFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor2.GetComponent<Floor>().SetMapPosition(i, j, "blue");
+                            floor2.GetComponent<Floor>().SetMapPosition(j, i, "blue");
                             mapObjects.Add(floor2);
                             floor2.GetComponent<Floor>().SetParentmap(this);
 
@@ -122,7 +123,7 @@ public class MapManager : MonoBehaviour
                         case 3:
 
                             GameObject floor3 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetMapPosition(i, j, "goal");
+                            floor3.GetComponent<Floor>().SetMapPosition(j, i, "goal");
                             mapObjects.Add(floor3);
                             floor3.GetComponent<Floor>().SetParentmap(this);
 
@@ -130,13 +131,12 @@ public class MapManager : MonoBehaviour
                         case 4:
 
                             GameObject floor4 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetMapPosition(i, j, "player");
+                            floor4.GetComponent<Floor>().SetMapPosition(j, i, "player");
                             mapObjects.Add(floor4);
                             floor4.GetComponent<Floor>().SetParentmap(this);
 
-                            Debug.Log("プレイヤー生成");
                             //プレイヤー生成
-                            Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity);
+                            playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
 
                             break;
                         default:
@@ -171,9 +171,51 @@ public class MapManager : MonoBehaviour
     private void Update()
     {
 
+        if(mapCheck == true)
+        {
+            mapCheckTime += Time.deltaTime;
+        }
+        if(mapCheckTime >= 1.0f)
+        {
+            CheckMap();
+        }
 
+        if(onGoal == true)
+        {
+            //いらないルートを消す
+            for(int i = 0;i < oldlist.Count;i++)
+            {
+                if (oldlist[i].GetRootCount() == 0)
+                {
+                    oldlist[i].CheckOldRoot();
+                }
+            }
+            //プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
+            for (int i = 0; i < oldlist.Count; i++)
+            {
+                if (oldlist[i].GetRootCount() != 0)
+                {
+                    playerRoot.Add(oldlist[i].GetMapPosition());
+                }
+            }
+            //ゴールのpositionも格納
+            Floor goal = oldlist.Find(match => match.GetFloorState() == "goal");
+            playerRoot.Add(goal.GetMapPosition());
 
+            for (int i = 0; i < playerRoot.Count; i++)
+            {
+                Debug.Log(playerRoot[i].x);
+                Debug.Log(playerRoot[i].z);
+            }
+            Debug.Log(playerRoot.Count);
+            Debug.Log(oldlist.Count);
 
+            //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
+            playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
+            playerObject.GetComponent<PlayerControl>().OnPlayerMove();
+            //一回はいればよくね？
+            onGoal = false;
+        }
 
     }
 
@@ -184,44 +226,44 @@ public class MapManager : MonoBehaviour
     }
     public void ChangeMap(GameObject obj)//床しか入れん
     {
+        
         //このｆって変数なんなん
         GameObject floor = mapObjects.Find(f => f.gameObject.GetComponent<Floor>() == obj.GetComponent<Floor>());
 
-
+        oldlist.Clear();
         float x = floor.GetComponent<Floor>().GetMapPosition().x;
         float z = floor.GetComponent<Floor>().GetMapPosition().z;
 
-
         floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
-
+        
         obj.GetComponent<ChangeFloor>().OnChange();
-        Debug.Log(x);
-        Debug.Log(z);
 
-        CheckMap();
+        mapCheck = true;
 
     }
 
     public void CheckMap()
     {
 
-
-
         GameObject player = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "player");
-        GameObject gola =  mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
+        
         oldlist.Clear();
 
-        Debug.Log(player.GetComponent<Floor>().GetMapPosition().x);
+        oldlist.Add(player.GetComponent<Floor>());
+        player.GetComponent<Floor>().CheckFloor();
 
-        player.GetComponent<Floor>().CheckFloor(oldlist);
-
+        mapCheck = false;
+        mapCheckTime = 0.0f;
         //フロアの上下上下のフロアに行けるかどうか
         //元居た場所には戻らないようにする(通ってきたフロアの座標をlistで保管するとか)
         //今配置してあるプレイヤーが通れるフロアのlistを作り、つながっているかどうかの判定をするのはどう？
         //配置してあるブロックごとに上と下と左と右のブロックの情報をチェックするやり方はどう？ ←採用
 
+    }
 
-
+    public List<Floor> GetOldList()
+    {
+        return oldlist;
     }
 
     public float MinPositionX()
@@ -239,6 +281,10 @@ public class MapManager : MonoBehaviour
     public float MaxPositionZ()
     {
         return maxPosZ;
+    }
+    public void InGoal()
+    {
+        onGoal = true;
     }
 
 }

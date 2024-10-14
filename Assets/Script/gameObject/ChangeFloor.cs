@@ -68,14 +68,13 @@ public class ChangeFloor : MonoBehaviour
                 {
                     tag = tagName2;
                     GetComponent<MeshRenderer>().material = mat_blue;
-                    Debug.Log("マテリアル変更");
+              
                 }
                 else if (tag == tagName2)
                 {
                     tag = tagName1;
                     GetComponent<MeshRenderer>().material = mat_red;
-                    Debug.Log("マテリアル変更");
-
+                    
                 }
                 change = false;
                 CursorManager.floorChange = false;
