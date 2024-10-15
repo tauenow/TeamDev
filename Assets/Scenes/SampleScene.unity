@@ -335,8 +335,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 832087f45a13fa04985611d593caeef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreateImage1: {fileID: 1318502159233033429, guid: f3c3a599b58e1a04cbfbdeffe6fb2b8c, type: 3}
-  CreateImage2: {fileID: 774787723387653680, guid: 7b6c620f419ae804482439a02560bd6f, type: 3}
+  ScriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  MoningImage1: {fileID: 1318502159233033429, guid: 1716755236eee1f43a884c6d48285f67, type: 3}
+  MoningImage2: {fileID: 774787723387653680, guid: 4f904c83b6482a4479d09b2ee54143d6, type: 3}
+  LunchImage1: {fileID: 1318502159233033429, guid: f3c3a599b58e1a04cbfbdeffe6fb2b8c, type: 3}
+  LunchImage2: {fileID: 774787723387653680, guid: 7b6c620f419ae804482439a02560bd6f, type: 3}
+  EveningImage1: {fileID: 1318502159233033429, guid: 3b319f115aca9f64a90bca560f35ff39, type: 3}
+  EveningImage2: {fileID: 774787723387653680, guid: 3c27d09b0cdfba54da8e05c5ff68af97, type: 3}
   canvas: {fileID: 168116368}
   CreateDeray: 5
 --- !u!114 &168116370
@@ -608,6 +613,7 @@ GameObject:
   - component: {fileID: 743496801}
   - component: {fileID: 743496800}
   - component: {fileID: 743496799}
+  - component: {fileID: 743496803}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -5469,6 +5475,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743496797}
   m_CullTransparentMesh: 1
+--- !u!114 &743496803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743496797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298f7b52e10d3794da5ba4109a4566ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ChangeSprites:
+  - {fileID: 21300000, guid: 988f25c17a5934a4282abde79cfeb5d3, type: 3}
+  - {fileID: 21300000, guid: 0bcce95a6275dd446867fdd3fc957ecc, type: 3}
+  - {fileID: 21300000, guid: e5f084903ea43a74fb6bbc0d3a9cff38, type: 3}
 --- !u!1 &756228787
 GameObject:
   m_ObjectHideFlags: 0
@@ -6201,6 +6224,7 @@ MonoBehaviour:
   Button3: {fileID: 0}
   OptButton: {fileID: 1159664474}
   map: {fileID: 1304544863}
+  MoveImage: {fileID: 0}
 --- !u!1001 &1238999372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6487,7 +6511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b2bc6661aef7243b458b49269e8f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
   redFloorPrefab: {fileID: 3650479318699551693, guid: 616c27c47fbe61540aca5490d52e0f02, type: 3}
   blueFloorPrefab: {fileID: 6428310960531333526, guid: 1851637cd4c6b1849a8d4629c54ab3d8, type: 3}
