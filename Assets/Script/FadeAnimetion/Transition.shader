@@ -2,7 +2,7 @@ Shader "Unlit/Transition"
 {
 	Properties
 	{
-		// メインのテクスチャを定義(デフォルトは色)
+		// メインのテクスチャを定義(デフォルトは白色)
 		_MainTex("Texture", 2D) = "white" {}
 		// 閾値を設定する所
 		_Val("Val", Range(-1.0, 1.0)) = 1.0
@@ -74,7 +74,7 @@ Shader "Unlit/Transition"
 				*/
 
 				// 閾値だけ変更(出力色を返す)
-				return fixed4(1.0f, 1.0f, 1.0f, output);
+				return fixed4(col.xyz, output);
 			}
 			ENDCG
 		}
