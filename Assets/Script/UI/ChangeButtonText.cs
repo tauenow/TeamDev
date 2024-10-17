@@ -9,14 +9,13 @@ using TMPro;
 public class ChangeButtonText : MonoBehaviour
 {
 	[SerializeField] private Button button;
-	[SerializeField] private Sprite[] ChangeSprites;
-	private Image buttonTex;
+	private TextMeshProUGUI buttonText;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		// ボタンのテキストを獲得
-		buttonTex = button.GetComponentInChildren<Image>();
+		buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
 	}
 
 	// Update is called once per frame
@@ -24,11 +23,11 @@ public class ChangeButtonText : MonoBehaviour
 	{
 		if (SceneManager.GetActiveScene().name == "StageSelect")
 		{
-			buttonTex.sprite = ChangeSprites[0];
+			buttonText.text = "タイトルに戻る";
 		}
 		else if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
-			buttonTex.sprite = ChangeSprites[1];
+			buttonText.text = "ステージセレクトに戻る";
 		}
 	}
 }

@@ -6,18 +6,20 @@ using UnityEngine;
 
 public class ChangeFloor : MonoBehaviour
 {
+    [SerializeField]
     private float endTime = 3.0f;
+    [SerializeField]
+    private float linkEndTime = 1.0f;
     private float currentTime = 0.0f;
-    public bool change = false; //è∞Ç™ïœÇÌÇÈ
+    private bool change = false; //è∞Ç™ïœÇÌÇÈ
+    private bool linkChange = false;
 
     [SerializeField]
     private float Hight;
-
     [SerializeField]
     private string tagName1;
     [SerializeField]
     private string tagName2;
-
     [SerializeField]
     private Material mat_red;
     [SerializeField]
@@ -76,8 +78,9 @@ public class ChangeFloor : MonoBehaviour
                     GetComponent<MeshRenderer>().material = mat_red;
                     
                 }
+                
                 change = false;
-                CursorManager.floorChange = false;
+                //CursorManager.floorChange = false;
 
             }
         }
@@ -98,7 +101,47 @@ public class ChangeFloor : MonoBehaviour
                 transform.position = pos;
             }
         }
+
+        if(linkChange == true)
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= 0.0f && currentTime < linkEndTime)
+            {
+                transform.Rotate(180.0f * Time.deltaTime, 0.0f, 0.0f);
+
+                GetComponent<MeshRenderer>().material = mat_red;
+
+            }
+            else if (currentTime >= linkEndTime)
+            {
+                if (tag == tagName1)
+                {
+                    tag = tagName2;
+                    GetComponent<MeshRenderer>().material = mat_blue;
+
+                }
+                else if (tag == tagName2)
+                {
+                    tag = tagName1;
+                    GetComponent<MeshRenderer>().material = mat_red;
+
+                }
+                linkChange = false;
+              
+            }
+
+
+        }
+
+
     }
+
+    public void LinkChange()
+    {
+        linkChange = true;
+    }
+
     public void OnChange()
     {
         change = true;

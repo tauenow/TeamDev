@@ -16,18 +16,11 @@ public class Toggle : MonoBehaviour
 	/// </summary>
 	[NonSerialized] public bool Value;
 
-	/// <summary>
-	/// •ÏŠ·—p‰æ‘œ
-	/// </summary>
-	[SerializeField] private Image ChangeImage;
-
-	[SerializeField] private Sprite[] ChangeSprites;
-
 	private float handlePosX;
 	private Sequence sequence;
 
-	private static readonly Color OFF_BG_COLOR = new Color(1.0f, 1.0f, 1.0f);
-	private static readonly Color ON_BG_COLOR = new Color(1.0f, 1.0f, 1.0f);
+	private static readonly Color OFF_BG_COLOR = new Color(0.92f, 0.92f, 0.92f);
+	private static readonly Color ON_BG_COLOR = new Color(0.2f, 0.84f, 0.3f);
 
 	private const float SWITCH_DURATION = 0.36f;
 
@@ -59,15 +52,5 @@ public class Toggle : MonoBehaviour
 		sequence = DOTween.Sequence();
 		sequence.Append(backgroundImage.DOColor(bgColor, duration))
 			.Join(handle.DOAnchorPosX(handleDestX, duration / 2));
-
-
-		if (Value)
-		{
-			ChangeImage.sprite = ChangeSprites[0];
-		}
-		else
-		{
-			ChangeImage.sprite = ChangeSprites[1];
-		}
 	}
 }

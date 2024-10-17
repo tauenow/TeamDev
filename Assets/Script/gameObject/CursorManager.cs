@@ -40,9 +40,9 @@ public class CursorManager : MonoBehaviour
             targetObject = hit.collider.gameObject;
             SetCursor(false);
 
-            if(hit.collider.gameObject.tag =="RedFloor" || hit.collider.gameObject.tag == "BlueFloor")
+            if(hit.collider.gameObject.tag =="Floor")
             {
-                targetObject.SendMessage("OnCursor");//‚±‚±‚Í•Ï‚¦‚½‚¢
+                targetObject.GetComponent<Floor>().OnCursor();//‚±‚±‚Í•Ï‚¦‚½‚¢
                 //ƒJ[ƒ\ƒ‹‚ª“–‚½‚Á‚Ä‚¢‚é‚Ì‚ğfloor‚Ìobject‚É“`‚¦‚½‚¢
                 if (floorChange == false)
                 {

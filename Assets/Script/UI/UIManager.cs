@@ -77,9 +77,9 @@ public class UIManager : MonoBehaviour
 		// 難易度を指定するインデックスの増加
 		DifficultyIndex--;
 
-		if (DifficultyIndex < 1)
+		if (DifficultyIndex < 0)
 		{
-			DifficultyIndex = 1;
+			DifficultyIndex = 0;
 		}
 	}
 
