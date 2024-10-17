@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic; // Listを使用
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -22,67 +23,88 @@ public class FadeINOUT : MonoBehaviour
     [SerializeField]
     private UnityEvent OnComplete;
 
-    // 次のシーン名をインスペクターで指定
+    // ボタンリスト（インスペクターで設定）
     [SerializeField]
-    private string nextSceneName;
+    private List<Button> transitionButtons;
 
-    // フェードアウトを開始するためのフラグ
-    private bool startFadeOut = false;
+    // ボタンに対応するシーン名のリスト
+    [SerializeField]
+    private List<string> sceneNames;
+
+    // フェードアウトをトリガーする方法の選択肢
+    public enum FadeTriggerMode { Tap, Button }
+
+    // 現在のトリガー方法をインスペクターで設定
+    [SerializeField]
+    private FadeTriggerMode fadeTriggerMode = FadeTriggerMode.Tap;
 
     // ゲーム開始時にフェードインを開始
     void Start()
     {
+        // フェードインのコルーチンを開始
         StartCoroutine(BeginTransitionIn());
+
+        // ボタンが設定されていて、ボタンモードが選択されている場合にクリックイベントを追加
+        if (fadeTriggerMode == FadeTriggerMode.Button)
+        {
+            for (int i = 0; i < transitionButtons.Count; i++)
+            {
+                Button button = transitionButtons[i];
+                // ボタンがクリックされたときに対応するシーンに切り替えるリスナーを追加
+                if (button != null && i < sceneNames.Count) // sceneNamesの数もチェック
+                {
+                    int index = i; // ローカル変数でキャプチャ
+                    button.onClick.AddListener(() => StartCoroutine(BeginTransitionOut(sceneNames[index])));
+                }
+            }
+        }
     }
 
     // フレームごとの処理で、画面タップでフェードアウトを開始
     void Update()
     {
-        // フェードアウト可能状態かつ画面がタップされた場合にフェードアウトを開始
-        if (startFadeOut && Input.GetMouseButtonDown(0))
+        // 画面タップモードが選択されている場合、タップでフェードアウトを開始
+        if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(BeginTransitionOut());
+            // 最初のシーン名を使ってフェードアウトを開始
+            if (sceneNames.Count > 0)
+            {
+                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+            }
         }
     }
 
     // フェードインを開始するコルーチン
     IEnumerator BeginTransitionIn()
     {
-        // 指定された時間でフェードインアニメーションを実行
+        // フェードインアニメーションを指定された時間で実行
         yield return Animate(_transitionIn, 1);
 
         // フェードイン中に指定されたイベントを実行
-        if (OnTransition != null)
-        {
-            OnTransition.Invoke();
-        }
+        OnTransition?.Invoke();
 
         // フェードインが終了後に次のフレームを待つ
         yield return new WaitForEndOfFrame();
-
-        // フェードイン完了後、フェードアウトを可能にする
-        startFadeOut = true;
     }
 
-    // フェードアウトを開始するコルーチン
-    IEnumerator BeginTransitionOut()
+    // フェードアウトを開始するコルーチン（シーン名を引数として受け取る）
+    IEnumerator BeginTransitionOut(string sceneName)
     {
-        // 指定された時間でフェードアウトアニメーションを実行
+        // フェードアウトアニメーションを指定された時間で実行
         yield return Animate(_transitionOut, 1);
 
         // フェードアウトが終了後に指定されたイベントを実行
-        if (OnComplete != null)
-        {
-            OnComplete.Invoke();
-        }
+        OnComplete?.Invoke();
 
         // フェードアウト完了後に次のフレームを待つ
         yield return new WaitForEndOfFrame();
 
-        // フェードアウト完了後、次のシーンに切り替え
-        if (!string.IsNullOrEmpty(nextSceneName))
+        // 指定されたシーンに切り替え
+        if (!string.IsNullOrEmpty(sceneName))
         {
-            SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene(sceneName);
+            // フェードインを再開
+            StartCoroutine(BeginTransitionIn());
         }
     }
 
@@ -94,18 +116,18 @@ public class FadeINOUT : MonoBehaviour
 
         float current = 0;
 
-        // time秒かけてフェードを進行
+        // 指定された時間でフェードを進行
         while (current < time)
         {
             // シェーダーの "_Alpha" パラメータを時間経過に基づいて変更
             material.SetFloat("_Alpha", current / time);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame(); // 次のフレームまで待機
 
             // 経過時間を更新
             current += Time.deltaTime;
         }
 
-        // 最終的にフェードを完全に透明または不透明に設定
+        // 最終的にフェードを完全に不透明に設定
         material.SetFloat("_Alpha", 1);
     }
 }
