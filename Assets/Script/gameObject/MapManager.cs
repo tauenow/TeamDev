@@ -5,15 +5,14 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 
-
-
 public class MapManager : MonoBehaviour
 {
 
+    [SerializeField]
+    private StageSelectManager parentManager;
 
     [Header("マップのデータファイル")]
-    [SerializeField]
-    private TextAsset MapFile;
+    public TextAsset MapFile;
 
     private string[] textData;
     private string[,] dungeonMap;
@@ -23,12 +22,18 @@ public class MapManager : MonoBehaviour
 
     bool centerPosRegister = false;//マップのセンターポジションがあるかないか
 
-    [Header("赤いブロック")]
+    [Header("ブロック")]
     [SerializeField]
-    private GameObject redFloorPrefab;
+    private GameObject FloorPrefab_2color;
     [SerializeField]
-    private GameObject blueFloorPrefab;
-   
+    private GameObject FloorPrefab_3color;
+    [SerializeField]
+    private GameObject FloorPrefab_4color;
+
+    //入れるよう
+    private GameObject Floor = null;
+
+    [Header("ゴールのオブジェクト")]
     [SerializeField]
     private GameObject Goal;
     [SerializeField]
@@ -37,6 +42,7 @@ public class MapManager : MonoBehaviour
     private GameObject GameManager;
 
     //プレイヤーを設定
+    [Header("プレイヤーのオブジェクト")]
     [SerializeField]
     private GameObject Player;
 
@@ -51,12 +57,6 @@ public class MapManager : MonoBehaviour
     private List<GameObject> mapObjects = new();
     //チェックするときの通ったオブジェクトを格納する
     private List<Floor> oldlist = new();
-
-    //出したブロックの最小座標と最大座標を残しとく
-    private float minPosX = 0.0f;
-    private float minPosZ = 0.0f;
-    private float maxPosX = 0.0f;
-    private float maxPosZ = 0.0f;
 
     //マップチェックTime
     private bool mapCheck = false;
@@ -90,6 +90,73 @@ public class MapManager : MonoBehaviour
 
         int state = 0;
 
+        //面の数の指定
+        for (int i = 0; i < textYNumber; i++)
+        {
+
+            string[] tempWords = textData[i].Split(',');
+            for (int j = 0; j < textXNumber; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
+
+                state = int.Parse(dungeonMap[i, j]);
+                if (dungeonMap[i, j] != null)
+                {
+                    switch (state)//スイッチ文ゴミ
+                    {
+                        case 0:
+                            break;
+                        case 1:
+
+                            if (faceNum < 1)
+                            {
+                                faceNum = 1;
+                            }
+                            break;
+                        case 2:
+
+                            if (faceNum < 2)
+                            {
+                                faceNum = 2;
+                            }
+                            break;
+                        case 3:
+
+                            if (faceNum < 3)
+                            {
+                                faceNum = 3;
+                            }
+                            break;
+                        case 4:
+
+                            if (faceNum < 4)
+                            {
+                                faceNum = 4;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        Debug.Log(faceNum);
+        if (faceNum == 2)
+        {
+            Floor = FloorPrefab_2color;
+            Debug.Log("テクスチャを変更");
+        }
+        if (faceNum == 3)
+        {
+            Floor = FloorPrefab_3color;
+            Debug.Log("テクスチャを変更");
+        }
+        if (faceNum == 4)
+        {
+            Floor = FloorPrefab_4color;
+            Debug.Log("テクスチャを変更");
+        }
+
         for (int i = 0; i < textYNumber; i++)
         {
             string[] tempWords = textData[i].Split(',');
@@ -108,57 +175,56 @@ public class MapManager : MonoBehaviour
 
                             break;
                         case 1:
-                            if (j == 6 && i == 0)
-                            {
-                                Debug.Log("でてます" + dungeonMap[i, j]);
-                            }
-
-                            GameObject floor1 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor1.GetComponent<Floor>().SetMapPosition(j, i, "red");
                             floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor1);
                             floor1.GetComponent<Floor>().SetParentmap(this);
 
-                            if(faceNum  < 1)
-                            {
-                                faceNum = 1;
-                            }
-
                             break;
 
                         case 2:
-
-                            GameObject floor2 = Instantiate(blueFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor2.GetComponent<Floor>().SetMapPosition(j, i, "blue");
                             floor2.transform.Rotate(90.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor2);
                             floor2.GetComponent<Floor>().SetParentmap(this);
 
-                            if (faceNum < 2)
-                            {
-                                faceNum = 2;
-                            }
-
                             break;
                         case 3:
-
-                            GameObject floor3 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetMapPosition(j, i, "goal");
+                            GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor3.GetComponent<Floor>().SetMapPosition(j, i, "yellow");
+                            floor3.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor3);
                             floor3.GetComponent<Floor>().SetParentmap(this);
 
                             break;
                         case 4:
-
-                            GameObject floor4 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetMapPosition(j, i, "player");
+                            GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor4.GetComponent<Floor>().SetMapPosition(j, i, "green");
                             floor4.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor4);
                             floor4.GetComponent<Floor>().SetParentmap(this);
 
+                            break;
+                        case 5:
+                            GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor5.GetComponent<Floor>().SetMapPosition(j, i, "goal");
+                            mapObjects.Add(floor5);
+                            floor5.GetComponent<Floor>().SetParentmap(this);
+
+
+                            break;
+                        case 6:
+                            GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor6.GetComponent<Floor>().SetMapPosition(j, i, "player");
+                            floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            mapObjects.Add(floor6);
+                            floor6.GetComponent<Floor>().SetParentmap(this);
+
                             //プレイヤー生成
                             playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
-                            playerObject.GetComponent<PlayerControl>().SetMapPosition(floor4.GetComponent<Floor>().GetMapPosition());
+                            playerObject.GetComponent<PlayerControl>().SetMapPosition(floor6.GetComponent<Floor>().GetMapPosition());
 
                             break;
                         default:
@@ -167,6 +233,8 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+
+        Debug.Log("センターを登録");
         if (centerPosRegister == false)//センターポスがなかったら登録する
         {
             startPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -179,15 +247,6 @@ public class MapManager : MonoBehaviour
             centerPosRegister = true;//一つ登録すればOK
         }
 
-
-        //マップの一番最初のオブジェクトの座標と一番最後のオブジェクトの座標を格納
-        minPosX = mapObjects.First().GetComponent<Floor>().GetMapPosition().x;
-        minPosZ = mapObjects.First().GetComponent<Floor>().GetMapPosition().z;
-        maxPosX = mapObjects.Last().GetComponent<Floor>().GetMapPosition().x;
-        maxPosZ = mapObjects.Last().GetComponent<Floor>().GetMapPosition().z;
-
-        //Debug.Log("min" + minPosX);
-
     }
 
     private void Update()
@@ -197,13 +256,12 @@ public class MapManager : MonoBehaviour
         {
             mapCheckTime += Time.deltaTime;
         }
-        if(mapCheckTime >= 6.0f)
+        if(mapCheckTime >= 2.0f)
         {
             CheckMap();
             CursorManager.floorChange = false;
         }
        
-
 
         if(onGoal == true)
         {
@@ -241,23 +299,13 @@ public class MapManager : MonoBehaviour
                         playerRoot.RemoveAt(i);
                     }
                 }
-            }
-
-
-            Debug.Log("ゴール");
-            for(int i = 0;i <playerRoot.Count;i++)
-            {
-
-                Debug.Log(playerRoot[i].x);
-                Debug.Log(playerRoot[i].z);
-
-            }
-            
+            } 
 
             //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
             playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
             playerObject.GetComponent<PlayerControl>().OnPlayerMove();
             //一回はいればよくね？
+            
             onGoal = false;
         }
 
@@ -356,26 +404,13 @@ public class MapManager : MonoBehaviour
     {
         return oldlist;
     }
-
-    public float MinPositionX()
-    {
-        return minPosX;
-    }
-    public float MinPositionZ()
-    {
-        return minPosZ;
-    }
-    public float MaxPositionX()
-    {
-        return maxPosX;
-    }
-    public float MaxPositionZ()
-    {
-        return maxPosZ;
-    }
     public void InGoal()
     {
         onGoal = true;
+    }
+    public bool GetIsGoal()
+    {
+        return onGoal;
     }
 
     public int GetFaceNum()
