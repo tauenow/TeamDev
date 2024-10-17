@@ -7,4 +7,5 @@ using UnityEngine;
 public class StageScriptableObject : UnityEngine.ScriptableObject
 {
 	[SerializeField] public int StageNum = 1;
+	[SerializeField] public int DifficultyIndex = 1;
 }

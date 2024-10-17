@@ -6,16 +6,17 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class ChangeButtonText : MonoBehaviour
+public class ChangeButtonImage : MonoBehaviour
 {
 	[SerializeField] private Button button;
-	private TextMeshProUGUI buttonText;
+	private Image buttonImage;
+	[SerializeField] private Sprite[] changeSprites;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		// ボタンのテキストを獲得
-		buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+		buttonImage = button.GetComponentInChildren<Image>();
 	}
 
 	// Update is called once per frame
@@ -23,11 +24,11 @@ public class ChangeButtonText : MonoBehaviour
 	{
 		if (SceneManager.GetActiveScene().name == "StageSelect")
 		{
-			buttonText.text = "タイトルに戻る";
+			buttonImage.sprite = changeSprites[0];
 		}
 		else if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
-			buttonText.text = "ステージセレクトに戻る";
+			buttonImage.sprite = changeSprites[1];
 		}
 	}
 }

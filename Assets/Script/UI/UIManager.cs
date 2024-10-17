@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using System.Net.NetworkInformation;
 using DG.Tweening;
+using Debug = UnityEngine.Debug;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,12 +34,6 @@ public class UIManager : MonoBehaviour
 	// フェード用データ
 	[NonSerialized] public bool isFade = false;
 
-	// 難易度データ
-	public static int DifficultyIndex = 1;
-
-	// 画像移動用データ
-	[SerializeField] public RectTransform MoveImage;
-
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -54,40 +50,36 @@ public class UIManager : MonoBehaviour
 			{
 				cursorManager = map.GetComponent<CursorManager>();
 			}
-			else
-			{
-				return;
-			}
 		}
 	}
 
 	public void AddDifficulty()
 	{
 		// 難易度を指定するインデックスの増加
-		DifficultyIndex++;
+		ScriptableObject.DifficultyIndex++;
 
-		if (DifficultyIndex > 3)
+		if (ScriptableObject.DifficultyIndex > 3)
 		{
-			DifficultyIndex = 3;
+			ScriptableObject.DifficultyIndex = 3;
 		}
 	}
 
 	public void SubStructDifficulty()
 	{
 		// 難易度を指定するインデックスの増加
-		DifficultyIndex--;
+		ScriptableObject.DifficultyIndex--;
 
-		if (DifficultyIndex < 0)
+		if (ScriptableObject.DifficultyIndex < 0)
 		{
-			DifficultyIndex = 0;
+			ScriptableObject.DifficultyIndex = 1;
 		}
 	}
 
 	public void SetStageNum()
 	{
-		Debug.Log(DifficultyIndex);
+		Debug.Log(ScriptableObject.DifficultyIndex);
 
-		switch (DifficultyIndex)
+		switch (ScriptableObject.DifficultyIndex)
 		{
 			case 1:
 				// マップの番号をセットした内容に変更
@@ -166,22 +158,6 @@ public class UIManager : MonoBehaviour
 			}
 
 			OptButton.enabled = true;
-		}
-	}
-
-	public void MoveBg()
-	{
-		switch (DifficultyIndex)
-		{
-			case 1:
-				MoveImage.transform.DOLocalMoveX(2160.0f, 1.0f).SetEase(Ease.OutCirc);
-				break;
-			case 2:
-				MoveImage.transform.DOLocalMoveX(0.0f, 1.0f).SetEase(Ease.OutCirc);
-				break;
-			case 3:
-				MoveImage.transform.DOLocalMoveX(-2160.0f, 1.0f).SetEase(Ease.OutCirc);
-				break;
 		}
 	}
 }
