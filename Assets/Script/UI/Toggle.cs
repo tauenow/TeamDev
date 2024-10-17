@@ -26,8 +26,8 @@ public class Toggle : MonoBehaviour
 	private float handlePosX;
 	private Sequence sequence;
 
-	private static readonly Color OFF_BG_COLOR = new Color(0.92f, 0.92f, 0.92f);
-	private static readonly Color ON_BG_COLOR = new Color(0.92f, 0.92f, 0.92f);
+	private static readonly Color OFF_BG_COLOR = new Color(1.0f, 1.0f, 1.0f);
+	private static readonly Color ON_BG_COLOR = new Color(1.0f, 1.0f, 1.0f);
 
 	private const float SWITCH_DURATION = 0.36f;
 
