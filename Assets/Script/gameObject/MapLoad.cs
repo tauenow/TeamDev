@@ -134,7 +134,6 @@ public class MapLoad : MonoBehaviour
                 {
                    if(i == x&& j == z)
                     {
-                        floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
                         Debug.Log(i);
                         Debug.Log(j);
                     }

@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 
+
+
 public class MapManager : MonoBehaviour
 {
 
@@ -26,6 +28,7 @@ public class MapManager : MonoBehaviour
     private GameObject redFloorPrefab;
     [SerializeField]
     private GameObject blueFloorPrefab;
+   
     [SerializeField]
     private GameObject Goal;
     [SerializeField]
@@ -62,6 +65,11 @@ public class MapManager : MonoBehaviour
     //ゴールのたどり着くための変数
     private bool onGoal;
     private List<Vector3> playerRoot = new();
+
+    private float currentTime = 0.0f;
+
+    //面の数
+    private int faceNum = 0;
 
     private void Start()
     {
@@ -107,8 +115,14 @@ public class MapManager : MonoBehaviour
 
                             GameObject floor1 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor1.GetComponent<Floor>().SetMapPosition(j, i, "red");
+                            floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor1);
                             floor1.GetComponent<Floor>().SetParentmap(this);
+
+                            if(faceNum  < 1)
+                            {
+                                faceNum = 1;
+                            }
 
                             break;
 
@@ -116,8 +130,14 @@ public class MapManager : MonoBehaviour
 
                             GameObject floor2 = Instantiate(blueFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor2.GetComponent<Floor>().SetMapPosition(j, i, "blue");
+                            floor2.transform.Rotate(90.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor2);
                             floor2.GetComponent<Floor>().SetParentmap(this);
+
+                            if (faceNum < 2)
+                            {
+                                faceNum = 2;
+                            }
 
                             break;
                         case 3:
@@ -132,11 +152,13 @@ public class MapManager : MonoBehaviour
 
                             GameObject floor4 = Instantiate(redFloorPrefab, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor4.GetComponent<Floor>().SetMapPosition(j, i, "player");
+                            floor4.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor4);
                             floor4.GetComponent<Floor>().SetParentmap(this);
 
                             //プレイヤー生成
                             playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
+                            playerObject.GetComponent<PlayerControl>().SetMapPosition(floor4.GetComponent<Floor>().GetMapPosition());
 
                             break;
                         default:
@@ -175,10 +197,13 @@ public class MapManager : MonoBehaviour
         {
             mapCheckTime += Time.deltaTime;
         }
-        if(mapCheckTime >= 1.0f)
+        if(mapCheckTime >= 6.0f)
         {
             CheckMap();
+            CursorManager.floorChange = false;
         }
+       
+
 
         if(onGoal == true)
         {
@@ -202,13 +227,32 @@ public class MapManager : MonoBehaviour
             Floor goal = oldlist.Find(match => match.GetFloorState() == "goal");
             playerRoot.Add(goal.GetMapPosition());
 
-            for (int i = 0; i < playerRoot.Count; i++)
+            //プレイヤーのポジションに近い順にソート
+            playerRoot.Sort((a, b) => Mathf.Sqrt(a.x + a.x * a.z + a.z).CompareTo(Mathf.Sqrt(b.x + b.x * b.z + b.z)));
+
+            List<int> rootNumber = new List<int>();
+
+            for(int i = 0;i<playerRoot.Count;i++)
             {
+                if(i != 0&&i != playerRoot.Count)
+                {
+                    if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
+                    {
+                        playerRoot.RemoveAt(i);
+                    }
+                }
+            }
+
+
+            Debug.Log("ゴール");
+            for(int i = 0;i <playerRoot.Count;i++)
+            {
+
                 Debug.Log(playerRoot[i].x);
                 Debug.Log(playerRoot[i].z);
+
             }
-            Debug.Log(playerRoot.Count);
-            Debug.Log(oldlist.Count);
+            
 
             //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
             playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
@@ -236,7 +280,7 @@ public class MapManager : MonoBehaviour
 
         floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
         
-        obj.GetComponent<ChangeFloor>().OnChange();
+        obj.GetComponent<Floor>().OnChange();
 
         mapCheck = true;
 
@@ -258,6 +302,53 @@ public class MapManager : MonoBehaviour
         //元居た場所には戻らないようにする(通ってきたフロアの座標をlistで保管するとか)
         //今配置してあるプレイヤーが通れるフロアのlistを作り、つながっているかどうかの判定をするのはどう？
         //配置してあるブロックごとに上と下と左と右のブロックの情報をチェックするやり方はどう？ ←採用
+
+    }
+
+    public void linkChangeFloor(GameObject gameObject)
+    {
+        GameObject obj_top = null;
+        GameObject obj_bottom = null;
+        GameObject obj_left = null;
+        GameObject obj_right = null;
+
+        //↑
+        obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
+        //↓
+        obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
+        //←
+        obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+        //→
+        obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+
+
+        if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
+        if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
+        if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
+        if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
+
+
+
+        if (obj_top != null)
+        {
+            obj_top.GetComponent<Floor>().LinkChange();
+            obj_top.GetComponent<Floor>().SetFloorState(obj_top.GetComponent<Floor>().GetFloorState());
+        }
+        if (obj_bottom != null)
+        {
+            obj_bottom.GetComponent<Floor>().LinkChange();
+            obj_bottom.GetComponent<Floor>().SetFloorState(obj_bottom.GetComponent<Floor>().GetFloorState());
+        }
+        if (obj_left != null)
+        {
+            obj_left.GetComponent<Floor>().LinkChange();
+            obj_left.GetComponent<Floor>().SetFloorState(obj_left.GetComponent<Floor>().GetFloorState());
+        }
+        if (obj_right != null)
+        {
+            obj_right.GetComponent<Floor>().LinkChange();
+            obj_right.GetComponent<Floor>().SetFloorState(obj_right.GetComponent<Floor>().GetFloorState());
+        }
 
     }
 
@@ -285,6 +376,11 @@ public class MapManager : MonoBehaviour
     public void InGoal()
     {
         onGoal = true;
+    }
+
+    public int GetFaceNum()
+    {
+        return faceNum;
     }
 
 }

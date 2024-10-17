@@ -6201,6 +6201,7 @@ MonoBehaviour:
   Button3: {fileID: 0}
   OptButton: {fileID: 1159664474}
   map: {fileID: 1304544863}
+  MoveImage: {fileID: 0}
 --- !u!1001 &1238999372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6487,10 +6488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b2bc6661aef7243b458b49269e8f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
-  redFloorPrefab: {fileID: 3650479318699551693, guid: 616c27c47fbe61540aca5490d52e0f02, type: 3}
-  blueFloorPrefab: {fileID: 6428310960531333526, guid: 1851637cd4c6b1849a8d4629c54ab3d8, type: 3}
+  redFloorPrefab: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
+  blueFloorPrefab: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
   Goal: {fileID: 6428310960531333526, guid: 4068b444bf43059448604cec980d96cb, type: 3}
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
   GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
