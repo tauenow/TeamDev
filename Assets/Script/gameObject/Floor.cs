@@ -22,10 +22,11 @@ public class Floor : MonoBehaviour
     private int motionCount = 0;
     private float currentTime = 0.0f;
 
-    private int changeMotionCount = 100;
+    private int changeMotionCount = 20;
 
     private bool change = false; //è∞Ç™ïœÇÌÇÈ
     private float currentLinkTime = 0.0f;
+    private int motionLinkCount = 0;
     private bool linkChange = false;
 
     private int rotateCount = 0;
@@ -56,18 +57,18 @@ public class Floor : MonoBehaviour
                     if (motionCount < changeMotionCount)
                     {
                         Vector3 transformPos = transform.position;
-                        transformPos.y += 0.02f;
+                        transformPos.y += 0.1f;
                         transform.position = transformPos;
                     }
                     else if (motionCount < changeMotionCount * 2)
                     {
-                        transform.Rotate(90.0f * 0.01f, 0.0f, 0.0f);
+                        transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
                         
                     }
                     else if (motionCount < changeMotionCount * 3)
                     {
                         Vector3 transformPos = transform.position;
-                        transformPos.y -= 0.03f;
+                        transformPos.y -= 0.1f;
                         transform.position = transformPos;
                     }
                     motionCount++;
@@ -120,19 +121,23 @@ public class Floor : MonoBehaviour
         {
             currentLinkTime += Time.deltaTime;
 
-            if (currentLinkTime >= 0.0f && currentLinkTime < linkEndTime)
+            if (currentLinkTime > motionFrame)
             {
-                transform.Rotate(90.0f * Time.deltaTime, 0.0f, 0.0f);
+                if (motionLinkCount >= changeMotionCount)
+                {
+                    linkChange = false;
+                    currentLinkTime = 0.0f;
+                    motionLinkCount = 0;
+                }
+                else if (motionLinkCount < changeMotionCount)
+                {
+                    transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+                    currentLinkTime = 0.0f;
+                    motionLinkCount++;
+                }
 
             }
-            else if (currentLinkTime >= linkEndTime)
-            {
-                linkChange = false;
-                currentLinkTime = 0.0f;
-
-            }
-
-
+           
         }
 
     }
@@ -166,10 +171,17 @@ public class Floor : MonoBehaviour
             if (num == "red")
             {
                 state = "blue";
+                Debug.Log("ê¬Ç…Ç»ÇËÇ‹ÇµÇΩ");
             }
             else if (num == "blue")
             {
+                state = "yellow";
+                Debug.Log("â©êFÇ…Ç»ÇËÇ‹ÇµÇΩ");
+            }
+            else if (num == "yellow")
+            {
                 state = "red";
+                Debug.Log("ê‘Ç…Ç»ÇËÇ‹ÇµÇΩ");
             }
         }
         if (parentMap.GetFaceNum() == 4)//élêFÇÃèÍçá
@@ -179,6 +191,14 @@ public class Floor : MonoBehaviour
                 state = "blue";
             }
             else if (num == "blue")
+            {
+                state = "yellow";
+            }
+            else if (num == "yellow")
+            {
+                state = "green";
+            }
+            else if (num == "green")
             {
                 state = "red";
             }

@@ -33,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
         if (onGoalMove == true)
         {
-            if (currentTime >= playerMoveTime)
+            if (currentTime >= playerMoveTime * 0.1f)
             {
                 MovePlayer();
                 currentTime = 0.0f;
