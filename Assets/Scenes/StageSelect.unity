@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 287423553}
   - component: {fileID: 287423552}
   - component: {fileID: 287423551}
+  - component: {fileID: 287423555}
   m_Layer: 5
   m_Name: RightFlip
   m_TagString: Untagged
@@ -356,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 0}
+  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   SetNum: 0
   option: {fileID: 0}
   Button1: {fileID: 0}
@@ -420,9 +421,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 287423551}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: MoveBg
+      - m_Target: {fileID: 287423555}
+        m_TargetAssemblyTypeName: MoveBg, Assembly-CSharp
+        m_MethodName: BackGroundMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -470,6 +471,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287423549}
   m_CullTransparentMesh: 1
+--- !u!114 &287423555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287423549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b0f7b60518ddf46bf2233af56fdb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  imageTransform: {fileID: 1785097031}
 --- !u!1001 &305880904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1379,6 +1394,7 @@ GameObject:
   - component: {fileID: 1031909628}
   - component: {fileID: 1031909627}
   - component: {fileID: 1031909626}
+  - component: {fileID: 1031909630}
   m_Layer: 5
   m_Name: LeftFlip
   m_TagString: Untagged
@@ -1418,7 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 0}
+  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   SetNum: 0
   option: {fileID: 0}
   Button1: {fileID: 0}
@@ -1482,9 +1498,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1031909626}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: MoveBg
+      - m_Target: {fileID: 1031909630}
+        m_TargetAssemblyTypeName: MoveBg, Assembly-CSharp
+        m_MethodName: BackGroundMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1532,6 +1548,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031909624}
   m_CullTransparentMesh: 1
+--- !u!114 &1031909630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031909624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b0f7b60518ddf46bf2233af56fdb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  imageTransform: {fileID: 1785097031}
 --- !u!1 &1192664511 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4051855908454586939, guid: 871843803a77eb946828819cde555a0e, type: 3}
@@ -1831,6 +1861,14 @@ PrefabInstance:
       value: OptionButton
       objectReference: {fileID: 0}
     - target: {fileID: 4812483847751954362, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4812483847751954362, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 446724dcb5bc51249aa16f0853af2e2d, type: 3}
+    - target: {fileID: 4812483847751954362, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1341494681}
@@ -1838,6 +1876,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 4836286048095568340, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836286048095568340, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7d0b517f41c475a47916fec742aa8ab5, type: 3}
     - target: {fileID: 6968835580480224667, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1940,7 +1986,8 @@ PrefabInstance:
       objectReference: {fileID: 791935775}
     m_RemovedComponents:
     - {fileID: 8375100580669296232, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4054112834733592174, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1495794234144093740, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
@@ -2461,6 +2508,26 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4017193625753293300, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017193625753293300, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017193625753293300, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859403446478914800, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859403446478914800, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4982799469609028067, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_Name
       value: OptionCanvas
@@ -2471,6 +2538,26 @@ PrefabInstance:
       objectReference: {fileID: 1380329074}
     - target: {fileID: 6080164031773957511, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394054958424183263, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394054958424183263, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732926206920686298, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732926206920686298, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732926206920686298, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7139030341180819855, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}

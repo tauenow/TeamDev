@@ -8,8 +8,6 @@ using UnityEngine;
 public class StageScriptableObject : UnityEngine.ScriptableObject
 {
 	[SerializeField] public int StageNum = 1;
+	[SerializeField] public int DifficultyIndex = 1;
 	public List<bool> isClearList = new List<bool>();
-	
-
-	
 }
