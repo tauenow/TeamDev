@@ -5,15 +5,17 @@ using UnityEngine;
 public class StageSelectManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    //スクリプタぶるオブジェクトのClearは-1して
     //ステージセレクトから何番目のステージを選んだかを入れる変数
     [SerializeField] private StageScriptableObject StageObj;
     private int selecetStageNum = 1;
-    [SerializeField] private MapManager map;
+    [SerializeField] private GameObject map;
     //マップファイル一覧
     [SerializeField]
     private TextAsset MapFile1;
 
+
+    private GameObject mapObject;
     //このステージをクリアしたかどうか
     private bool isClear = false;
 
@@ -25,7 +27,8 @@ public class StageSelectManager : MonoBehaviour
         //ここを量産すればできるで
         if(selecetStageNum == 1)
         {
-            Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity).MapFile = MapFile1;
+            mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            mapObject.GetComponent<MapManager>().MapFile = MapFile1;
         }
 
     }
@@ -38,5 +41,9 @@ public class StageSelectManager : MonoBehaviour
     public void DoneGoal()
     {
 
+    }
+    public GameObject GetMapObject()
+    {
+        return mapObject;
     }
 }

@@ -14,10 +14,6 @@ public class Floor : MonoBehaviour
     
     //ChangeFloorの変数
     [SerializeField]
-    private float endTime = 3.0f;
-    [SerializeField]
-    private float linkEndTime = 1.0f;
-    [SerializeField]
     private float motionFrame = 0.1f;
     private int motionCount = 0;
     private float currentTime = 0.0f;
@@ -35,6 +31,8 @@ public class Floor : MonoBehaviour
     private float Hight;
     private bool cursor = false;
 
+    private int faceCount = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +42,14 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ChangeFloor();
+        CursorUpdate();
+        LinkChangeFloor();
 
+    }
+
+    private void ChangeFloor()
+    {
         if (change == true)//床の色を変えるモーション
         {
             currentTime += Time.deltaTime;
@@ -54,48 +59,97 @@ public class Floor : MonoBehaviour
             {
                 if (currentTime >= motionFrame)
                 {
-                    if (motionCount < changeMotionCount)
+                    Debug.Log("処理はいるよー");
+                    //2面と4面の時は通常
+                    if (parentMap.GetFaceNum() == 2 || parentMap.GetFaceNum() == 4)
                     {
-                        Vector3 transformPos = transform.position;
-                        transformPos.y += 0.1f;
-                        transform.position = transformPos;
+                        Debug.Log("2色か4色");
+                        if (motionCount < changeMotionCount)
+                        {
+                            Vector3 transformPos = transform.position;
+                            transformPos.y += 0.1f;
+                            transform.position = transformPos;
+                        }
+                        else if (motionCount < changeMotionCount * 2)
+                        {
+                            transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+
+                        }
+                        else if (motionCount < changeMotionCount * 3)
+                        {
+                            Vector3 transformPos = transform.position;
+                            transformPos.y -= 0.1f;
+                            transform.position = transformPos;
+                        }
+                        motionCount++;
+                        currentTime = 0.0f;
                     }
-                    else if (motionCount < changeMotionCount * 2)
+                    //3面の時
+                    else if (parentMap.GetFaceNum() == 3)
                     {
-                        transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
-                        
+                        Debug.Log("3色");
+                        if (motionCount < changeMotionCount)
+                        {
+                            Vector3 transformPos = transform.position;
+                            transformPos.y += 0.1f;
+                            transform.position = transformPos;
+                        }
+                        else if (motionCount < changeMotionCount * 2)
+                        {
+                            if (faceCount >= 4)
+                            {
+                                Debug.Log("z軸");
+                                transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
+                            }
+                            else if (faceCount >= 1)
+                            {
+                                Debug.Log("x軸");
+                                transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+                            }
+                            
+                        }
+                        else if (motionCount < changeMotionCount * 3)
+                        {
+                            Vector3 transformPos = transform.position;
+                            transformPos.y -= 0.1f;
+                            transform.position = transformPos;
+                        }
+                        motionCount++;
+                        currentTime = 0.0f;
                     }
-                    else if (motionCount < changeMotionCount * 3)
-                    {
-                        Vector3 transformPos = transform.position;
-                        transformPos.y -= 0.1f;
-                        transform.position = transformPos;
-                    }
-                    motionCount++;
-                    currentTime = 0.0f;
 
                 }
-            }
-            else if (motionCount >= changeMotionCount * 3)
-            {
-              
-                GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
-
-                if (obj != null)
-                {
-                    parentMap.linkChangeFloor(obj);
-                }
-                if (obj == null)
-                {
-                    Debug.Log("中身ないよ");
-                }
-
-                motionCount = 0;
-                currentTime = 0.0f;
-                change = false;
             }
         }
-        else if (change == false)//カーソルが当たっている時のモーション
+        if (motionCount >= changeMotionCount * 3)
+        {
+
+            GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
+
+            if (obj != null)
+            {
+                //周りも変える
+                parentMap.linkChangeFloor(obj);
+            }
+            if (obj == null)
+            {
+                Debug.Log("中身ないよ");
+            }
+            if(faceCount >= 4)
+            {
+                transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+                faceCount = 1;
+            }
+
+            motionCount = 0;
+            currentTime = 0.0f;
+            Debug.Log("Y座標戻します");
+            change = false;
+        }
+    }
+    private void CursorUpdate()
+    {
+        if (change == false)//カーソルが当たっている時のモーション
         {
             if (linkChange == false)
             {
@@ -109,6 +163,7 @@ public class Floor : MonoBehaviour
                 }
                 else if (cursor == false)
                 {
+                    
                     Vector3 pos = transform.position;
                     pos.y = 0.0f;//マジックナンバーごめん
                     transform.position = pos;
@@ -117,29 +172,67 @@ public class Floor : MonoBehaviour
             }
         }
 
+    }
+    private void LinkChangeFloor()
+    {
+        //このオブジェクトの周りも変える
         if (linkChange == true)
         {
             currentLinkTime += Time.deltaTime;
 
             if (currentLinkTime > motionFrame)
             {
-                if (motionLinkCount >= changeMotionCount)
+                //2面と4面の時は通常
+                if (parentMap.GetFaceNum() == 2 || parentMap.GetFaceNum() == 4)
                 {
-                    linkChange = false;
-                    currentLinkTime = 0.0f;
-                    motionLinkCount = 0;
+                    if (motionLinkCount >= changeMotionCount)
+                    {
+                        linkChange = false;
+                        currentLinkTime = 0.0f;
+                        motionLinkCount = 0;
+                    }
+                    else if (motionLinkCount < changeMotionCount)
+                    {
+                        transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+                        currentLinkTime = 0.0f;
+                        motionLinkCount++;
+                    }
                 }
-                else if (motionLinkCount < changeMotionCount)
+                //3面の時
+                else if (parentMap.GetFaceNum() == 3)
                 {
-                    transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
-                    currentLinkTime = 0.0f;
-                    motionLinkCount++;
+                    if (motionLinkCount >= changeMotionCount)
+                    {
+                        linkChange = false;
+                        currentLinkTime = 0.0f;
+                        motionLinkCount = 0;
+                        if (faceCount >= 4)
+                        {
+                            transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+                            faceCount = 1;
+                        }
+                    }
+                    else if (motionLinkCount < changeMotionCount)
+                    {
+                        if (faceCount >= 4)
+                        {
+                            Debug.Log("z軸");
+                            transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
+                        }
+                        else if (faceCount >= 1)
+                        {
+                            Debug.Log("x軸");
+                            transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+                        }
+                        currentLinkTime = 0.0f;
+                        motionLinkCount++;
+                    }
                 }
 
             }
-           
-        }
+            
 
+        }
     }
 
     //Floorの関数
@@ -239,7 +332,14 @@ public class Floor : MonoBehaviour
     {
         return oldFloor;
     }
-
+    public void SetFaceCount(int count)
+    {
+        faceCount = count;
+    }
+    public int GetFaceCount()
+    {
+        return faceCount;
+    }
 
     public void CheckFloor()
     {
@@ -260,7 +360,7 @@ public class Floor : MonoBehaviour
             {
 
                 //Debug.Log("探索してきたlistの中になかったのでチェックします"
-                if (obj1.GetComponent<Floor>().GetFloorState() == "red")
+                if (obj1.GetComponent<Floor>().GetFloorState() == parentMap.GetColorName())
                 {
                     parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
@@ -291,7 +391,7 @@ public class Floor : MonoBehaviour
 
                 //Debug.Log("探索してきたlistの中になかったのでチェックします");
 
-                if (obj2.GetComponent<Floor>().GetFloorState() == "red")
+                if (obj2.GetComponent<Floor>().GetFloorState() == parentMap.GetColorName())
                 {
                     parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
@@ -321,7 +421,7 @@ public class Floor : MonoBehaviour
 
                 //Debug.Log("探索してきたlistの中になかったのでチェックします");
 
-                if (obj3.GetComponent<Floor>().GetFloorState() == "red")
+                if (obj3.GetComponent<Floor>().GetFloorState() == parentMap.GetColorName())
                 {
                     parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
@@ -352,7 +452,7 @@ public class Floor : MonoBehaviour
             if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
             {
                 //探索していたlistの中になければ進む
-                if (obj4.GetComponent<Floor>().GetFloorState() == "red")
+                if (obj4.GetComponent<Floor>().GetFloorState() == parentMap.GetColorName())
                 {
                     parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
 

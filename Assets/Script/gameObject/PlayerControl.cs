@@ -54,6 +54,8 @@ public class PlayerControl : MonoBehaviour
         else if (moveCount != goalRoot.Count)
         {
 
+            transform.LookAt(goalRoot[moveCount]);
+
             if (goalRoot[moveCount].x > position.x)
             {
                 Vector3 transformPos = transform.position;
@@ -92,7 +94,9 @@ public class PlayerControl : MonoBehaviour
                 moveCount++;
                 moveFrame = 0.0f;
             }
+            //‚±‚Ì‰º‚É‚Íˆ—‘‚©‚È‚¢
         }
+        
        
     }
 

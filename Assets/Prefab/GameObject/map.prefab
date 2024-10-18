@@ -47,9 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentManager: {fileID: 0}
   MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
-  FloorPrefab_2color: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
-  FloorPrefab_3color: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
-  FloorPrefab_4color: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
+  color_2: {fileID: 2100000, guid: 40b098f15913c84439a7c6303d070861, type: 2}
+  color_3: {fileID: 2100000, guid: ba142909d35345a4195d0ea3ea1af3f6, type: 2}
+  color_4: {fileID: 2100000, guid: b20fa59d57620e34eb6f9958ad013b5f, type: 2}
+  Floor: {fileID: 5678515391762989562, guid: dcd8b3e5374f4a64da3665d326db1415, type: 3}
   Goal: {fileID: 6428310960531333526, guid: 4068b444bf43059448604cec980d96cb, type: 3}
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
   GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
@@ -66,5 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a32f7ca7b624e4f8aa8673b40c162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGoal: 0
   defaultCursor: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   interactCursor: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}

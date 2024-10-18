@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.ShaderKeywordFilter;
 
 public class MapManager : MonoBehaviour
 {
@@ -22,15 +23,16 @@ public class MapManager : MonoBehaviour
 
     bool centerPosRegister = false;//マップのセンターポジションがあるかないか
 
-    [Header("ブロック")]
+    [Header("マテリアル")]
     [SerializeField]
-    private GameObject FloorPrefab_2color;
+    private Material color_2;
     [SerializeField]
-    private GameObject FloorPrefab_3color;
+    private Material color_3;
     [SerializeField]
-    private GameObject FloorPrefab_4color;
+    private Material color_4;
 
     //入れるよう
+    [SerializeField]
     private GameObject Floor = null;
 
     [Header("ゴールのオブジェクト")]
@@ -67,10 +69,11 @@ public class MapManager : MonoBehaviour
     private bool onGoal;
     private List<Vector3> playerRoot = new();
 
-    private float currentTime = 0.0f;
-
     //面の数
     private int faceNum = 0;
+
+    //プレイヤーが通る色
+    private string colorName = "None";
 
     private void Start()
     {
@@ -88,11 +91,23 @@ public class MapManager : MonoBehaviour
 
         // ２次元配列の定義
         dungeonMap = new string[textYNumber, textXNumber];//マップ
-
         int state = 0;
 
+        for (int i = 0; i < 1; i++)
+        {
+            string[] tempWords = textData[i].Split(',');
+            for (int j = 0; j < 1; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
+
+                colorName = dungeonMap[i, j];
+            }
+        }
+
+        Debug.Log(colorName);
+
         //面の数の指定
-        for (int i = 0; i < textYNumber; i++)
+        for (int i = 1; i < textYNumber; i++)
         {
 
             string[] tempWords = textData[i].Split(',');
@@ -144,21 +159,21 @@ public class MapManager : MonoBehaviour
         Debug.Log(faceNum);
         if (faceNum == 2)
         {
-            Floor = FloorPrefab_2color;
-            Debug.Log("テクスチャを変更");
+            Floor.GetComponent<MeshRenderer>().material = color_2;
+            Debug.Log("2色です");
         }
         if (faceNum == 3)
         {
-            Floor = FloorPrefab_3color;
-            Debug.Log("テクスチャを変更");
+            Floor.GetComponent<MeshRenderer>().material = color_3;
+            Debug.Log("3色です");
         }
         if (faceNum == 4)
         {
-            Floor = FloorPrefab_4color;
-            Debug.Log("テクスチャを変更");
+            Floor.GetComponent<MeshRenderer>().material = color_4;
+            Debug.Log("4色");
         }
 
-        for (int i = 0; i < textYNumber; i++)
+        for (int i = 1; i < textYNumber; i++)
         {
             string[] tempWords = textData[i].Split(',');
 
@@ -179,6 +194,7 @@ public class MapManager : MonoBehaviour
                             GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor1.GetComponent<Floor>().SetMapPosition(j, i, "red");
                             floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            floor1.GetComponent<Floor>().SetFaceCount(1);
                             mapObjects.Add(floor1);
                             floor1.GetComponent<Floor>().SetParentmap(this);
 
@@ -187,7 +203,8 @@ public class MapManager : MonoBehaviour
                         case 2:
                             GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor2.GetComponent<Floor>().SetMapPosition(j, i, "blue");
-                            floor2.transform.Rotate(90.0f, 0.0f, 0.0f);
+                            floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
+                            floor2.GetComponent<Floor>().SetFaceCount(2);
                             mapObjects.Add(floor2);
                             floor2.GetComponent<Floor>().SetParentmap(this);
 
@@ -195,7 +212,8 @@ public class MapManager : MonoBehaviour
                         case 3:
                             GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor3.GetComponent<Floor>().SetMapPosition(j, i, "yellow");
-                            floor3.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
+                            floor3.GetComponent<Floor>().SetFaceCount(3);
                             mapObjects.Add(floor3);
                             floor3.GetComponent<Floor>().SetParentmap(this);
 
@@ -248,6 +266,13 @@ public class MapManager : MonoBehaviour
             centerPosRegister = true;//一つ登録すればOK
         }
 
+        
+        GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
+        playerObject.transform.LookAt(goalObj.transform);
+       
+        //プレイヤーがゴールを向くようにする
+        
+
     }
 
     private void Update()
@@ -276,7 +301,7 @@ public class MapManager : MonoBehaviour
             playerRoot.Add(goal.GetMapPosition());
 
             //プレイヤーのポジションに近い順にソート
-            playerRoot.Sort((a, b) => Mathf.Sqrt(a.x + a.x * a.z + a.z).CompareTo(Mathf.Sqrt(b.x + b.x * b.z + b.z)));
+            playerRoot.Sort((a, b) => Mathf.Sqrt(a.x * a.x + a.z * a.z).CompareTo(Mathf.Sqrt(b.x * b.x + b.z * b.z)));
 
             List<int> rootNumber = new List<int>();
 
@@ -290,7 +315,6 @@ public class MapManager : MonoBehaviour
                     }
                 }
             } 
-
             //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
             playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
             playerObject.GetComponent<PlayerControl>().OnPlayerMove();
@@ -340,6 +364,7 @@ public class MapManager : MonoBehaviour
         floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
         
         obj.GetComponent<Floor>().OnChange();
+        obj.GetComponent<Floor>().SetFaceCount(obj.GetComponent<Floor>().GetFaceCount() + 1);
 
         check = true;
         mapCheck = true;
@@ -390,21 +415,25 @@ public class MapManager : MonoBehaviour
         if (obj_top != null)
         {
             obj_top.GetComponent<Floor>().LinkChange();
+            obj_top.GetComponent<Floor>().SetFaceCount(obj_top.GetComponent<Floor>().GetFaceCount() + 1);
             obj_top.GetComponent<Floor>().SetFloorState(obj_top.GetComponent<Floor>().GetFloorState());
         }
         if (obj_bottom != null)
         {
             obj_bottom.GetComponent<Floor>().LinkChange();
+            obj_bottom.GetComponent<Floor>().SetFaceCount(obj_bottom.GetComponent<Floor>().GetFaceCount() + 1);
             obj_bottom.GetComponent<Floor>().SetFloorState(obj_bottom.GetComponent<Floor>().GetFloorState());
         }
         if (obj_left != null)
         {
             obj_left.GetComponent<Floor>().LinkChange();
+            obj_left.GetComponent<Floor>().SetFaceCount(obj_left.GetComponent<Floor>().GetFaceCount() + 1);
             obj_left.GetComponent<Floor>().SetFloorState(obj_left.GetComponent<Floor>().GetFloorState());
         }
         if (obj_right != null)
         {
             obj_right.GetComponent<Floor>().LinkChange();
+            obj_right.GetComponent<Floor>().SetFaceCount(obj_right.GetComponent<Floor>().GetFaceCount() + 1);
             obj_right.GetComponent<Floor>().SetFloorState(obj_right.GetComponent<Floor>().GetFloorState());
         }
 
@@ -426,6 +455,10 @@ public class MapManager : MonoBehaviour
     public int GetFaceNum()
     {
         return faceNum;
+    }
+    public string GetColorName()
+    {
+        return colorName;           
     }
 
 }
