@@ -59,6 +59,7 @@ public class MapManager : MonoBehaviour
     private List<Floor> oldlist = new();
 
     //マップチェックTime
+    private bool check = false;
     private bool mapCheck = false;
     private float mapCheckTime = 0.0f;
 
@@ -252,17 +253,6 @@ public class MapManager : MonoBehaviour
     private void Update()
     {
 
-        if(mapCheck == true)
-        {
-            mapCheckTime += Time.deltaTime;
-        }
-        if(mapCheckTime >= 2.0f)
-        {
-            CheckMap();
-            CursorManager.floorChange = false;
-        }
-       
-
         if(onGoal == true)
         {
             //いらないルートを消す
@@ -304,9 +294,30 @@ public class MapManager : MonoBehaviour
             //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
             playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
             playerObject.GetComponent<PlayerControl>().OnPlayerMove();
+            //ゴールしたらいじれんようにする
+            GetComponent<CursorManager>().onGoal = true;
             //一回はいればよくね？
             
             onGoal = false;
+        }
+
+        if (check == true)
+        {
+            mapCheckTime += Time.deltaTime;
+        }
+        if (mapCheckTime >= 1.0f)
+        {
+            if (mapCheck == true)
+            {
+                CheckMap();
+                mapCheck = false;
+            }
+        }
+        if (mapCheckTime >= 1.5f)
+        {
+            mapCheckTime = 0.0f;
+            check = false;
+            CursorManager.floorChange = false;
         }
 
     }
@@ -330,6 +341,7 @@ public class MapManager : MonoBehaviour
         
         obj.GetComponent<Floor>().OnChange();
 
+        check = true;
         mapCheck = true;
 
     }
@@ -344,8 +356,6 @@ public class MapManager : MonoBehaviour
         oldlist.Add(player.GetComponent<Floor>());
         player.GetComponent<Floor>().CheckFloor();
 
-        mapCheck = false;
-        mapCheckTime = 0.0f;
         //フロアの上下上下のフロアに行けるかどうか
         //元居た場所には戻らないようにする(通ってきたフロアの座標をlistで保管するとか)
         //今配置してあるプレイヤーが通れるフロアのlistを作り、つながっているかどうかの判定をするのはどう？

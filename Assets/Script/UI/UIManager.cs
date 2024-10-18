@@ -5,7 +5,6 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using System.Net.NetworkInformation;
 using DG.Tweening;
 using Debug = UnityEngine.Debug;

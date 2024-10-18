@@ -7,6 +7,8 @@ public class CursorManager : MonoBehaviour
     //ここみんな気を付けて
     public static bool floorChange = false;
 
+    //ゴールしました
+    public bool onGoal = false;
     [SerializeField]
     Texture2D defaultCursor = null;
     [SerializeField]
@@ -15,13 +17,10 @@ public class CursorManager : MonoBehaviour
     RaycastHit hit;
     GameObject targetObject;
 
-    ChangeFloor floor;
-
     void Start()
     {
         mainCamera = Camera.main;
         SetCursor(true);
-        floor = GetComponent<ChangeFloor>();
     }
     void Update()
     {
@@ -37,27 +36,33 @@ public class CursorManager : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
         {
-            targetObject = hit.collider.gameObject;
-            SetCursor(false);
-
-            if(hit.collider.gameObject.tag =="Floor")
+            
+            if (onGoal == false)
             {
-                targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
-                //カーソルが当たっているのをfloorのobjectに伝えたい
-                if (floorChange == false)
-                {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        
-                        floorChange = true;
-                        GetComponent<MapManager>().ChangeMap(targetObject);
 
+                targetObject = hit.collider.gameObject;
+                SetCursor(false);
+
+                if (hit.collider.gameObject.tag == "Floor")
+                {
+                    targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
+                                                                  //カーソルが当たっているのをfloorのobjectに伝えたい
+                    if (floorChange == false)
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+
+                            floorChange = true;
+                            GetComponent<MapManager>().ChangeMap(targetObject);
+
+                        }
                     }
                 }
+
             }
-        }
-        else
-        {
+            }
+            else
+            {
             targetObject = null;
             SetCursor(true);
         }
