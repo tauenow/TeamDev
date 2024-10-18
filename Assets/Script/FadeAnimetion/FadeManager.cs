@@ -9,9 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour
 {
-	// UIマネージャを取得
-	private UIManager UImng;
-
 	// シェーダーのマテリアルを参照
 	public Material material;
 
@@ -34,8 +31,6 @@ public class FadeManager : MonoBehaviour
 
 	void Start()
 	{
-		UImng = GetComponent<UIManager>();
-
 		// マテリアルが設定されていない場合、自動で取得
 		if (material == null)
 		{
@@ -53,7 +48,7 @@ public class FadeManager : MonoBehaviour
 	void Update()
 	{
 		// フェード中であれば、フェードを進行
-		if (UImng.isFade)
+		if (isFading)
 		{
 			currentTime += Time.deltaTime;
 
@@ -70,19 +65,15 @@ public class FadeManager : MonoBehaviour
 				SceneManager.LoadScene(nextSceneName); // 次のシーンに切り替え
 			}
 		}
-		else
-		{
-			currentTime = 0.0f;
-		}
 	}
 
 	// フェードを開始する関数 (ボタンが押されたら呼ばれる)
-	//public void StartFade()
-	//{
-	//	if (!isFading)
-	//	{
-	//		isFading = true;  // フェードを開始
-	//		currentTime = 0.0f;  // フェード時間をリセット
-	//	}
-	//}
+	public void StartFade()
+	{
+		if (!isFading)
+		{
+			isFading = true;  // フェードを開始
+			currentTime = 0.0f;  // フェード時間をリセット
+		}
+	}
 }

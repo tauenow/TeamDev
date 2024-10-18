@@ -780,9 +780,9 @@ GameObject:
   - component: {fileID: 6103448342819565710}
   - component: {fileID: 3407118463473906677}
   - component: {fileID: 1233715575853857770}
-  - component: {fileID: 7898405164006194827}
   - component: {fileID: 4348698200131156193}
   - component: {fileID: 5678251714755621252}
+  - component: {fileID: 2136462777161450886}
   m_Layer: 5
   m_Name: TitleBack
   m_TagString: Untagged
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7898405164006194827}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: FadeStart
         m_Mode: 1
@@ -903,7 +903,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7898405164006194827}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: DestroyOption
         m_Mode: 1
@@ -915,27 +915,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7898405164006194827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5636210760352566968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 0}
-  SetNum: 0
-  option: {fileID: 0}
-  Button1: {fileID: 0}
-  Button2: {fileID: 0}
-  Button3: {fileID: 0}
-  OptButton: {fileID: 0}
-  map: {fileID: 0}
-  MoveImage: {fileID: 0}
 --- !u!114 &4348698200131156193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +948,21 @@ MonoBehaviour:
   changeSprites:
   - {fileID: 21300000, guid: 1be3a10aaa48dd043a2ffe453ab0b771, type: 3}
   - {fileID: 21300000, guid: 260dfb114dec8494b9d60bf42f6d9eb4, type: 3}
+--- !u!114 &2136462777161450886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636210760352566968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d8a3132074e73458d1800da657ed58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  option: {fileID: 6080164031773957511}
+  buttons: []
+  buttonCount: 0
 --- !u!1 &5941900240789809083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,7 +1506,7 @@ GameObject:
   - component: {fileID: 827458650381350685}
   - component: {fileID: 5131557266584115587}
   - component: {fileID: 411247045266235830}
-  - component: {fileID: 196675007846533534}
+  - component: {fileID: 5454832117355884005}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1621,9 +1615,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 196675007846533534}
+      - m_Target: {fileID: 8922382065053206776}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: DestroyOption
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1633,7 +1627,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &196675007846533534
+--- !u!114 &5454832117355884005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1642,15 +1636,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8922382065053206776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
+  m_Script: {fileID: 11500000, guid: f5d8a3132074e73458d1800da657ed58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 0}
-  SetNum: 0
-  option: {fileID: 6080164031773957511}
-  Button1: {fileID: 0}
-  Button2: {fileID: 0}
-  Button3: {fileID: 0}
-  OptButton: {fileID: 0}
-  map: {fileID: 0}
-  MoveImage: {fileID: 0}
+  option: {fileID: 0}
+  buttons: []
+  buttonCount: 0
