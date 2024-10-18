@@ -13,7 +13,20 @@ public class MoveBg : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		Debug.Log(scriptableNum.DifficultyIndex);
 
+		switch (scriptableNum.DifficultyIndex)
+		{
+			case 1:
+				imageTransform.transform.SetLocalPositionAndRotation(new Vector3(2160.0f, 0.0f, 0.0f), Quaternion.identity);
+				break;
+			case 2:
+				imageTransform.transform.SetLocalPositionAndRotation(new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+				break;
+			case 3:
+				imageTransform.transform.SetLocalPositionAndRotation(new Vector3(-2160.0f, 0.0f, 0.0f), Quaternion.identity);
+				break;
+		}
 	}
 
 	// Update is called once per frame
