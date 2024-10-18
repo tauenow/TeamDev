@@ -408,7 +408,7 @@ public class Floor : MonoBehaviour
 
     public IEnumerator Check()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.001f);
         CheckFloor();
     }
     public void CheckOldRoot()
