@@ -8,7 +8,6 @@ public class MoveBg : MonoBehaviour
 	[SerializeField] private StageScriptableObject scriptableNum;
 	[SerializeField] private RectTransform imageTransform;
 	private static int DifficultNum;
-	private static bool isMove = false;
 
 	// Start is called before the first frame update
 	void Start()

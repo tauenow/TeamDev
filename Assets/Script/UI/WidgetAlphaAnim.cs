@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
-using DG.Tweening;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class WidgetAlphaAnim : MonoBehaviour

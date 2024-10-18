@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Option : MonoBehaviour
@@ -16,8 +17,8 @@ public class Option : MonoBehaviour
 	private Button Button3 = default;
 	[SerializeField]
 	private Button OptButton = default;
-	[SerializeField]
-	private GameObject map = default;
+
+
 	private CursorManager cursorManager;
 
 	// Start is called before the first frame update
@@ -25,13 +26,9 @@ public class Option : MonoBehaviour
 	{
 		option.enabled = false;
 
-		if (map != null)
+		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
-			cursorManager = map.GetComponent<CursorManager>();
-		}
-		else
-		{
-			return;
+			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
 		}
 	}
 
@@ -43,85 +40,59 @@ public class Option : MonoBehaviour
 
 	public void CreateOption()
 	{
-		option.enabled = true;
-
-		if (Button1 != null)
-		{
-			Button1.enabled = false;
-		}
-		else
-		{
-			return;
-		}
-
-		if (Button2 != null)
-		{
-			Button2.enabled = false;
-		}
-		else
-		{
-			return;
-		}
-
-		if (Button3 != null)
-		{
-			Button3.enabled = false;
-		}
-		else
-		{
-			return;
-		}
-
-		OptButton.enabled = false;
-		if (map != null)
+		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
 			cursorManager.enabled = false;
 		}
 		else
 		{
-			return;
+			option.enabled = true;
+
+			if (Button1 != null)
+			{
+				Button1.enabled = false;
+			}
+
+			if (Button2 != null)
+			{
+				Button2.enabled = false;
+			}
+
+			if (Button3 != null)
+			{
+				Button3.enabled = false;
+			}
+
+			OptButton.enabled = false;
 		}
 	}
 
 	public void DestroyOption()
 	{
-		option.enabled = false;
-
-		if (Button1 != null)
-		{
-			Button1.enabled = true;
-		}
-		else
-		{
-			return;
-		}
-
-		if (Button2 != null)
-		{
-			Button2.enabled = true;
-		}
-		else
-		{
-			return;
-		}
-
-		if (Button3 != null)
-		{
-			Button3.enabled = true;
-		}
-		else
-		{
-			return;
-		}
-
-		OptButton.enabled = true;
-		if (map != null)
+		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
 			cursorManager.enabled = true;
 		}
 		else
 		{
-			return;
+			option.enabled = false;
+
+			if (Button1 != null)
+			{
+				Button1.enabled = true;
+			}
+
+			if (Button2 != null)
+			{
+				Button2.enabled = true;
+			}
+
+			if (Button3 != null)
+			{
+				Button3.enabled = true;
+			}
+
+			OptButton.enabled = true;
 		}
 	}
 }
