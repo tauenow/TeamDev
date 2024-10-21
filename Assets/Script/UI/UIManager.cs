@@ -17,6 +17,17 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	[SerializeField] private StageScriptableObject ScriptableObject;
 	[SerializeField] private int SetNum = default;
+	[SerializeField] private int SelectSetNum = 0;
+
+	private void Start()
+	{
+		if (ScriptableObject.ButtonNum != 0)
+		{
+			ScriptableObject.ButtonNum = 0;
+		}
+
+		ScriptableObject.SelectFaze = 0;
+	}
 
 	public void AddDifficulty()
 	{
@@ -58,6 +69,19 @@ public class UIManager : MonoBehaviour
 				// マップの番号をセットした内容に変更
 				ScriptableObject.StageNum = SetNum + 6;
 				break;
+		}
+	}
+
+	public void SetSelectNum()
+	{
+		ScriptableObject.ButtonNum = SelectSetNum;
+	}
+
+	public void SetSelectIndex()
+	{
+		if (ScriptableObject.SelectFaze < 3)
+		{
+			ScriptableObject.SelectFaze++;
 		}
 	}
 }

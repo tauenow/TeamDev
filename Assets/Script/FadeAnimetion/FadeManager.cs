@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour
 {
+	// ボタンのアニメーションのコンポーネント
+	private SelectAnimation anim;
+
 	// シェーダーのマテリアルを参照
 	public Material material;
 
@@ -31,6 +34,9 @@ public class FadeManager : MonoBehaviour
 
 	void Start()
 	{
+		//	コンポーネントを取得
+		anim = GetComponent<SelectAnimation>();
+
 		// マテリアルが設定されていない場合、自動で取得
 		if (material == null)
 		{

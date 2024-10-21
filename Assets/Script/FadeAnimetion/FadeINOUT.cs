@@ -7,127 +7,131 @@ using UnityEngine.UI;
 
 public class FadeINOUT : MonoBehaviour
 {
-    // フェードインに使用するマテリアル
-    [SerializeField]
-    private Material _transitionIn;
+	// ScriptbleOBject
+	[SerializeField]
+	private StageScriptableObject scriptableObject;
 
-    // フェードアウトに使用するマテリアル
-    [SerializeField]
-    private Material _transitionOut;
+	// フェードインに使用するマテリアル
+	[SerializeField]
+	private Material _transitionIn;
 
-    // フェード中に呼び出されるイベント
-    [SerializeField]
-    private UnityEvent OnTransition;
+	// フェードアウトに使用するマテリアル
+	[SerializeField]
+	private Material _transitionOut;
 
-    // フェードが完了したときに呼び出されるイベント
-    [SerializeField]
-    private UnityEvent OnComplete;
+	// フェード中に呼び出されるイベント
+	[SerializeField]
+	private UnityEvent OnTransition;
 
-    // ボタンリスト（インスペクターで設定）
-    [SerializeField]
-    private List<Button> transitionButtons;
+	// フェードが完了したときに呼び出されるイベント
+	[SerializeField]
+	private UnityEvent OnComplete;
 
-    // ボタンに対応するシーン名のリスト
-    [SerializeField]
-    private List<string> sceneNames;
+	// ボタンリスト（インスペクターで設定）
+	[SerializeField]
+	private List<Button> transitionButtons;
 
-    // フェードアウトをトリガーする方法の選択肢
-    public enum FadeTriggerMode { Tap, Button }
+	// ボタンに対応するシーン名のリスト
+	[SerializeField]
+	private List<string> sceneNames;
 
-    // 現在のトリガー方法をインスペクターで設定
-    [SerializeField]
-    private FadeTriggerMode fadeTriggerMode = FadeTriggerMode.Tap;
+	// フェードアウトをトリガーする方法の選択肢
+	public enum FadeTriggerMode { Tap, Button }
 
-    // ゲーム開始時にフェードインを開始
-    void Start()
-    {
-        // フェードインのコルーチンを開始
-        StartCoroutine(BeginTransitionIn());
+	// 現在のトリガー方法をインスペクターで設定
+	[SerializeField]
+	private FadeTriggerMode fadeTriggerMode = FadeTriggerMode.Tap;
 
-        // ボタンが設定されていて、ボタンモードが選択されている場合にクリックイベントを追加
-        if (fadeTriggerMode == FadeTriggerMode.Button)
-        {
-            for (int i = 0; i < transitionButtons.Count; i++)
-            {
-                Button button = transitionButtons[i];
-                // ボタンがクリックされたときに対応するシーンに切り替えるリスナーを追加
-                if (button != null && i < sceneNames.Count) // sceneNamesの数もチェック
-                {
-                    int index = i; // ローカル変数でキャプチャ
-                    button.onClick.AddListener(() => StartCoroutine(BeginTransitionOut(sceneNames[index])));
-                }
-            }
-        }
-    }
+	// ゲーム開始時にフェードインを開始
+	void Start()
+	{
+		// フェードインのコルーチンを開始
+		StartCoroutine(BeginTransitionIn());
 
-    // フレームごとの処理で、画面タップでフェードアウトを開始
-    void Update()
-    {
-        // 画面タップモードが選択されている場合、タップでフェードアウトを開始
-        if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
-        {
-            // 最初のシーン名を使ってフェードアウトを開始
-            if (sceneNames.Count > 0)
-            {
-                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
-            }
-        }
-    }
+		// ボタンが設定されていて、ボタンモードが選択されている場合にクリックイベントを追加
+		if (fadeTriggerMode == FadeTriggerMode.Button)
+		{
+			for (int i = 0; i < transitionButtons.Count; i++)
+			{
+				Button button = transitionButtons[i];
+				// ボタンがクリックされたときに対応するシーンに切り替えるリスナーを追加
+				if (button != null && i < sceneNames.Count) // sceneNamesの数もチェック
+				{
+					int index = i; // ローカル変数でキャプチャ
+					button.onClick.AddListener(() => StartCoroutine(BeginTransitionOut(sceneNames[index])));
+				}
+			}
+		}
+	}
 
-    // フェードインを開始するコルーチン
-    IEnumerator BeginTransitionIn()
-    {
-        // フェードインアニメーションを指定された時間で実行
-        yield return Animate(_transitionIn, 1);
+	// フレームごとの処理で、画面タップでフェードアウトを開始
+	void Update()
+	{
+		// 画面タップモードが選択されている場合、タップでフェードアウトを開始
+		if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
+		{
+			// 最初のシーン名を使ってフェードアウトを開始
+			if (sceneNames.Count > 0)
+			{
+				StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+			}
+		}
+	}
 
-        // フェードイン中に指定されたイベントを実行
-        OnTransition?.Invoke();
+	// フェードインを開始するコルーチン
+	IEnumerator BeginTransitionIn()
+	{
+		// フェードインアニメーションを指定された時間で実行
+		yield return Animate(_transitionIn, 1);
 
-        // フェードインが終了後に次のフレームを待つ
-        yield return new WaitForEndOfFrame();
-    }
+		// フェードイン中に指定されたイベントを実行
+		OnTransition?.Invoke();
 
-    // フェードアウトを開始するコルーチン（シーン名を引数として受け取る）
-    IEnumerator BeginTransitionOut(string sceneName)
-    {
-        // フェードアウトアニメーションを指定された時間で実行
-        yield return Animate(_transitionOut, 1);
+		// フェードインが終了後に次のフレームを待つ
+		yield return new WaitForEndOfFrame();
+	}
 
-        // フェードアウトが終了後に指定されたイベントを実行
-        OnComplete?.Invoke();
+	// フェードアウトを開始するコルーチン（シーン名を引数として受け取る）
+	IEnumerator BeginTransitionOut(string sceneName)
+	{
+		// フェードアウトアニメーションを指定された時間で実行
+		yield return Animate(_transitionOut, 1);
 
-        // フェードアウト完了後に次のフレームを待つ
-        yield return new WaitForEndOfFrame();
+		// フェードアウトが終了後に指定されたイベントを実行
+		OnComplete?.Invoke();
 
-        // 指定されたシーンに切り替え
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-            // フェードインを再開
-            StartCoroutine(BeginTransitionIn());
-        }
-    }
+		// フェードアウト完了後に次のフレームを待つ
+		yield return new WaitForEndOfFrame();
 
-    // 指定されたマテリアルでアニメーションを実行するコルーチン
-    IEnumerator Animate(Material material, float time)
-    {
-        // UI Imageコンポーネントにマテリアルを適用
-        GetComponent<Image>().material = material;
+		// 指定されたシーンに切り替え
+		if (!string.IsNullOrEmpty(sceneName))
+		{
+			SceneManager.LoadScene(sceneName);
+			// フェードインを再開
+			StartCoroutine(BeginTransitionIn());
+		}
+	}
 
-        float current = 0;
+	// 指定されたマテリアルでアニメーションを実行するコルーチン
+	IEnumerator Animate(Material material, float time)
+	{
+		// UI Imageコンポーネントにマテリアルを適用
+		GetComponent<Image>().material = material;
 
-        // 指定された時間でフェードを進行
-        while (current < time)
-        {
-            // シェーダーの "_Alpha" パラメータを時間経過に基づいて変更
-            material.SetFloat("_Alpha", current / time);
-            yield return new WaitForEndOfFrame(); // 次のフレームまで待機
+		float current = 0;
 
-            // 経過時間を更新
-            current += Time.deltaTime;
-        }
+		// 指定された時間でフェードを進行
+		while (current < time)
+		{
+			// シェーダーの "_Alpha" パラメータを時間経過に基づいて変更
+			material.SetFloat("_Alpha", current / time);
+			yield return new WaitForEndOfFrame(); // 次のフレームまで待機
 
-        // 最終的にフェードを完全に不透明に設定
-        material.SetFloat("_Alpha", 1);
-    }
+			// 経過時間を更新
+			current += Time.deltaTime;
+		}
+
+		// 最終的にフェードを完全に不透明に設定
+		material.SetFloat("_Alpha", 1);
+	}
 }
