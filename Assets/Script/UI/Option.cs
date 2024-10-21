@@ -10,61 +10,29 @@ public class Option : MonoBehaviour
 	[SerializeField]
 	private Canvas option = default;
 	[SerializeField]
-	private Button Button1 = default;
-	[SerializeField]
-	private Button Button2 = default;
-	[SerializeField]
-	private Button Button3 = default;
-	[SerializeField]
-	private Button OptButton = default;
+	private Button[] buttons;
 
-	[SerializeField]
-	private GameObject stageManager = default;
 	private CursorManager cursorManager;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		option.enabled = false;
-
-		if (SceneManager.GetActiveScene().name == "SampleScene")
-		{
-			//cursorManager = stageManager.GetComponent<StageSelectManager>().GetMapObject().GetComponent<CursorManager>();
-		}
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
 	}
 
 	public void CreateOption()
 	{
 		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
+			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
 			cursorManager.enabled = false;
 		}
-		else
+
+		option.enabled = true;
+
+		for (int i = 0; i < buttons.Length; i++)
 		{
-			option.enabled = true;
-
-			if (Button1 != null)
-			{
-				Button1.enabled = false;
-			}
-
-			if (Button2 != null)
-			{
-				Button2.enabled = false;
-			}
-
-			if (Button3 != null)
-			{
-				Button3.enabled = false;
-			}
-
-			OptButton.enabled = false;
+			buttons[i].enabled = false;
 		}
 	}
 
@@ -72,28 +40,15 @@ public class Option : MonoBehaviour
 	{
 		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
+			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
 			cursorManager.enabled = true;
 		}
-		else
+
+		option.enabled = false;
+
+		for (int i = 0; i < buttons.Length; i++)
 		{
-			option.enabled = false;
-
-			if (Button1 != null)
-			{
-				Button1.enabled = true;
-			}
-
-			if (Button2 != null)
-			{
-				Button2.enabled = true;
-			}
-
-			if (Button3 != null)
-			{
-				Button3.enabled = true;
-			}
-
-			OptButton.enabled = true;
+			buttons[i].enabled = true;
 		}
 	}
 }
