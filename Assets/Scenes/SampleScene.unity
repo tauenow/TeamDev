@@ -6155,7 +6155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 1
   Hight: 10
-  sideLength: 5
+  sideLength: 3
 --- !u!1 &1026041066 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1495794234144093740, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}

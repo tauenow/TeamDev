@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    //ここみんな気を付けて
-    public static bool floorChange = false;
+    
 
     //ゴールしました
     public bool onGoal = false;
@@ -37,22 +36,22 @@ public class CursorManager : MonoBehaviour
         if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
         {
             
-            if (onGoal == false)
+            if (onGoal == false)//ゴール下なら構えない
             {
 
                 targetObject = hit.collider.gameObject;
                 SetCursor(false);
 
-                if (hit.collider.gameObject.tag == "Floor")
+                if (hit.collider.gameObject.CompareTag("Floor"))
                 {
                     targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
                                                                   //カーソルが当たっているのをfloorのobjectに伝えたい
-                    if (floorChange == false)
+                    if (MapManager.floorChange == false)
                     {
                         if (Input.GetMouseButtonDown(0))
                         {
 
-                            floorChange = true;
+                            MapManager.floorChange = true;
                             GetComponent<MapManager>().ChangeMap(targetObject);
 
                         }

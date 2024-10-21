@@ -20,17 +20,17 @@ public class Floor : MonoBehaviour
 
     private int changeMotionCount = 20;
 
+    private bool changeWait = false;
     private bool change = false; //床が変わる
     private float currentLinkTime = 0.0f;
     private int motionLinkCount = 0;
     private bool linkChange = false;
 
-    private int rotateCount = 0;
-
     [SerializeField]
     private float Hight;
+    //カーソルが当たっているか
     private bool cursor = false;
-
+    //色の数
     private int faceCount = 1;
 
     // Start is called before the first frame update
@@ -127,7 +127,7 @@ public class Floor : MonoBehaviour
             if (obj != null)
             {
                 //周りも変える
-                parentMap.linkChangeFloor(obj);
+                //parentMap.linkChangeFloor(obj);
             }
             if (obj == null)
             {
@@ -145,6 +145,7 @@ public class Floor : MonoBehaviour
             motionCount = 0;
             currentTime = 0.0f;
             change = false;
+            changeWait = false;
         }
     }
     private void CursorUpdate()
@@ -153,7 +154,7 @@ public class Floor : MonoBehaviour
         {
             if (linkChange == false)
             {
-                if (cursor == true)
+                if (cursor == true || changeWait == true)
                 {
                     Vector3 pos = transform.position;
                     pos.y = 1.0f;//マジックナンバーごめん
@@ -161,7 +162,7 @@ public class Floor : MonoBehaviour
                     cursor = false;
                     return;
                 }
-                else if (cursor == false)
+                else if (cursor == false || changeWait == false)
                 {
                     
                     Vector3 pos = transform.position;
@@ -558,5 +559,13 @@ public class Floor : MonoBehaviour
         cursor = true;
     }
 
+    public void SetChangeWait(bool value)
+    {
+        changeWait = value;
+    }
+    public bool GetChangeWait()
+    {
+        return changeWait;
+    }
 
 }

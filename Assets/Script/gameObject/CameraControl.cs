@@ -21,12 +21,13 @@ public class CameraControl : MonoBehaviour
     }
     void Update()
     {
-       
-        centerObject = GameObject.Find("center(Clone)");//カメラのセンターになるオブジェクトを見つける
-        transform.LookAt(centerObject.transform);//カメラターゲットを登録したオブジェクトにしてる
-       
+
+        
+
         if (centerObject != null)
         {
+
+            transform.LookAt(centerObject.transform);//カメラターゲットを登録したオブジェクトにしてる
             if (center == false)
             {
                 float x = centerObject.transform.position.x;
@@ -37,13 +38,17 @@ public class CameraControl : MonoBehaviour
                 center = true;
                
             }
-            if (Input.GetMouseButton(1))//0が左クリック１が右クリック
-            {
-                rotateCamera();
+            //if (Input.GetMouseButton(1))//0が左クリック１が右クリック
+            //{
+            //    rotateCamera();
 
-            }
+            //}
         }
        
+    }
+    public void CentrCretae(GameObject center)
+    {
+        centerObject = center;//カメラのセンターになるオブジェクトを見つける
     }
    
     private void rotateCamera()
