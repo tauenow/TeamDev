@@ -60,6 +60,9 @@ public class MapManager : MonoBehaviour
     //チェックするときの通ったオブジェクトを格納する
     private List<Floor> oldlist = new();
 
+    //ここみんな気を付けて
+    public static bool floorChange = false;
+
     //マップチェックTime
     private bool check = false;
     private bool mapCheck = false;
@@ -261,18 +264,21 @@ public class MapManager : MonoBehaviour
 
             center = (startPos + endPos) / 2;
 
-            Instantiate(centerObject, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity);
+            GameObject centerObj = Instantiate(centerObject, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity) as GameObject;
 
             centerPosRegister = true;//一つ登録すればOK
+            GameObject.Find("Main Camera").GetComponent<CameraControl>().CentrCretae(centerObj);//カメラのセンターになるオブジェクトを見つける
+
         }
 
-        
         GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
-        playerObject.transform.LookAt(goalObj.transform);
+
+        Vector3 transformLookPos = goalObj.transform.position;
+        transformLookPos.y += 1;
+
+        playerObject.transform.LookAt(transformLookPos);
        
         //プレイヤーがゴールを向くようにする
-        
-
     }
 
     private void Update()
@@ -301,9 +307,7 @@ public class MapManager : MonoBehaviour
             playerRoot.Add(goal.GetMapPosition());
 
             //プレイヤーのポジションに近い順にソート
-            playerRoot.Sort((a, b) => Mathf.Sqrt(a.x * a.x + a.z * a.z).CompareTo(Mathf.Sqrt(b.x * b.x + b.z * b.z)));
-
-            List<int> rootNumber = new List<int>();
+            //playerRoot.Sort((a, b) => Mathf.Sqrt(a.x * a.x + a.z * a.z).CompareTo(Mathf.Sqrt(b.x * b.x + b.z * b.z)));
 
             for(int i = 0;i<playerRoot.Count;i++)
             {
@@ -324,7 +328,7 @@ public class MapManager : MonoBehaviour
             
             onGoal = false;
         }
-
+        //マップチェック
         if (check == true)
         {
             mapCheckTime += Time.deltaTime;
@@ -341,7 +345,7 @@ public class MapManager : MonoBehaviour
         {
             mapCheckTime = 0.0f;
             check = false;
-            CursorManager.floorChange = false;
+            floorChange = false;
         }
 
     }
@@ -350,6 +354,13 @@ public class MapManager : MonoBehaviour
     {
 
         return mapObjects;
+    }
+    public void AllFloorWaitOff()
+    {
+        for (int i = 0; i < mapObjects.Count; i++)
+        {
+            mapObjects[i].GetComponent<Floor>().SetChangeWait(false);
+        }
     }
     public void ChangeMap(GameObject obj)//床しか入れん
     {
@@ -363,7 +374,7 @@ public class MapManager : MonoBehaviour
 
         floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
         
-        obj.GetComponent<Floor>().OnChange();
+        obj.GetComponent<Floor>().OnChange();//マップチェンジオン
         obj.GetComponent<Floor>().SetFaceCount(obj.GetComponent<Floor>().GetFaceCount() + 1);
 
         check = true;

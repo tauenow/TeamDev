@@ -7,10 +7,6 @@ public class TochControl : MonoBehaviour
 {
     //ゴールしました
     public bool onGoal = false;
-    [SerializeField]
-    Texture2D defaultCursor = null;
-    [SerializeField]
-    Texture2D interactCursor = null;
     //カメラ
     Camera mainCamera;
     //レイのヒット
@@ -26,41 +22,43 @@ public class TochControl : MonoBehaviour
     {
         CastRay();
     }
-    void OnDisable()
-    {
-       
-    }
     // マウスカーソルの位置から「レイ」を飛ばして、何かのコライダーに当たるかどうかをチェック
     void CastRay()
     {
 
-        CheckTouch();
+        if (Input.touchCount <= 0) return;
 
         Touch touch = Input.GetTouch(0);
 
         if (touch.phase == TouchPhase.Began)
         {
-
             Vector3 point = touch.position;
             Ray ray = mainCamera.ScreenPointToRay(point);
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
             {
-                if (onGoal == false)
+                if (onGoal == false)//ゴールしたら構えない
                 {
-
                     targetObject = hit.collider.gameObject;
-                   
-                    if (hit.collider.gameObject.tag == "Floor")
+
+                    if (targetObject == null)
                     {
-                        targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
-                                                                      //カーソルが当たっているのをfloorのobjectに伝えたい
-                        if (CursorManager.floorChange == false)
+                        GetComponent<MapManager>().AllFloorWaitOff();
+                        return;
+                    }
+                    else if (targetObject.CompareTag("Floor"))
+                    {
+
+                        if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                         {
-                            if (Input.GetMouseButtonDown(0))
+                            targetObject.GetComponent<Floor>().SetChangeWait(true);
+                        }
+                        else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
+                        {
+                            if (MapManager.floorChange == false)
                             {
 
-                                CursorManager.floorChange = true;
-                                GetComponent<MapManager>().ChangeMap(targetObject);
+                                MapManager.floorChange = true;
+                                GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
 
                             }
                         }

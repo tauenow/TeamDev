@@ -53,8 +53,10 @@ public class PlayerControl : MonoBehaviour
         }
         else if (moveCount != goalRoot.Count)
         {
-
-            transform.LookAt(goalRoot[moveCount]);
+            Vector3 transformLookPos = goalRoot[moveCount];
+            transformLookPos.y += 1;
+          
+            transform.LookAt(transformLookPos);
 
             if (goalRoot[moveCount].x > position.x)
             {
