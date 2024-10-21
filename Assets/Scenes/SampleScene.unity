@@ -6220,8 +6220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StageObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
-  map: {fileID: 514173838957410423, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
-  MapFile1: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
+  map: {fileID: 3906910617886301708, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
+  MapFile1: {fileID: 4900000, guid: 1a7e090b30ad64740a74e0e9a7c7fb31, type: 3}
 --- !u!4 &1143344578
 Transform:
   m_ObjectHideFlags: 0
@@ -6770,8 +6770,8 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 756228789}
+  - {fileID: 1143344578}
   - {fileID: 506268932}
   - {fileID: 168116373}
   - {fileID: 149349770}
   - {fileID: 1238999372}
-  - {fileID: 1143344578}

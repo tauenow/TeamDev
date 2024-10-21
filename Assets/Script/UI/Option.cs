@@ -7,32 +7,36 @@ using UnityEngine.UI;
 
 public class Option : MonoBehaviour
 {
-	[Header("オプションのキャンバス")]
-	[SerializeField] private Canvas option = default;
-	[Header("表示されているボタン")]
-	[SerializeField] private Button[] buttons = default;
-	[Header("ボタンの数")]
-	[SerializeField] private int buttonCount = 0;
-	// カーソルマネージャ-
+	[SerializeField]
+	private Canvas option = default;
+	[SerializeField]
+	private Button Button1 = default;
+	[SerializeField]
+	private Button Button2 = default;
+	[SerializeField]
+	private Button Button3 = default;
+	[SerializeField]
+	private Button OptButton = default;
+
+	[SerializeField]
+	private GameObject stageManager = default;
 	private CursorManager cursorManager;
-	// Do Once用
-	private bool isAction;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		option.enabled = false;
-		isAction = true;
+
+		if (SceneManager.GetActiveScene().name == "SampleScene")
+		{
+			//cursorManager = stageManager.GetComponent<StageSelectManager>().GetMapObject().GetComponent<CursorManager>();
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (SceneManager.GetActiveScene().name == "SampleScene" && isAction == true)
-		{
-			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
-			isAction = false;
-		}
+
 	}
 
 	public void CreateOption()
@@ -41,7 +45,27 @@ public class Option : MonoBehaviour
 		{
 			cursorManager.enabled = false;
 		}
-		SetOption(true);
+		else
+		{
+			option.enabled = true;
+
+			if (Button1 != null)
+			{
+				Button1.enabled = false;
+			}
+
+			if (Button2 != null)
+			{
+				Button2.enabled = false;
+			}
+
+			if (Button3 != null)
+			{
+				Button3.enabled = false;
+			}
+
+			OptButton.enabled = false;
+		}
 	}
 
 	public void DestroyOption()
@@ -50,16 +74,26 @@ public class Option : MonoBehaviour
 		{
 			cursorManager.enabled = true;
 		}
-		SetOption(false);
-	}
-
-	void SetOption(bool enable)
-	{
-		option.enabled = enable;
-
-		for (int i = 0; i < buttonCount; i++)
+		else
 		{
-			buttons[i].enabled = !enable;
+			option.enabled = false;
+
+			if (Button1 != null)
+			{
+				Button1.enabled = true;
+			}
+
+			if (Button2 != null)
+			{
+				Button2.enabled = true;
+			}
+
+			if (Button3 != null)
+			{
+				Button3.enabled = true;
+			}
+
+			OptButton.enabled = true;
 		}
 	}
 }

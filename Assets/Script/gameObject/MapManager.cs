@@ -156,7 +156,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log(faceNum);
+        
         if (faceNum == 2)
         {
             Floor.GetComponent<MeshRenderer>().material = color_2;
@@ -192,7 +192,7 @@ public class MapManager : MonoBehaviour
                             break;
                         case 1:
                             GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor1.GetComponent<Floor>().SetMapPosition(j, i, "red");
+                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
                             floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
                             floor1.GetComponent<Floor>().SetFaceCount(1);
                             mapObjects.Add(floor1);
@@ -202,7 +202,7 @@ public class MapManager : MonoBehaviour
 
                         case 2:
                             GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor2.GetComponent<Floor>().SetMapPosition(j, i, "blue");
+                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
                             floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
                             floor2.GetComponent<Floor>().SetFaceCount(2);
                             mapObjects.Add(floor2);
@@ -211,7 +211,7 @@ public class MapManager : MonoBehaviour
                             break;
                         case 3:
                             GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetMapPosition(j, i, "yellow");
+                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
                             floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
                             floor3.GetComponent<Floor>().SetFaceCount(3);
                             mapObjects.Add(floor3);
@@ -220,7 +220,7 @@ public class MapManager : MonoBehaviour
                             break;
                         case 4:
                             GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetMapPosition(j, i, "green");
+                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
                             floor4.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor4);
                             floor4.GetComponent<Floor>().SetParentmap(this);
@@ -228,7 +228,7 @@ public class MapManager : MonoBehaviour
                             break;
                         case 5:
                             GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor5.GetComponent<Floor>().SetMapPosition(j, i, "goal");
+                            floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
                             mapObjects.Add(floor5);
                             floor5.GetComponent<Floor>().SetParentmap(this);
 
@@ -236,7 +236,7 @@ public class MapManager : MonoBehaviour
                             break;
                         case 6:
                             GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor6.GetComponent<Floor>().SetMapPosition(j, i, "player");
+                            floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
                             floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
                             mapObjects.Add(floor6);
                             floor6.GetComponent<Floor>().SetParentmap(this);
@@ -337,7 +337,7 @@ public class MapManager : MonoBehaviour
                 mapCheck = false;
             }
         }
-        if (mapCheckTime >= 1.5f)
+        if (mapCheckTime >= 2.0f)
         {
             mapCheckTime = 0.0f;
             check = false;
