@@ -18,7 +18,8 @@ public class Option : MonoBehaviour
 	[SerializeField]
 	private Button OptButton = default;
 
-
+	[SerializeField]
+	private GameObject stageManager = default;
 	private CursorManager cursorManager;
 
 	// Start is called before the first frame update
@@ -28,7 +29,7 @@ public class Option : MonoBehaviour
 
 		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
-			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
+			//cursorManager = stageManager.GetComponent<StageSelectManager>().GetMapObject().GetComponent<CursorManager>();
 		}
 	}
 

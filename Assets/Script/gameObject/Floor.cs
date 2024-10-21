@@ -59,11 +59,9 @@ public class Floor : MonoBehaviour
             {
                 if (currentTime >= motionFrame)
                 {
-                    Debug.Log("処理はいるよー");
                     //2面と4面の時は通常
                     if (parentMap.GetFaceNum() == 2 || parentMap.GetFaceNum() == 4)
                     {
-                        Debug.Log("2色か4色");
                         if (motionCount < changeMotionCount)
                         {
                             Vector3 transformPos = transform.position;
@@ -135,15 +133,17 @@ public class Floor : MonoBehaviour
             {
                 Debug.Log("中身ないよ");
             }
-            if(faceCount >= 4)
+            if (parentMap.GetFaceNum() == 3)
             {
-                transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
-                faceCount = 1;
+                if (faceCount >= 4)
+                {
+                    transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+                    faceCount = 1;
+                }
             }
 
             motionCount = 0;
             currentTime = 0.0f;
-            Debug.Log("Y座標戻します");
             change = false;
         }
     }
@@ -508,7 +508,7 @@ public class Floor : MonoBehaviour
 
     public IEnumerator Check()
     {
-        yield return new WaitForSeconds(0.001f);
+        yield return new WaitForSeconds(0.002f);
         CheckFloor();
     }
     public void CheckOldRoot()
