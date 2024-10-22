@@ -122,4 +122,5 @@ MonoBehaviour:
   Tap: 1
   motionFrame: 0.01
   Hight: 0
-  emissive: {fileID: 0}
+  blockPlayerEmissive: 1.2
+  blockEmissive: 0.7

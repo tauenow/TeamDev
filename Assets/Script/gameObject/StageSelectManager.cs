@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageSelectManager : MonoBehaviour
 {
@@ -13,22 +14,26 @@ public class StageSelectManager : MonoBehaviour
     //マップファイル一覧
     [SerializeField]
     private TextAsset MapFile1;
+    List<TextAsset> mapFaileList = new();
 
+    [Header("フェード")]
+    [SerializeField] private Image fade = default;
 
     private GameObject mapObject;
     //このステージをクリアしたかどうか
-    private bool isClear = false;
+    public bool isClear = false;
 
     void Start()
     {
-        StageObj.isClearList.Add(false);
-        //selecetStageNum = StageObj.StageNum;
+        //リストから呼び出すときは-1してね
+        //テクストファイルのリストにマップのデータを全て格納する
+        mapFaileList.Add(MapFile1);
 
-        //ここを量産すればできるで
         if(selecetStageNum == 1)
         {
             mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             mapObject.GetComponent<MapManager>().MapFile = MapFile1;
+            mapObject.GetComponent<MapManager>().parentManager = this;
         }
 
     }
@@ -45,5 +50,10 @@ public class StageSelectManager : MonoBehaviour
     public GameObject GetMapObject()
     {
         return mapObject;
+    }
+    public void ChangeScene()
+    {
+        StageObj.isClearList[selecetStageNum - 1] = true;
+        fade.GetComponent<FadeINOUT>().FadeToChangeScene();
     }
 }
