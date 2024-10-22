@@ -398,7 +398,7 @@ public class MapManager : MonoBehaviour
 
 	}
 
-	public void linkChangeFloor(GameObject gameObject)
+	public void LinkChangeFloor(GameObject gameObject)
 	{
 		GameObject obj_top = null;
 		GameObject obj_bottom = null;
@@ -424,32 +424,73 @@ public class MapManager : MonoBehaviour
 
 		if (obj_top != null)
 		{
-			obj_top.GetComponent<Floor>().LinkChange();
+			
 			obj_top.GetComponent<Floor>().SetFaceCount(obj_top.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_top.GetComponent<Floor>().SetFloorState(obj_top.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_bottom != null)
 		{
-			obj_bottom.GetComponent<Floor>().LinkChange();
+			
 			obj_bottom.GetComponent<Floor>().SetFaceCount(obj_bottom.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_bottom.GetComponent<Floor>().SetFloorState(obj_bottom.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_left != null)
 		{
-			obj_left.GetComponent<Floor>().LinkChange();
+			
 			obj_left.GetComponent<Floor>().SetFaceCount(obj_left.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_left.GetComponent<Floor>().SetFloorState(obj_left.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_right != null)
-		{
-			obj_right.GetComponent<Floor>().LinkChange();
+		{ 
 			obj_right.GetComponent<Floor>().SetFaceCount(obj_right.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_right.GetComponent<Floor>().SetFloorState(obj_right.GetComponent<Floor>().GetFloorState());
 		}
 
 	}
+    public void LinkChangeFloorMotion(GameObject gameObject)
+    {
+        GameObject obj_top = null;
+        GameObject obj_bottom = null;
+        GameObject obj_left = null;
+        GameObject obj_right = null;
 
-	public List<Floor> GetOldList()
+        //ª
+        obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
+        //«
+        obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
+        //©
+        obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+        //¨
+        obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+
+
+        if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
+        if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
+        if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
+        if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
+
+
+
+        if (obj_top != null)
+        {
+			obj_top.GetComponent<Floor>().LinkChange();
+        }
+        if (obj_bottom != null)
+        {
+            obj_bottom.GetComponent<Floor>().LinkChange();
+        }
+        if (obj_left != null)
+        {
+			obj_left.GetComponent<Floor>().LinkChange();
+        }
+        if (obj_right != null)
+        {
+            obj_right.GetComponent<Floor>().LinkChange();
+        }
+
+    }
+
+    public List<Floor> GetOldList()
 	{
 		return oldlist;
 	}

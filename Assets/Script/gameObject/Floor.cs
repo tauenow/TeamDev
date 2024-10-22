@@ -70,7 +70,7 @@ public class Floor : MonoBehaviour
                 Debug.Log("周りも変えるで");
                 GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
                 //周辺の色情報を変更
-                parentMap.LinkChangeMapFloor(obj);
+                parentMap.LinkChangeFloor(obj);
                 link = false;
             }
             currentTime += Time.deltaTime;
@@ -147,7 +147,7 @@ public class Floor : MonoBehaviour
 
             if (obj != null)
             {
-                parentMap.LinkChangeMapFloorMotion(obj);
+                parentMap.LinkChangeFloorMotion(obj);
                 link = true;
             }
             if (obj == null)
@@ -162,6 +162,9 @@ public class Floor : MonoBehaviour
                     faceCount = 1;
                 }
             }
+            //光度変更
+            if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white;
+            else GetComponent<MeshRenderer>().material.color = Color.white * 0.7f;
 
             motionCount = 0;
             currentTime = 0.0f;
@@ -187,8 +190,6 @@ public class Floor : MonoBehaviour
                 }
                 else if (cursor == false || changeWait == false)
                 {
-                    if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white;
-                    else GetComponent<MeshRenderer>().material.color = Color.white * 0.7f;
                     Vector3 pos = transform.position;
                     pos.y = 0.0f;//マジックナンバーごめん
                     transform.position = pos;
