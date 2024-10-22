@@ -15,17 +15,17 @@ public class ChangeBg : MonoBehaviour
 	{
 		ChangeImage = GetComponent<Image>();
 
-		if (ScriptableNum.StageNum >= 0 && ScriptableNum.StageNum < 4)
+		switch (ScriptableNum.DifficultyIndex)
 		{
-			ChangeImage.sprite = ChangeSprites[0];
-		}
-		else if (ScriptableNum.StageNum >= 4 && ScriptableNum.StageNum < 7)
-		{
-			ChangeImage.sprite = ChangeSprites[1];
-		}
-		else if (ScriptableNum.StageNum >= 7 && ScriptableNum.StageNum < 10)
-		{
-			ChangeImage.sprite = ChangeSprites[2];
+			case 1:
+				ChangeImage.sprite = ChangeSprites[0];
+				break;
+			case 2:
+				ChangeImage.sprite = ChangeSprites[1];
+				break;
+			case 3:
+				ChangeImage.sprite = ChangeSprites[2];
+				break;
 		}
 	}
 }

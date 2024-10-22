@@ -14,6 +14,8 @@ public class ChangeWardImage : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		Debug.Log(GameIndex.DifficultyIndex);
+
 		switch (GameIndex.DifficultyIndex)
 		{
 			case 1:
