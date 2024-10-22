@@ -212,9 +212,8 @@ public class MapManager : MonoBehaviour
 
                             mapObjects.Add(floor6);
 							
-
 							//ÉvÉåÉCÉÑÅ[ê∂ê¨
-							playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
+							playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 0.5f, transform.position.z - i), Quaternion.identity) as GameObject;
 							playerObject.GetComponent<PlayerControl>().SetMapPosition(floor6.GetComponent<Floor>().GetMapPosition());
 
 							break;

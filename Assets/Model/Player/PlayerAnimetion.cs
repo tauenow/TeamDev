@@ -1,65 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerAnimetion : MonoBehaviour
 {
     private Animator animator;
-    private float CurrentTime;
+    private float currentTime;
+    private bool yubi = false;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Animatorコンポーネントを取得
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CurrentTime += Time.deltaTime;
-        if()
-        {
+        currentTime += Time.deltaTime;
 
-        }
-        else
+        // MapManager.floorChangeがtrueになった場合、「Yubisasi」アニメーションを再生
+        if (!yubi && MapManager.floorChange)
         {
-
-        }
-
-       if(CurrentTime >= 10)
-        {
-            Debug.Log("Idleda");
-            Idle();
-            CurrentTime = 0;
-        }
-       else if(CurrentTime >= 5)
-        {
-            Debug.Log("Idleda");
-            Jump(); 
+            yubi = true;
+            PlayAnimation("Yubisasi");
         }
 
+        // PlayerControlスクリプトのGetClearがtrueの場合、「Jump」アニメーションを再生
+        if (GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetClear() == true)
+        {
+            Debug.Log("Jumpアニメーションを再生");
+            PlayAnimation("Jump");
+        }
+
+        // PlayerControlスクリプトのGetOnPlayerMoveがtrueの場合、「Run」アニメーションを再生
+        if (GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetOnPlayerMove() == true)
+        {
+            Debug.Log("Runアニメーションを再生");
+            PlayAnimation("Run");
+        }
     }
-   
+
+    // 指定されたアニメーション名でアニメーションを再生し、再生完了後にIdleに戻す
+    private void PlayAnimation(string animationName)
+    {
+        animator.CrossFade(animationName, 0.2f);
+        StartCoroutine(ResetIdle(animator.GetCurrentAnimatorStateInfo(0).length));
+    }
+
+    // アニメーションが終わったらIdleに戻すコルーチン
+    private IEnumerator ResetIdle(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Idle();
+    }
+
+    // Idleアニメーションを再生し、状態をリセット
     public void Idle()
     {
-        animator.SetInteger("TransitonNo", 0);
+        animator.CrossFade("Idle", 0.2f);
+        yubi = false; // 状態リセット
     }
-
-    public void Yubisasi()
-    {
-        
-    }
-
-    public void Run()
-    {
-
-    }
-
-    public void Jump()
-    {
-        animator.SetInteger("TransitionNo", 3);
-    }
-
 }
-
