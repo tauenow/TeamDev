@@ -18,7 +18,15 @@ public class PlayerAnimetion : MonoBehaviour
     void Update()
     {
         CurrentTime += Time.deltaTime;
-        
+        if()
+        {
+
+        }
+        else
+        {
+
+        }
+
        if(CurrentTime >= 10)
         {
             Debug.Log("Idleda");
