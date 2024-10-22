@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameIndex
   m_EditorClassIdentifier: 
   StageNum: 1
-  DifficultyIndex: 3
-  isClearList: 010100000101000001
+  DifficultyIndex: 2
+  isClearList: 000000000000000000
   ButtonNum: 0
   SelectFaze: 0
