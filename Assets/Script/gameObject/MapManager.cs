@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 
+
 public class MapManager : MonoBehaviour
 {
 	public StageSelectManager parentManager;
@@ -106,58 +107,20 @@ public class MapManager : MonoBehaviour
 
 		Debug.Log(colorName);
 
-		//面の数の指定
-		for (int i = 1; i < textYNumber; i++)
-		{
+        for (int i = 0; i < 1; i++)
+        {
+            string[] tempWords = textData[i].Split(',');
+            for (int j = 1; j < 2; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
 
-			string[] tempWords = textData[i].Split(',');
-			for (int j = 0; j < textXNumber; j++)
-			{
-				dungeonMap[i, j] = tempWords[j];
+                faceNum = int.Parse(dungeonMap[i, j]);
+            }
+        }
 
-				state = int.Parse(dungeonMap[i, j]);
-				if (dungeonMap[i, j] != null)
-				{
-					switch (state)//スイッチ文ゴミ
-					{
-						case 0:
-							break;
-						case 1:
+		Debug.Log(faceNum);
 
-							if (faceNum < 1)
-							{
-								faceNum = 1;
-							}
-							break;
-						case 2:
-
-							if (faceNum < 2)
-							{
-								faceNum = 2;
-							}
-							break;
-						case 3:
-
-							if (faceNum < 3)
-							{
-								faceNum = 3;
-							}
-							break;
-						case 4:
-
-							if (faceNum < 4)
-							{
-								faceNum = 4;
-							}
-							break;
-						default:
-							break;
-					}
-				}
-			}
-		}
-
-		if (faceNum == 2)
+        if (faceNum == 2)
 		{
 			Floor.GetComponent<MeshRenderer>().material = color_2;
 			Debug.Log("2色です");
@@ -290,71 +253,75 @@ public class MapManager : MonoBehaviour
 	private void Update()
 	{
 
-		if (onGoal == true)
+		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TochControl>().onGoal == false)
 		{
-			parentManager.isClear = true;
-			Debug.Log(parentManager.isClear);
-			//いらないルートを消す
-			for (int i = 0; i < oldlist.Count; i++)
+			if (onGoal == true)
 			{
-				if (oldlist[i].GetRootCount() == 0)
+				parentManager.isClear = true;
+				Debug.Log(parentManager.isClear);
+				//いらないルートを消す
+				for (int i = 0; i < oldlist.Count; i++)
 				{
-					oldlist[i].CheckOldRoot();
-				}
-			}
-			//プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
-			for (int i = 0; i < oldlist.Count; i++)
-			{
-				if (oldlist[i].GetRootCount() != 0)
-				{
-					playerRoot.Add(oldlist[i].GetMapPosition());
-				}
-			}
-			//ゴールのpositionも格納
-			Floor goal = oldlist.Find(match => match.GetFloorState() == "goal");
-			playerRoot.Add(goal.GetMapPosition());
-
-			//プレイヤーのポジションに近い順にソート
-			//playerRoot.Sort((a, b) => Mathf.Sqrt(a.x * a.x + a.z * a.z).CompareTo(Mathf.Sqrt(b.x * b.x + b.z * b.z)));
-
-			for (int i = 0; i < playerRoot.Count; i++)
-			{
-				if (i != 0 && i != playerRoot.Count)
-				{
-					if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
+					if (oldlist[i].GetRootCount() == 0)
 					{
-						playerRoot.RemoveAt(i);
+						oldlist[i].CheckOldRoot();
 					}
 				}
-			}
-			//プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
-			playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
-			playerObject.GetComponent<PlayerControl>().OnPlayerMove();
-			//ゴールしたらいじれんようにする
-			GetComponent<CursorManager>().onGoal = true;
-			//一回はいればよくね？
+				//プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
+				for (int i = 0; i < oldlist.Count; i++)
+				{
+					if (oldlist[i].GetRootCount() != 0)
+					{
+						playerRoot.Add(oldlist[i].GetMapPosition());
+					}
+				}
+				//ゴールのpositionも格納
+				Floor goal = oldlist.Find(match => match.GetFloorState() == "goal");
+				playerRoot.Add(goal.GetMapPosition());
 
-			onGoal = false;
-		}
-		//マップチェック
-		if (check == true)
-		{
-			mapCheckTime += Time.deltaTime;
-		}
-		if (mapCheckTime >= 1.0f)
-		{
-			if (mapCheck == true)
-			{
-				CheckMap();
-				mapCheck = false;
+				for (int i = 0; i < playerRoot.Count; i++)
+				{
+					if (i != 0 && i != playerRoot.Count)
+					{
+						if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
+						{
+							playerRoot.RemoveAt(i);
+						}
+					}
+				}
+				//ゴールしたらいじれんようにする
+				GetComponent<CursorManager>().onGoal = true;
+				GetComponent<TochControl>().onGoal = true;
+
+                //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
+                playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
+				//プレイヤーが動くのを遅延
+				Invoke(nameof(OnGoal), 2.0f);
+
+                //一回はいればよくね？
+                onGoal = false;
 			}
-		}
-		if (mapCheckTime >= 2.0f)
-		{
-			mapCheckTime = 0.0f;
-			check = false;
-			floorChange = false;
-		}
+            //マップチェック
+            if (check == true)
+            {
+                mapCheckTime += Time.deltaTime;
+            }
+            if (mapCheckTime >= 0.5f)
+            {
+                if (mapCheck == true)
+                {
+                    CheckMap();
+                    mapCheck = false;
+                }
+            }
+            if (mapCheckTime >= 2.0f)
+            {
+                mapCheckTime = 0.0f;
+                check = false;
+                floorChange = false;
+            }
+        }
+		
 
 	}
 
@@ -506,11 +473,11 @@ public class MapManager : MonoBehaviour
 	public void InGoal()
 	{
 		onGoal = true;
-		
 	}
     public void OnGoal()
     {
-		Invoke(nameof(InGoal), 2.0f);
+
+		playerObject.GetComponent<PlayerControl>().OnPlayerMove();
 
     }
     public bool GetInGoal()

@@ -36,9 +36,8 @@ public class CursorManager : MonoBehaviour
         if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
         {
             
-            if (onGoal == false)//ゴール下なら構えない
+            if (onGoal == false)//ゴールなら構えない
             {
-
                 targetObject = hit.collider.gameObject;
                 SetCursor(false);
 

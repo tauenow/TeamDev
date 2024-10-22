@@ -6195,9 +6195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3acd397209a987c48b9400579e16d437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
+  rotateSpeed: 0.08
   Hight: 10
-  sideLength: 3
+  sideLength: 1
 --- !u!1 &1026041066 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1495794234144093740, guid: 1e87f6d30c2b3144d98790a502bf458f, type: 3}
@@ -6263,7 +6263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   map: {fileID: 3906910617886301708, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
-  MapFile1: {fileID: 4900000, guid: 1a7e090b30ad64740a74e0e9a7c7fb31, type: 3}
+  MapFile1: {fileID: 4900000, guid: ec9a1af285208cf4bb1e3e7832abdc24, type: 3}
   fade: {fileID: 172529889}
   isClear: 0
 --- !u!4 &1143344578

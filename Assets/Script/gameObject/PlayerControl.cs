@@ -52,7 +52,11 @@ public class PlayerControl : MonoBehaviour
             onGoalMove = false;
             playerClear = true;
 
-            GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
+            //クリア時のカメラ演出
+            GameObject.Find("Main Camera").GetComponent<CameraControl>().OnCameraMove();
+
+            //シーンを切り替え
+            //GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
         }
         else if (moveCount != goalRoot.Count)
         {

@@ -444,7 +444,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.OnGoal();
+                    parentMap.InGoal();
                 }
             }
         }
@@ -471,7 +471,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.OnGoal();
+                    parentMap.InGoal();
 
                 }
 
@@ -503,7 +503,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.OnGoal();
+                    parentMap.InGoal();
 
                 }
 
@@ -534,7 +534,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.OnGoal();
+                    parentMap.InGoal();
 
                 }
 
