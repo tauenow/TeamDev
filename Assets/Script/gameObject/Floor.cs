@@ -40,7 +40,9 @@ public class Floor : MonoBehaviour
 
     //選んでるときは色を発行させる
     [SerializeField]
-    private Material emissive;
+    private float blockPlayerEmissive = 0.0f;
+    [SerializeField]
+    private float blockEmissive = 0.0f;
 
 
     // Start is called before the first frame update
@@ -52,12 +54,13 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         ChangeFloor();
         if (Tap == true) TouchUpdate();
         if (Mouse == true) CursorUpdate();
-        //CursorUpdate();
+        
         LinkChangeFloor();
-
+       
     }
 
     private void ChangeFloor()
@@ -163,8 +166,8 @@ public class Floor : MonoBehaviour
                 }
             }
             //光度変更
-            if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white;
-            else GetComponent<MeshRenderer>().material.color = Color.white * 0.7f;
+            if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
+            else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
 
             motionCount = 0;
             currentTime = 0.0f;
@@ -173,22 +176,22 @@ public class Floor : MonoBehaviour
             
         }
     }
+    //マウスでの操作
     private void CursorUpdate()
     {
         if (change == false)//カーソルが当たっている時のモーション
         {
             if (linkChange == false)
             {
-                if (cursor == true || changeWait == true)
+                if (cursor == true)
                 {
-                    GetComponent<MeshRenderer>().material.color = Color.white;
                     Vector3 pos = transform.position;
                     pos.y = 0.2f;//マジックナンバーごめん
                     transform.position = pos;
                     cursor = false;
                     return;
                 }
-                else if (cursor == false || changeWait == false)
+                else if (cursor == false)
                 {
                     Vector3 pos = transform.position;
                     pos.y = 0.0f;//マジックナンバーごめん
@@ -199,6 +202,7 @@ public class Floor : MonoBehaviour
         }
 
     }
+    //スマホタップでの操作
     private void TouchUpdate()
     {
         if (change == false)//カーソルが当たっている時のモーション
@@ -245,6 +249,9 @@ public class Floor : MonoBehaviour
                         transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
                         currentLinkTime = 0.0f;
                         motionLinkCount++;
+                        //光度変更
+                        if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
+                        else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
                     }
                 }
                 //3面の時
@@ -260,6 +267,9 @@ public class Floor : MonoBehaviour
                             transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
                             faceCount = 1;
                         }
+                        //光度変更
+                        if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
+                        else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
                     }
                     else if (motionLinkCount < changeMotionCount)
                     {
@@ -291,6 +301,13 @@ public class Floor : MonoBehaviour
         position.x = posX;
         position.z = posZ;
         state = num;
+
+        //光度変更
+        if(state == "player") GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
+        else if (state == "goal") GetComponent<MeshRenderer>().material.color = Color.white;
+        else if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
+        else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
+
     }
     public void SetFloorState(string num)
     {
@@ -427,11 +444,10 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.InGoal();
+                    parentMap.OnGoal();
                 }
             }
         }
-
         //Debug.Log("↓を調べます");
         if (obj2 != null)
         {
@@ -455,7 +471,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.InGoal();
+                    parentMap.OnGoal();
 
                 }
 
@@ -487,7 +503,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.InGoal();
+                    parentMap.OnGoal();
 
                 }
 
@@ -518,7 +534,7 @@ public class Floor : MonoBehaviour
                     Debug.Log("goalです");
                     rootCount++;
                     //ゴールしたことをマップマネージャーに伝える
-                    parentMap.InGoal();
+                    parentMap.OnGoal();
 
                 }
 

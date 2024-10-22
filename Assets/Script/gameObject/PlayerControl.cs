@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerControl : MonoBehaviour
 {
 
@@ -20,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     private float currentTime = 0.0f;
 
     //プレイヤーがステージをクリアした
-    private bool isClear = false;
+    private bool playerClear = false;
 
     void Start()
     {
@@ -49,7 +50,9 @@ public class PlayerControl : MonoBehaviour
         if(moveCount == goalRoot.Count)
         {
             onGoalMove = false;
-            isClear = true;
+            playerClear = true;
+
+            GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
         }
         else if (moveCount != goalRoot.Count)
         {
@@ -116,5 +119,9 @@ public class PlayerControl : MonoBehaviour
         position.x = pos.x;
         position.z = pos.z;
 
+    }
+    public bool GetClear()
+    {
+        return playerClear;
     }
 }

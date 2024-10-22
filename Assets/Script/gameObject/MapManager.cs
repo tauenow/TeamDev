@@ -7,9 +7,7 @@ using Unity.VisualScripting;
 
 public class MapManager : MonoBehaviour
 {
-
-	[SerializeField]
-	private StageSelectManager parentManager;
+	public StageSelectManager parentManager;
 
 	[Header("マップのデータファイル")]
 	public TextAsset MapFile;
@@ -194,54 +192,63 @@ public class MapManager : MonoBehaviour
 							break;
 						case 1:
 							GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
+                            floor1.GetComponent<Floor>().SetParentmap(this);
+                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
 							floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
 							floor1.GetComponent<Floor>().SetFaceCount(1);
 							mapObjects.Add(floor1);
-							floor1.GetComponent<Floor>().SetParentmap(this);
+							
 
 							break;
 
 						case 2:
 							GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
+                            floor2.GetComponent<Floor>().SetParentmap(this);
+                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
 							floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
 							floor2.GetComponent<Floor>().SetFaceCount(2);
 							mapObjects.Add(floor2);
-							floor2.GetComponent<Floor>().SetParentmap(this);
+							
 
 							break;
 						case 3:
 							GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
+                            floor3.GetComponent<Floor>().SetParentmap(this);
+                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
 							floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
 							floor3.GetComponent<Floor>().SetFaceCount(3);
 							mapObjects.Add(floor3);
-							floor3.GetComponent<Floor>().SetParentmap(this);
+							
 
 							break;
 						case 4:
 							GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
-							floor4.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            floor4.GetComponent<Floor>().SetParentmap(this);
+                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
+							floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
 							mapObjects.Add(floor4);
-							floor4.GetComponent<Floor>().SetParentmap(this);
+							
 
 							break;
 						case 5:
 							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
+                            floor5.GetComponent<Floor>().SetParentmap(this);
+                            floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
 							mapObjects.Add(floor5);
-							floor5.GetComponent<Floor>().SetParentmap(this);
-
+							
 
 							break;
 						case 6:
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-							floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
-							floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
-							mapObjects.Add(floor6);
-							floor6.GetComponent<Floor>().SetParentmap(this);
+                            floor6.GetComponent<Floor>().SetParentmap(this);
+                            floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
+							if(colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            else if (colorName == "blue") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            else if (colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
+                            else if (colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
+
+                            mapObjects.Add(floor6);
+							
 
 							//プレイヤー生成
 							playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
@@ -285,6 +292,8 @@ public class MapManager : MonoBehaviour
 
 		if (onGoal == true)
 		{
+			parentManager.isClear = true;
+			Debug.Log(parentManager.isClear);
 			//いらないルートを消す
 			for (int i = 0; i < oldlist.Count; i++)
 			{
@@ -497,8 +506,14 @@ public class MapManager : MonoBehaviour
 	public void InGoal()
 	{
 		onGoal = true;
+		
 	}
-	public bool GetIsGoal()
+    public void OnGoal()
+    {
+		Invoke(nameof(InGoal), 2.0f);
+
+    }
+    public bool GetInGoal()
 	{
 		return onGoal;
 	}

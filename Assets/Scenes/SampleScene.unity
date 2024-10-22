@@ -503,6 +503,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6132419608564412803, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
   m_PrefabInstance: {fileID: 172529886}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &172529889 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 575447487377624101, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
+  m_PrefabInstance: {fileID: 172529886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &195722196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6253,6 +6264,8 @@ MonoBehaviour:
   StageObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   map: {fileID: 3906910617886301708, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
   MapFile1: {fileID: 4900000, guid: 1a7e090b30ad64740a74e0e9a7c7fb31, type: 3}
+  fade: {fileID: 172529889}
+  isClear: 0
 --- !u!4 &1143344578
 Transform:
   m_ObjectHideFlags: 0

@@ -31,8 +31,9 @@ public class FadeINOUT : MonoBehaviour
 	[SerializeField]
 	private List<Button> transitionButtons;
 
-	// ボタンに対応するシーン名のリスト
-	[SerializeField]
+    [Header("ボタンに対応するシーン名のリスト")]
+    // ボタンに対応するシーン名のリスト
+    [SerializeField]
 	private List<string> sceneNames;
 
 	// フェードアウトをトリガーする方法の選択肢
@@ -134,4 +135,13 @@ public class FadeINOUT : MonoBehaviour
 		// 最終的にフェードを完全に不透明に設定
 		material.SetFloat("_Alpha", 1);
 	}
+
+	public void FadeToChangeScene()
+	{
+        // 最初のシーン名を使ってフェードアウトを開始
+        if (sceneNames.Count > 0)
+        {
+            StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+        }
+    }
 }
