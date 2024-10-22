@@ -118,5 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d640f99b43e5e154589534a6a69d640e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mouse: 1
+  Tap: 1
   motionFrame: 0.01
   Hight: 0
+  emissive: {fileID: 0}
