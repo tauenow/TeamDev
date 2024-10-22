@@ -122,5 +122,5 @@ MonoBehaviour:
   Tap: 1
   motionFrame: 0.01
   Hight: 0
-  blockPlayerEmissive: 1.2
-  blockEmissive: 0.7
+  blockPlayerEmissive: 1
+  blockEmissive: 1

@@ -206,7 +206,7 @@ public class MapManager : MonoBehaviour
                             floor6.GetComponent<Floor>().SetParentmap(this);
                             floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
 							if(colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
-                            else if (colorName == "blue") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            else if (colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
                             else if (colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
                             else if (colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
 
