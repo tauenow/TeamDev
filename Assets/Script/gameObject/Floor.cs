@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    public bool Mouse = false;
+    public bool Tap = false;
+
     //Floorの変数
     private Vector3 position;//このFloorの2次元配列のポジション
     private string state;//２次元配列で登録されている文字ナンバー
@@ -32,6 +35,13 @@ public class Floor : MonoBehaviour
     private bool cursor = false;
     //色の数
     private int faceCount = 1;
+    //色情報を変える
+    private bool link = true;
+
+    //選んでるときは色を発行させる
+    [SerializeField]
+    private Material emissive;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +53,9 @@ public class Floor : MonoBehaviour
     void Update()
     {
         ChangeFloor();
-        CursorUpdate();
+        if (Tap == true) TouchUpdate();
+        if (Mouse == true) CursorUpdate();
+        //CursorUpdate();
         LinkChangeFloor();
 
     }
@@ -52,6 +64,15 @@ public class Floor : MonoBehaviour
     {
         if (change == true)//床の色を変えるモーション
         {
+            //一回しか入らないようにする
+            if(link == true)
+            {
+                Debug.Log("周りも変えるで");
+                GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
+                //周辺の色情報を変更
+                parentMap.LinkChangeMapFloor(obj);
+                link = false;
+            }
             currentTime += Time.deltaTime;
 
             //ここら辺のモーションは変えたほうが良い
@@ -126,8 +147,8 @@ public class Floor : MonoBehaviour
 
             if (obj != null)
             {
-                //周りも変える
-                //parentMap.linkChangeFloor(obj);
+                parentMap.LinkChangeMapFloorMotion(obj);
+                link = true;
             }
             if (obj == null)
             {
@@ -144,8 +165,9 @@ public class Floor : MonoBehaviour
 
             motionCount = 0;
             currentTime = 0.0f;
-            change = false;
             changeWait = false;
+            change = false;
+            
         }
     }
     private void CursorUpdate()
@@ -156,15 +178,17 @@ public class Floor : MonoBehaviour
             {
                 if (cursor == true || changeWait == true)
                 {
+                    GetComponent<MeshRenderer>().material.color = Color.white;
                     Vector3 pos = transform.position;
-                    pos.y = 1.0f;//マジックナンバーごめん
+                    pos.y = 0.2f;//マジックナンバーごめん
                     transform.position = pos;
                     cursor = false;
                     return;
                 }
                 else if (cursor == false || changeWait == false)
                 {
-                    
+                    if (state == parentMap.GetColorName()) GetComponent<MeshRenderer>().material.color = Color.white;
+                    else GetComponent<MeshRenderer>().material.color = Color.white * 0.7f;
                     Vector3 pos = transform.position;
                     pos.y = 0.0f;//マジックナンバーごめん
                     transform.position = pos;
@@ -173,6 +197,29 @@ public class Floor : MonoBehaviour
             }
         }
 
+    }
+    private void TouchUpdate()
+    {
+        if (change == false)//カーソルが当たっている時のモーション
+        {
+            if (linkChange == false)
+            {
+                if (changeWait == true)
+                {
+                    Vector3 pos = transform.position;
+                    pos.y = 0.3f;//マジックナンバーごめん
+                    transform.position = pos;
+                    return;
+                }
+                else if (changeWait == false)
+                {
+                    Vector3 pos = transform.position;
+                    pos.y = 0.0f;//マジックナンバーごめん
+                    transform.position = pos;
+
+                }
+            }
+        }
     }
     private void LinkChangeFloor()
     {
