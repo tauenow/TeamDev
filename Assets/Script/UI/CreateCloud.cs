@@ -57,6 +57,7 @@ public class CreateCloud : MonoBehaviour
 					}
 				}
 				break;
+
 			case 2:
 				while (true)
 				{
@@ -81,6 +82,7 @@ public class CreateCloud : MonoBehaviour
 					}
 				}
 				break;
+
 			case 3:
 				while (true)
 				{
@@ -105,6 +107,7 @@ public class CreateCloud : MonoBehaviour
 					}
 				}
 				break;
+
 		}
 	}
 }

@@ -12,8 +12,6 @@ public class MoveBg : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		Debug.Log(scriptableNum.DifficultyIndex);
-
 		switch (scriptableNum.DifficultyIndex)
 		{
 			case 1:
