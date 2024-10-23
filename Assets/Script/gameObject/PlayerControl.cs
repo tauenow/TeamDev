@@ -57,16 +57,13 @@ public class PlayerControl : MonoBehaviour
         }
         else if (moveCount != goalRoot.Count)
         {
-            Vector3 transformLookPos = goalRoot[moveCount];
-            transformLookPos.y += 1;
-          
-            transform.LookAt(transformLookPos);
-
+            
             if (goalRoot[moveCount].x > position.x)
             {
                 Vector3 transformPos = transform.position;
                 transformPos.x += playerMoveTime;
                 transform.position = transformPos;
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                
             }
             else if (goalRoot[moveCount].x < position.x)
@@ -74,21 +71,21 @@ public class PlayerControl : MonoBehaviour
                 Vector3 transformPos = transform.position;
                 transformPos.x -= playerMoveTime;
                 transform.position = transformPos;
-                
+                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
             }
             else if (goalRoot[moveCount].z > position.z)
             {
                 Vector3 transformPos = transform.position;
                 transformPos.z -= playerMoveTime;
                 transform.position = transformPos;
-                
+                transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
             }
             else if (goalRoot[moveCount].z < position.z)
             {
                 Vector3 transformPos = transform.position;
                 transformPos.z += playerMoveTime;
                 transform.position = transformPos;
-                
+                transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             }
 
             moveFrame += playerMoveTime;

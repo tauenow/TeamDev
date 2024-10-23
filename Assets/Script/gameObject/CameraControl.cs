@@ -16,8 +16,10 @@ public class CameraControl : MonoBehaviour
     private float cameraZpos = 0.0f;
     [SerializeField]
     private float sideLength = 0.0f;
-    bool center = false;
+    private bool center = false;
     private bool clearCameraMove = false;
+    private bool isResult = false;
+
     // 補完スピードを決める
     [SerializeField]
     private float speed = 0.01f;
@@ -134,13 +136,18 @@ public class CameraControl : MonoBehaviour
             clearCameraMove = false;
             currentTime = 0.0f;
             motionCount = 0;
+            isResult = true;
+            Debug.Log("リザルトはいりました");
             //GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
-
         }
 
     }
     public void OnCameraMove()
     {
         clearCameraMove = true;
+    }
+    public bool GetIsResult()
+    {
+        return isResult;
     }
 }

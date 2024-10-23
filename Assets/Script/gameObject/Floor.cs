@@ -71,6 +71,9 @@ public class Floor : MonoBehaviour
 			//一回しか入らないようにする
 			if (link == true)
 			{
+                Vector3 lookPos = transform.position;
+                lookPos.y += 1.0f;
+                GameObject.Find("Player(Clone)").transform.LookAt(lookPos);
 				Debug.Log("周りも変えるで");
 				GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
 				//周辺の色情報を変更
@@ -408,34 +411,21 @@ public class Floor : MonoBehaviour
 		rootCount = 0;
 		List<GameObject> objList = new();
 
+		bool goal = false;
+
 		GameObject obj1 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z - 1);
 		GameObject obj2 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == (GetComponent<Floor>().GetMapPosition().z + 1));
 		GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
 		GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
 
 
-		//Debug.Log("↑を調べます");
-
 		if (obj1 != null)
 		{
 			if (parentMap.GetOldList().Contains(obj1.GetComponent<Floor>()) == false)
-			{
-
-				//Debug.Log("探索してきたlistの中になかったのでチェックします"
-				if (obj1.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+			{ 
+				if (obj1.GetComponent<Floor>().GetFloorState() == "goal")
 				{
-					parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
-
-					//Debug.Log("↑は赤です");
-					//rootの数と自分の情報を登録                                                      
-					rootCount++;
-					obj1.GetComponent<Floor>().SetOldFloor(this);
-					objList.Add(obj1);
-
-
-				}
-				else if (obj1.GetComponent<Floor>().GetFloorState() == "goal")
-				{
+					goal = true;
 					parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
@@ -444,26 +434,14 @@ public class Floor : MonoBehaviour
 				}
 			}
 		}
-		//Debug.Log("↓を調べます");
 		if (obj2 != null)
 		{
 			if (parentMap.GetOldList().Contains(obj2.GetComponent<Floor>()) == false)
 			{
-
-				//Debug.Log("探索してきたlistの中になかったのでチェックします");
-
-				if (obj2.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+				if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
 				{
-					parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
-
-					//Debug.Log("↓は赤です");
-					rootCount++;
-					obj2.GetComponent<Floor>().SetOldFloor(this);
-					objList.Add(obj2);
-				}
-				else if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
-				{
-					parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    goal = true;
+                    parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -473,29 +451,14 @@ public class Floor : MonoBehaviour
 
 			}
 		}
-
-		//Debug.Log("←を調べます");
 		if (obj3 != null)
 		{
 			if (parentMap.GetOldList().Contains(obj3.GetComponent<Floor>()) == false)
 			{
-
-				//Debug.Log("探索してきたlistの中になかったのでチェックします");
-
-				if (obj3.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+				if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
 				{
-					parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
-
-
-					//Debug.Log("←は赤です");
-					//rootの数と自分の情報を登録
-					rootCount++;
-					obj3.GetComponent<Floor>().SetOldFloor(this);
-					objList.Add(obj3);
-				}
-				else if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
-				{
-					parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    goal = true;
+                    parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -505,28 +468,14 @@ public class Floor : MonoBehaviour
 
 			}
 		}
-
-
-		//Debug.Log("→を調べます");
 		if (obj4 != null)
 		{
 			if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
 			{
-				//探索していたlistの中になければ進む
-				if (obj4.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+				if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
 				{
-					parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
-
-					//Debug.Log("→は赤です");
-					//rootの数と自分の情報を登録
-					rootCount++;
-					obj4.GetComponent<Floor>().SetOldFloor(this);
-					objList.Add(obj4);
-
-				}
-				else if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
-				{
-					parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    goal = true;
+                    parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -537,33 +486,112 @@ public class Floor : MonoBehaviour
 			}
 		}
 
-		Debug.Log(position.x);
+		//ゴールに到達してなかったら
+		if (goal == false)
+		{
+			if (obj1 != null)
+			{
+				if (parentMap.GetOldList().Contains(obj1.GetComponent<Floor>()) == false)
+				{
+
+					//Debug.Log("探索してきたlistの中になかったのでチェックします"
+					if (obj1.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+					{
+						parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
+
+						//rootの数と自分の情報を登録                                                      
+						rootCount++;
+						obj1.GetComponent<Floor>().SetOldFloor(this);
+						objList.Add(obj1);
+
+
+					}
+				}
+			}
+			//Debug.Log("↓を調べます");
+			if (obj2 != null)
+			{
+				if (parentMap.GetOldList().Contains(obj2.GetComponent<Floor>()) == false)
+				{
+
+					if (obj2.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+					{
+						parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録;
+						rootCount++;
+						obj2.GetComponent<Floor>().SetOldFloor(this);
+						objList.Add(obj2);
+					}
+				}
+			}
+
+			//Debug.Log("←を調べます");
+			if (obj3 != null)
+			{
+				if (parentMap.GetOldList().Contains(obj3.GetComponent<Floor>()) == false)
+				{
+
+					if (obj3.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+					{
+						parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+
+						//rootの数と自分の情報を登録
+						rootCount++;
+						obj3.GetComponent<Floor>().SetOldFloor(this);
+						objList.Add(obj3);
+					}
+				}
+			}
+
+
+			//Debug.Log("→を調べます");
+			if (obj4 != null)
+			{
+				if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
+				{
+					//探索していたlistの中になければ進む
+					if (obj4.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
+					{
+						parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+
+						//rootの数と自分の情報を登録
+						rootCount++;
+						obj4.GetComponent<Floor>().SetOldFloor(this);
+						objList.Add(obj4);
+					}
+				}
+			}
+		}
+
+
+        Debug.Log(position.x);
 		Debug.Log(position.z);
-
-		if (objList.Count == 1)
+		if (goal == false)
 		{
-			StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
-		}
-		else if (objList.Count == 2)
-		{
-			StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
+			if (objList.Count == 1)
+			{
+				StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
+			}
+			else if (objList.Count == 2)
+			{
+				StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
 
-		}
-		else if (objList.Count == 3)
-		{
-			StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 3].GetComponent<Floor>().Check());
+			}
+			else if (objList.Count == 3)
+			{
+				StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 3].GetComponent<Floor>().Check());
 
-		}
-		else if (objList.Count == 4)
-		{
-			StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 3].GetComponent<Floor>().Check());
-			StartCoroutine(objList[objList.Count - 4].GetComponent<Floor>().Check());
+			}
+			else if (objList.Count == 4)
+			{
+				StartCoroutine(objList[objList.Count - 1].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 2].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 3].GetComponent<Floor>().Check());
+				StartCoroutine(objList[objList.Count - 4].GetComponent<Floor>().Check());
 
+			}
 		}
 	}
 
@@ -574,7 +602,6 @@ public class Floor : MonoBehaviour
 	}
 	public void CheckOldRoot()
 	{
-
 		//rootが一つもなかったら前の情報のrootも確認
 		if (rootCount == 0)
 		{

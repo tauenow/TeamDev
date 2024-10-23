@@ -255,7 +255,7 @@ public class MapManager : MonoBehaviour
 	private void Update()
 	{
 
-		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TochControl>().onGoal == false)
+		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TouchControl>().onGoal == false)
 		{
 			if (onGoal == true)
 			{
@@ -293,7 +293,7 @@ public class MapManager : MonoBehaviour
 				}
 				//ゴールしたらいじれんようにする
 				GetComponent<CursorManager>().onGoal = true;
-				GetComponent<TochControl>().onGoal = true;
+				GetComponent<TouchControl>().onGoal = true;
 
 				//プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
 				playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
@@ -368,11 +368,6 @@ public class MapManager : MonoBehaviour
 
 		oldlist.Add(player.GetComponent<Floor>());
 		player.GetComponent<Floor>().CheckFloor();
-
-		//フロアの上下上下のフロアに行けるかどうか
-		//元居た場所には戻らないようにする(通ってきたフロアの座標をlistで保管するとか)
-		//今配置してあるプレイヤーが通れるフロアのlistを作り、つながっているかどうかの判定をするのはどう？
-		//配置してあるブロックごとに上と下と左と右のブロックの情報をチェックするやり方はどう？ ←採用
 
 	}
 

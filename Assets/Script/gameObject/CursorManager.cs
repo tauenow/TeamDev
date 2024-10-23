@@ -16,6 +16,8 @@ public class CursorManager : MonoBehaviour
     RaycastHit hit;
     GameObject targetObject;
 
+    private bool result = false;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -23,6 +25,14 @@ public class CursorManager : MonoBehaviour
     }
     void Update()
     {
+        if(result == true)
+        {
+            ClickChangeScene();
+        }
+        else if (mainCamera.GetComponent<CameraControl>().GetIsResult() == true)
+        {
+            Invoke(nameof(OnResultClick), 2.0f);
+        }
         CastRay();
     }
     void OnDisable()
@@ -69,6 +79,13 @@ public class CursorManager : MonoBehaviour
         }
 
     }
+    void ClickChangeScene()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
+        }
+    }
     // 対象のオブジェクトを調べる処理
     void LookUpTargetObject()
     {
@@ -91,5 +108,10 @@ public class CursorManager : MonoBehaviour
         {
             Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.Auto);
         }
+    }
+    void OnResultClick()
+    {
+        Debug.Log("シーン変えれるで");
+        result = true;
     }
 }

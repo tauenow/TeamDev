@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
-public class TochControl : MonoBehaviour
+public class TouchControl : MonoBehaviour
 {
     //ゴールしました
     public bool onGoal = false;
@@ -14,6 +14,8 @@ public class TochControl : MonoBehaviour
     //レイでヒットしたオブジェクト
     GameObject targetObject;
 
+    private bool result = false;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -21,6 +23,14 @@ public class TochControl : MonoBehaviour
     void Update()
     {
         CastRay();
+        if(result == true)
+        {
+            TouchChangeScene();
+        }
+        else if(mainCamera.GetComponent<CameraControl>().GetIsResult() == true)
+        {
+            Invoke(nameof(OnResultTouch), 2.0f);
+        }
     }
     // マウスカーソルの位置から「レイ」を飛ばして、何かのコライダーに当たるかどうかをチェック
     void CastRay()
@@ -78,6 +88,16 @@ public class TochControl : MonoBehaviour
         if (Input.touchCount <= 0) return;
         
     }
+    void TouchChangeScene()
+    {
+        if (Input.touchCount <= 0) return;
+        Touch touch = Input.GetTouch(0);
+        if (touch.phase == TouchPhase.Began)
+        {
+            GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
+        }
+
+    }
     // 対象のオブジェクトを調べる処理
     void LookUpTargetObject()
     {
@@ -88,6 +108,10 @@ public class TochControl : MonoBehaviour
         //targetObject.GetComponent<InteractableObject>().LookUp();
         // このコンポーネントを無効にする（そうしないと調べている最中に別のオブジェクトを調べることができてしまう）
         //enabled = false;
+    }
+    void OnResultTouch()
+    {
+        result = true;
     }
    
 }

@@ -124,4 +124,4 @@ MonoBehaviour:
   Hight: 0
   blockPlayerEmissive: 1
   blockEmissive: 0.9
-  effect: {fileID: 0}
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}

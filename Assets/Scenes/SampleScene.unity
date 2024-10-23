@@ -6285,7 +6285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   map: {fileID: 3906910617886301708, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
-  MapFile1: {fileID: 4900000, guid: 0a8967ab6201daf43b74603086748497, type: 3}
+  MapFile1: {fileID: 4900000, guid: 1af92b1514eaf7141820237097323e5f, type: 3}
   fade: {fileID: 172529889}
   isClear: 0
 --- !u!4 &1143344578
