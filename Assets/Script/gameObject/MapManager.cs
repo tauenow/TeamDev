@@ -105,7 +105,10 @@ public class MapManager : MonoBehaviour
 			}
 		}
 
-		Debug.Log(colorName);
+		if(colorName != "red" && colorName != "blue"&& colorName != "yellow"&& colorName != "green")
+		{
+			Debug.Log("スペルミスっとるよ");
+		}
 
         for (int i = 0; i < 1; i++)
         {
@@ -225,7 +228,6 @@ public class MapManager : MonoBehaviour
 			}
 		}
 
-		Debug.Log("センターを登録");
 		if (centerPosRegister == false)//センターポスがなかったら登録する
 		{
 			startPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -476,7 +478,6 @@ public class MapManager : MonoBehaviour
 	}
     public void OnGoal()
     {
-
 		playerObject.GetComponent<PlayerControl>().OnPlayerMove();
 
     }
@@ -492,6 +493,16 @@ public class MapManager : MonoBehaviour
 	public string GetColorName()
 	{
 		return colorName;
+	}
+	public int GetMapSize()
+	{
+		int size = 0;
+
+		if(textYNumber > textXNumber) size = textYNumber;
+        else if (textYNumber < textXNumber) size = textXNumber;
+        else if (textYNumber == textXNumber) size = textYNumber;
+
+        return size;
 	}
 
 }
