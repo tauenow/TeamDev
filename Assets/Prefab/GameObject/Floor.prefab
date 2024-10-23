@@ -125,3 +125,4 @@ MonoBehaviour:
   blockPlayerEmissive: 1
   blockEmissive: 0.9
   scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  effectObject: {fileID: 7967224540855992966, guid: 49815a7668293754aa7a57d710a2eb7f, type: 3}

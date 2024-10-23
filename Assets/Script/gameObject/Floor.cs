@@ -46,6 +46,11 @@ public class Floor : MonoBehaviour
 
 	[Header("共有オブジェクト")][SerializeField] private StageScriptableObject scriptableObject;
 
+	[Header("エフェクト")]
+	[SerializeField]
+	private GameObject effectObject = null;
+	private GameObject effect = null;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -173,7 +178,13 @@ public class Floor : MonoBehaviour
 			if (state == scriptableObject.colorName) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
 			else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
 
-			motionCount = 0;
+		    effect = Instantiate(effectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + 0.5f), Quaternion.identity) as GameObject;
+			effect.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+			effect.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+
+			Invoke(nameof(DestroyObject), 1.0f);
+
+            motionCount = 0;
 			currentTime = 0.0f;
 			changeWait = false;
 			change = false;
@@ -653,6 +664,10 @@ public class Floor : MonoBehaviour
 	public bool GetChangeWait()
 	{
 		return changeWait;
+	}
+	private void DestroyEffect()
+	{
+		Destroy(effect);
 	}
 
 }

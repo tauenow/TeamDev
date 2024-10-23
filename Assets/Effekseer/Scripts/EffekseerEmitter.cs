@@ -403,6 +403,7 @@ namespace Effekseer
 				return _speed;
 			}
 		}
+		[SerializeField]
 		private float _speed = 1.0f;
 
 		/// <summary xml:lang="en">
