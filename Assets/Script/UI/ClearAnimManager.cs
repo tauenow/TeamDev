@@ -25,11 +25,11 @@ public class ClearAnimManager : MonoBehaviour
 		if (ssMng.isClear)
 		{
 			// ‰æ‘œ‚ÌˆÚ“®
-			moveImage[0].transform.DOMoveY(1150.0f, 1.0f).SetEase(Ease.OutCubic);
-			moveImage[1].transform.DOMoveY(1150.0f, 1.0f).SetEase(Ease.OutCubic);
+			moveImage[0].transform.DOLocalMoveY(1150.0f, 1.0f).SetEase(Ease.OutCubic);
+			moveImage[1].transform.DOLocalMoveY(1150.0f, 1.0f).SetEase(Ease.OutCubic);
 			// ƒ{ƒ^ƒ“‚ÌˆÚ“®
-			moveButton[0].transform.DOMoveY(-1150.0f, 1.0f).SetEase(Ease.OutCubic);
-			moveButton[1].transform.DOMoveY(-1150.0f, 1.0f).SetEase(Ease.OutCubic);
+			moveButton[0].transform.DOLocalMoveY(-1150.0f, 1.0f).SetEase(Ease.OutCubic);
+			moveButton[1].transform.DOLocalMoveY(-1150.0f, 1.0f).SetEase(Ease.OutCubic);
 		}
 	}
 }
