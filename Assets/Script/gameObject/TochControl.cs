@@ -47,19 +47,21 @@ public class TochControl : MonoBehaviour
                     }
                     else if (targetObject.CompareTag("Floor"))
                     {
-
-                        if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
+                        if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                         {
-                            targetObject.GetComponent<Floor>().SetChangeWait(true);
-                        }
-                        else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
-                        {
-                            if (MapManager.floorChange == false)
+                            if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                             {
+                                targetObject.GetComponent<Floor>().SetChangeWait(true);
+                            }
+                            else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
+                            {
+                                if (MapManager.floorChange == false)
+                                {
 
-                                MapManager.floorChange = true;
-                                GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
+                                    MapManager.floorChange = true;
+                                    GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
 
+                                }
                             }
                         }
                     }

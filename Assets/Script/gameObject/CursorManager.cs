@@ -43,16 +43,19 @@ public class CursorManager : MonoBehaviour
 
                 if (hit.collider.gameObject.CompareTag("Floor"))
                 {
-                    targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
-                                                                  //カーソルが当たっているのをfloorのobjectに伝えたい
-                    if (MapManager.floorChange == false)
+                    if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                     {
-                        if (Input.GetMouseButtonDown(0))
+                        targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
+                                                                      //カーソルが当たっているのをfloorのobjectに伝えたい
+                        if (MapManager.floorChange == false)
                         {
+                            if (Input.GetMouseButtonDown(0))
+                            {
 
-                            MapManager.floorChange = true;
-                            GetComponent<MapManager>().ChangeMap(targetObject);
+                                MapManager.floorChange = true;
+                                GetComponent<MapManager>().ChangeMap(targetObject);
 
+                            }
                         }
                     }
                 }

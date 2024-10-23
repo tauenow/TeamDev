@@ -317,12 +317,10 @@ public class Floor : MonoBehaviour
             if (num == "red")
             {
                 state = "blue";
-                Debug.Log("青になりました");
             }
             else if (num == "blue")
             {
                 state = "red";
-                Debug.Log("赤になりました");
             }
         }
         if (parentMap.GetFaceNum() == 3)//三色の場合
@@ -330,17 +328,14 @@ public class Floor : MonoBehaviour
             if (num == "red")
             {
                 state = "blue";
-                Debug.Log("青になりました");
             }
             else if (num == "blue")
             {
                 state = "yellow";
-                Debug.Log("黄色になりました");
             }
             else if (num == "yellow")
             {
                 state = "red";
-                Debug.Log("赤になりました");
             }
         }
         if (parentMap.GetFaceNum() == 4)//四色の場合
