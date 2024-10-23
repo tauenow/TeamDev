@@ -1,62 +1,73 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerAnimetion : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
-    private float currentTime;
-    private bool yubi = false;
+    private bool isYubisasiPlaying = false; // Yubisasiの状態を管理
 
     void Start()
     {
-        // Animatorコンポーネントを取得
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        currentTime += Time.deltaTime;
-
-        // MapManager.floorChangeがtrueになった場合、「Yubisasi」アニメーションを再生
-        if (!yubi && MapManager.floorChange)
-        {
-            yubi = true;
-            PlayAnimation("Yubisasi");
-        }
-
-        // PlayerControlスクリプトのGetClearがtrueの場合、「Jump」アニメーションを再生
-        if (GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetClear() == true)
-        {
-            Debug.Log("Jumpアニメーションを再生");
-            PlayAnimation("Jump");
-        }
-
-        // PlayerControlスクリプトのGetOnPlayerMoveがtrueの場合、「Run」アニメーションを再生
-        if (GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetOnPlayerMove() == true)
-        {
-            Debug.Log("Runアニメーションを再生");
-            PlayAnimation("Run");
-        }
+        HandleYubisasiAnimation();
+        HandleOtherAnimations();
     }
 
-    // 指定されたアニメーション名でアニメーションを再生し、再生完了後にIdleに戻す
-    private void PlayAnimation(string animationName)
+    // Yubisasiアニメーションの管理
+    private void HandleYubisasiAnimation()
     {
-        animator.CrossFade(animationName, 0.2f);
-        StartCoroutine(ResetIdle(animator.GetCurrentAnimatorStateInfo(0).length));
+        if (!isYubisasiPlaying && MapManager.floorChange)
+        {
+            PlayYubisasi();
+        }
     }
 
-    // アニメーションが終わったらIdleに戻すコルーチン
-    private IEnumerator ResetIdle(float delay)
+    // Yubisasi再生
+    private void PlayYubisasi()
+    {
+        animator.SetBool("Yubisasi", true);
+        isYubisasiPlaying = true;
+        MapManager.floorChange = false; // 条件をリセット
+        StartCoroutine(OffYubisasi(1.5f)); // 3秒後にYubisasiを終了する
+    }
+
+    // 他のアニメーションの管理
+    private void HandleOtherAnimations()
+    {
+        if (isYubisasiPlaying) return; // Yubisasiが再生中の場合、他のアニメーションを無効にする
+
+        PlayerControl playerControl = GameObject.Find("Player(Clone)").GetComponent<PlayerControl>();
+
+        if (playerControl.GetClear())
+        {
+            SetAnimationState("Jump");
+        }
+        else if (playerControl.GetOnPlayerMove())
+        {
+            SetAnimationState("Run");
+        }
+        else
+        {
+            SetAnimationState("Idle");
+        }
+    }
+
+    // アニメーション状態の設定
+    private void SetAnimationState(string state)
+    {
+        animator.SetBool("Idle", state == "Idle");
+        animator.SetBool("Run", state == "Run");
+        animator.SetBool("Jump", state == "Jump");
+    }
+
+    private IEnumerator OffYubisasi(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Idle();
-    }
-
-    // Idleアニメーションを再生し、状態をリセット
-    public void Idle()
-    {
-        animator.CrossFade("Idle", 0.2f);
-        yubi = false; // 状態リセット
+        animator.SetBool("Yubisasi", false); // Yubisasiを終了
+        isYubisasiPlaying = false;
     }
 }
