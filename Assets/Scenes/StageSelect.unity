@@ -586,7 +586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 380, y: 125.000015}
+  m_AnchoredPosition: {x: 400, y: 125.000015}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287423551
@@ -789,7 +789,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveButton: {fileID: 287423552}
   MoveSpeed: 1
-  MoveDistance: 0.1
+  MoveDistance: 25
+  startPos: 410
   Revars: 1
 --- !u!1001 &305880904
 PrefabInstance:
@@ -2296,7 +2297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: 125}
+  m_AnchoredPosition: {x: -410, y: 125}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031909626
@@ -2499,7 +2500,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveButton: {fileID: 1031909627}
   MoveSpeed: 1
-  MoveDistance: 0.1
+  MoveDistance: 25
+  startPos: 410
   Revars: 0
 --- !u!1001 &1129876255
 PrefabInstance:

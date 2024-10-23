@@ -12,4 +12,5 @@ public class StageScriptableObject : UnityEngine.ScriptableObject
 	public List<bool> isClearList = new List<bool>();
 	[SerializeField] public int ButtonNum = 0;
 	public int SelectFaze = 0;
+	public string colorName = "None";
 }

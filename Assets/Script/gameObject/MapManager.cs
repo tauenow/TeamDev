@@ -73,8 +73,8 @@ public class MapManager : MonoBehaviour
 	//面の数
 	private int faceNum = 0;
 
-	//プレイヤーが通る色
-	private string colorName = "None";
+	[Header("共有オブジェクト")]
+	[SerializeField] private StageScriptableObject scriptableObject;
 
 	private void Start()
 	{
@@ -101,29 +101,29 @@ public class MapManager : MonoBehaviour
 			{
 				dungeonMap[i, j] = tempWords[j];
 
-				colorName = dungeonMap[i, j];
+				scriptableObject.colorName = dungeonMap[i, j];
 			}
 		}
 
-		if(colorName != "red" && colorName != "blue"&& colorName != "yellow"&& colorName != "green")
+		if (scriptableObject.colorName != "red" && scriptableObject.colorName != "blue" && scriptableObject.colorName != "yellow" && scriptableObject.colorName != "green")
 		{
 			Debug.Log("スペルミスっとるよ");
 		}
 
-        for (int i = 0; i < 1; i++)
-        {
-            string[] tempWords = textData[i].Split(',');
-            for (int j = 1; j < 2; j++)
-            {
-                dungeonMap[i, j] = tempWords[j];
+		for (int i = 0; i < 1; i++)
+		{
+			string[] tempWords = textData[i].Split(',');
+			for (int j = 1; j < 2; j++)
+			{
+				dungeonMap[i, j] = tempWords[j];
 
-                faceNum = int.Parse(dungeonMap[i, j]);
-            }
-        }
+				faceNum = int.Parse(dungeonMap[i, j]);
+			}
+		}
 
 		Debug.Log(faceNum);
 
-        if (faceNum == 2)
+		if (faceNum == 2)
 		{
 			Floor.GetComponent<MeshRenderer>().material = color_2;
 			Debug.Log("2色です");
@@ -158,63 +158,63 @@ public class MapManager : MonoBehaviour
 							break;
 						case 1:
 							GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor1.GetComponent<Floor>().SetParentmap(this);
-                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
+							floor1.GetComponent<Floor>().SetParentmap(this);
+							floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
 							floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
 							floor1.GetComponent<Floor>().SetFaceCount(1);
 							mapObjects.Add(floor1);
-							
+
 
 							break;
 
 						case 2:
 							GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor2.GetComponent<Floor>().SetParentmap(this);
-                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
+							floor2.GetComponent<Floor>().SetParentmap(this);
+							floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
 							floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
 							floor2.GetComponent<Floor>().SetFaceCount(2);
 							mapObjects.Add(floor2);
-							
+
 
 							break;
 						case 3:
 							GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetParentmap(this);
-                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
+							floor3.GetComponent<Floor>().SetParentmap(this);
+							floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
 							floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
 							floor3.GetComponent<Floor>().SetFaceCount(3);
 							mapObjects.Add(floor3);
-							
+
 
 							break;
 						case 4:
 							GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetParentmap(this);
-                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
+							floor4.GetComponent<Floor>().SetParentmap(this);
+							floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
 							floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
 							mapObjects.Add(floor4);
-							
+
 
 							break;
 						case 5:
 							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor5.GetComponent<Floor>().SetParentmap(this);
-                            floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
+							floor5.GetComponent<Floor>().SetParentmap(this);
+							floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
 							mapObjects.Add(floor5);
-							
+
 
 							break;
 						case 6:
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor6.GetComponent<Floor>().SetParentmap(this);
-                            floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
-							if(colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
-                            else if (colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
-                            else if (colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
-                            else if (colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
+							floor6.GetComponent<Floor>().SetParentmap(this);
+							floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
+							if (scriptableObject.colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
 
-                            mapObjects.Add(floor6);
-							
+							mapObjects.Add(floor6);
+
 
 							//プレイヤー生成
 							playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 1.0f, transform.position.z - i), Quaternion.identity) as GameObject;
@@ -295,35 +295,35 @@ public class MapManager : MonoBehaviour
 				GetComponent<CursorManager>().onGoal = true;
 				GetComponent<TochControl>().onGoal = true;
 
-                //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
-                playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
+				//プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
+				playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
 				//プレイヤーが動くのを遅延
 				Invoke(nameof(OnGoal), 2.0f);
 
-                //一回はいればよくね？
-                onGoal = false;
+				//一回はいればよくね？
+				onGoal = false;
 			}
-            //マップチェック
-            if (check == true)
-            {
-                mapCheckTime += Time.deltaTime;
-            }
-            if (mapCheckTime >= 0.5f)
-            {
-                if (mapCheck == true)
-                {
-                    CheckMap();
-                    mapCheck = false;
-                }
-            }
-            if (mapCheckTime >= 2.0f)
-            {
-                mapCheckTime = 0.0f;
-                check = false;
-                floorChange = false;
-            }
-        }
-		
+			//マップチェック
+			if (check == true)
+			{
+				mapCheckTime += Time.deltaTime;
+			}
+			if (mapCheckTime >= 0.5f)
+			{
+				if (mapCheck == true)
+				{
+					CheckMap();
+					mapCheck = false;
+				}
+			}
+			if (mapCheckTime >= 2.0f)
+			{
+				mapCheckTime = 0.0f;
+				check = false;
+				floorChange = false;
+			}
+		}
+
 
 	}
 
@@ -402,73 +402,73 @@ public class MapManager : MonoBehaviour
 
 		if (obj_top != null)
 		{
-			
+
 			obj_top.GetComponent<Floor>().SetFaceCount(obj_top.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_top.GetComponent<Floor>().SetFloorState(obj_top.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_bottom != null)
 		{
-			
+
 			obj_bottom.GetComponent<Floor>().SetFaceCount(obj_bottom.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_bottom.GetComponent<Floor>().SetFloorState(obj_bottom.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_left != null)
 		{
-			
+
 			obj_left.GetComponent<Floor>().SetFaceCount(obj_left.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_left.GetComponent<Floor>().SetFloorState(obj_left.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_right != null)
-		{ 
+		{
 			obj_right.GetComponent<Floor>().SetFaceCount(obj_right.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_right.GetComponent<Floor>().SetFloorState(obj_right.GetComponent<Floor>().GetFloorState());
 		}
 
 	}
-    public void LinkChangeFloorMotion(GameObject gameObject)
-    {
-        GameObject obj_top = null;
-        GameObject obj_bottom = null;
-        GameObject obj_left = null;
-        GameObject obj_right = null;
+	public void LinkChangeFloorMotion(GameObject gameObject)
+	{
+		GameObject obj_top = null;
+		GameObject obj_bottom = null;
+		GameObject obj_left = null;
+		GameObject obj_right = null;
 
-        //↑
-        obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
-        //↓
-        obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
-        //←
-        obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
-        //→
-        obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
-
-
-        if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
-        if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
-        if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
-        if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
+		//↑
+		obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
+		//↓
+		obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
+		//←
+		obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+		//→
+		obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
 
 
+		if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
+		if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
+		if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
+		if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
 
-        if (obj_top != null)
-        {
+
+
+		if (obj_top != null)
+		{
 			obj_top.GetComponent<Floor>().LinkChange();
-        }
-        if (obj_bottom != null)
-        {
-            obj_bottom.GetComponent<Floor>().LinkChange();
-        }
-        if (obj_left != null)
-        {
+		}
+		if (obj_bottom != null)
+		{
+			obj_bottom.GetComponent<Floor>().LinkChange();
+		}
+		if (obj_left != null)
+		{
 			obj_left.GetComponent<Floor>().LinkChange();
-        }
-        if (obj_right != null)
-        {
-            obj_right.GetComponent<Floor>().LinkChange();
-        }
+		}
+		if (obj_right != null)
+		{
+			obj_right.GetComponent<Floor>().LinkChange();
+		}
 
-    }
+	}
 
-    public List<Floor> GetOldList()
+	public List<Floor> GetOldList()
 	{
 		return oldlist;
 	}
@@ -476,12 +476,12 @@ public class MapManager : MonoBehaviour
 	{
 		onGoal = true;
 	}
-    public void OnGoal()
-    {
+	public void OnGoal()
+	{
 		playerObject.GetComponent<PlayerControl>().OnPlayerMove();
 
-    }
-    public bool GetInGoal()
+	}
+	public bool GetInGoal()
 	{
 		return onGoal;
 	}
@@ -490,19 +490,16 @@ public class MapManager : MonoBehaviour
 	{
 		return faceNum;
 	}
-	public string GetColorName()
-	{
-		return colorName;
-	}
+
 	public int GetMapSize()
 	{
 		int size = 0;
 
-		if(textYNumber > textXNumber) size = textYNumber;
-        else if (textYNumber < textXNumber) size = textXNumber;
-        else if (textYNumber == textXNumber) size = textYNumber;
+		if (textYNumber > textXNumber) size = textYNumber;
+		else if (textYNumber < textXNumber) size = textXNumber;
+		else if (textYNumber == textXNumber) size = textYNumber;
 
-        return size;
+		return size;
 	}
 
 }

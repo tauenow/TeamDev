@@ -26,6 +26,7 @@ public class ChangeLockEnable : MonoBehaviour
 		{
 			case 1:
 				changeCanvasArray[0].enabled = false;
+				changeButtons[0].enabled = true;
 
 				for (int i = 1; i < 3; i++)
 				{
