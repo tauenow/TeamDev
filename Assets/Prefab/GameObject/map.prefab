@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentManager: {fileID: 0}
-  MapFile: {fileID: 4900000, guid: 75f6dd964c73d754e880521ed7bbe930, type: 3}
+  MapFile: {fileID: 4900000, guid: d0b43d26c41608543a75300936c9a9fe, type: 3}
   color_2: {fileID: 2100000, guid: 40b098f15913c84439a7c6303d070861, type: 2}
   color_3: {fileID: 2100000, guid: ba142909d35345a4195d0ea3ea1af3f6, type: 2}
   color_4: {fileID: 2100000, guid: b20fa59d57620e34eb6f9958ad013b5f, type: 2}
@@ -55,8 +55,7 @@ MonoBehaviour:
   Goal: {fileID: 6428310960531333526, guid: 4068b444bf43059448604cec980d96cb, type: 3}
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
   GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
-  Player: {fileID: 8222468785037047076, guid: ceba17720cc2ddf48bb318fd91d26184, type: 3}
-  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  Player: {fileID: 4737396718679242285, guid: 39d27b020b0196544b671336d1d7ab91, type: 3}
 --- !u!114 &3456823281251452489
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -122,4 +122,9 @@ public class PlayerControl : MonoBehaviour
     {
         return playerClear;
     }
+
+    public bool GetOnPlayerMove()
+    {
+        return onGoalMove;
+    }
 }
