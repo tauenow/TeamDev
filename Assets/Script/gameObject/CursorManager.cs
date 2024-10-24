@@ -20,6 +20,10 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
+        //‰Šú‰»
+        onGoal = false;
+        result = false;
+
         mainCamera = Camera.main;
         SetCursor(true);
     }

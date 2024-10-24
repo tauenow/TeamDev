@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour
 
     private int moveCount = 0;
     //プレイヤーのゴールまでのルートを格納するlist
-    private List<Vector3> goalRoot = new();
+    private List<Vector3> goalRoot;
     private bool onGoalMove = false;
     private float currentTime = 0.0f;
 
@@ -25,7 +25,12 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
-        
+        //初期化
+        moveCount = 0;
+        goalRoot = new();
+        onGoalMove = false;
+        currentTime = 0.0f;
+        playerClear = false;
     }
 
     // Update is called once per frame
@@ -63,7 +68,7 @@ public class PlayerControl : MonoBehaviour
                 Vector3 transformPos = transform.position;
                 transformPos.x += playerMoveTime;
                 transform.position = transformPos;
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
                
             }
             else if (goalRoot[moveCount].x < position.x)
@@ -71,21 +76,21 @@ public class PlayerControl : MonoBehaviour
                 Vector3 transformPos = transform.position;
                 transformPos.x -= playerMoveTime;
                 transform.position = transformPos;
-                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
             }
             else if (goalRoot[moveCount].z > position.z)
             {
                 Vector3 transformPos = transform.position;
                 transformPos.z -= playerMoveTime;
                 transform.position = transformPos;
-                transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
             }
             else if (goalRoot[moveCount].z < position.z)
             {
                 Vector3 transformPos = transform.position;
                 transformPos.z += playerMoveTime;
                 transform.position = transformPos;
-                transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             }
 
             moveFrame += playerMoveTime;
@@ -96,6 +101,7 @@ public class PlayerControl : MonoBehaviour
 
                 moveCount++;
                 moveFrame = 0.0f;
+                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
             }
             //この下には処理書かない
         }

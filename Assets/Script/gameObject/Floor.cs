@@ -26,7 +26,7 @@ public class Floor : MonoBehaviour
 	private bool changeWait = false;
 	private bool change = false; //床が変わる
 	private float currentLinkTime = 0.0f;
-	private int motionLinkCount = 0;
+	private int  motionLinkCount = 0;
 	private bool linkChange = false;
 
 	[SerializeField]
@@ -34,7 +34,7 @@ public class Floor : MonoBehaviour
 	//カーソルが当たっているか
 	private bool cursor = false;
 	//色の数
-	private int faceCount = 1;
+	private int  faceCount = 1;
 	//色情報を変える
 	private bool link = true;
 
@@ -54,8 +54,24 @@ public class Floor : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		//初期化
+        Mouse = false;
+        Tap = false;
+        //parentMap = null;
+        oldFloor = null;
+		rootCount = 0;
+        motionCount = 0;
+        currentTime = 0.0f;
+        changeWait = false;
+        change = false; //床が変わる
+        currentLinkTime = 0.0f;
+        motionLinkCount = 0;
+        linkChange = false;
 
-	}
+        cursor = false;
+        faceCount = 1;
+        link = true;
+    }
 
 	// Update is called once per frame
 	void Update()

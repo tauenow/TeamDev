@@ -12,12 +12,15 @@ public class TouchControl : MonoBehaviour
     //レイのヒット
     RaycastHit hit;
     //レイでヒットしたオブジェクト
-    GameObject targetObject;
+    GameObject targetObject = null;
 
     private bool result = false;
 
     void Start()
     {
+        onGoal = false;
+        targetObject = null;
+        result = false;
         mainCamera = Camera.main;
     }
     void Update()

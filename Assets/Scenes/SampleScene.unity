@@ -6197,7 +6197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLength: 5
-  Hight: 10
+  cameraZpos: 0
   sideLength: 1
   speed: 0.01
 --- !u!1 &1026041066 stripped
@@ -6265,7 +6265,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   map: {fileID: 3906910617886301708, guid: fa763ea929c4ceb45a472c64e5953693, type: 3}
-  MapFile1: {fileID: 4900000, guid: ec9a1af285208cf4bb1e3e7832abdc24, type: 3}
+  TutorialMap: {fileID: 0}
+  MapFile1: {fileID: 4900000, guid: 75f6dd964c73d754e880521ed7bbe930, type: 3}
+  MapFile2: {fileID: 4900000, guid: 1af92b1514eaf7141820237097323e5f, type: 3}
+  MapFile3: {fileID: 4900000, guid: b52d501956865794c941d76c340c5eb5, type: 3}
+  MapFile4: {fileID: 4900000, guid: 68adcf4be1e67c44590a0e191b91c64e, type: 3}
+  MapFile5: {fileID: 4900000, guid: 489ccfd7882d5194e92ea645d1558c99, type: 3}
+  MapFile6: {fileID: 4900000, guid: ddb980886d47bdd42a6fca9e3991c10c, type: 3}
+  MapFile7: {fileID: 4900000, guid: 0494e873e154a5c4cb3ff234fc961db7, type: 3}
+  MapFile8: {fileID: 4900000, guid: 189950c04b3359f49a51fb7215bbd3cc, type: 3}
+  MapFile9: {fileID: 4900000, guid: ba1889a8737a0044e9c5bd6432a1d59c, type: 3}
   fade: {fileID: 172529889}
   isClear: 0
 --- !u!4 &1143344578

@@ -29,7 +29,14 @@ public class CameraControl : MonoBehaviour
     private int motionCount = 0;
     void Start()
     {
-        
+        //初期化
+        Hight = 0.0f;
+        center = false;
+        clearCameraMove = false;
+        isResult = false;
+        currentTime = 0.0f;
+        motionCount = 0;
+
     }
     void Update()
     {
@@ -84,8 +91,8 @@ public class CameraControl : MonoBehaviour
     public void CentrCretae(GameObject center)
     {
         centerObject = center;//カメラのセンターになるオブジェクトを見つける
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) Hight = 8.0f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) Hight = 10.0f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) Hight = 9.0f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) Hight = 11.0f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) Hight = 12.5f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) Hight = 14.5f;
 
@@ -109,14 +116,14 @@ public class CameraControl : MonoBehaviour
             currentTime = 0.0f;
             motionCount++;
         }
-        if (motionCount < 1.0f / speed && motionCount >= 0)
+        if (motionCount < 1 / speed && motionCount >= 0)
         {
             transform.RotateAround(centerObject.transform.position, Vector3.right, -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + 2)));
             Vector3 pos = transform.position;
             pos.z += -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() - 1)) * 0.2f;//マジックナンバーごめん
             transform.position = pos;
         }
-        else if (motionCount < (1.0f / speed) * 2 && motionCount >= 1.0f / speed)
+        else if (motionCount < (1 / speed) * 2 && motionCount >= 1 / speed)
         {
             centerObject = GameObject.Find("map(Clone)").GetComponent<MapManager>().GetGameObjectList().Find(match => match.GetComponent<Floor>().GetFloorState() == "goal");
             lookPosition = centerObject.transform.position;
@@ -130,7 +137,7 @@ public class CameraControl : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, pos, (speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + 2)) * 0.3f);
         }
-        else if (motionCount >= (1.0f / speed) * 2)
+        else if (motionCount >= (1 / speed) * 2)
         {
             //シーンを切り替え
             clearCameraMove = false;

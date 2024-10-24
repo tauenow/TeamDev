@@ -54,9 +54,9 @@ public class MapManager : MonoBehaviour
 	private Vector3 center;
 
 	//Floorのlist
-	private List<GameObject> mapObjects = new();
+	private List<GameObject> mapObjects;
 	//チェックするときの通ったオブジェクトを格納する
-	private List<Floor> oldlist = new();
+	private List<Floor> oldlist;
 
 	//ここみんな気を付けて
 	public static bool floorChange = false;
@@ -68,17 +68,32 @@ public class MapManager : MonoBehaviour
 
 	//ゴールのたどり着くための変数
 	private bool onGoal;
-	private List<Vector3> playerRoot = new();
+	private List<Vector3> playerRoot;
 
 	//面の数
 	private int faceNum = 0;
 
 	//プレイヤーが通る色
-	private string colorName = "None";
+	[SerializeField]
+	private StageScriptableObject scriptableObject;
 
 	private void Start()
 	{
-		string textLines = MapFile.text; // テキストの全体データの代入
+		//初期化
+		mapObjects = new();
+		oldlist = new();
+		floorChange = false;
+
+        playerObject = null;
+        check = false;
+        mapCheck = false;
+		onGoal = false;
+        playerRoot = new();
+
+        faceNum = 0;
+		//
+
+        string textLines = MapFile.text; // テキストの全体データの代入
 										 //print(textLines);
 
 		// 改行でデータを分割して配列に代入
@@ -101,11 +116,11 @@ public class MapManager : MonoBehaviour
 			{
 				dungeonMap[i, j] = tempWords[j];
 
-				colorName = dungeonMap[i, j];
+				scriptableObject.colorName = dungeonMap[i, j];
 			}
 		}
 
-		Debug.Log(colorName);
+		Debug.Log(scriptableObject.colorName);
 
         for (int i = 0; i < 1; i++)
         {
@@ -205,10 +220,10 @@ public class MapManager : MonoBehaviour
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
                             floor6.GetComponent<Floor>().SetParentmap(this);
                             floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
-							if(colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
-                            else if (colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
-                            else if (colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
-                            else if (colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
+							if(scriptableObject.colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
 
                             mapObjects.Add(floor6);
 							
@@ -252,7 +267,7 @@ public class MapManager : MonoBehaviour
 	private void Update()
 	{
 
-		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TochControl>().onGoal == false)
+		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TouchControl>().onGoal == false)
 		{
 			if (onGoal == true)
 			{
@@ -290,7 +305,7 @@ public class MapManager : MonoBehaviour
 				}
 				//ゴールしたらいじれんようにする
 				GetComponent<CursorManager>().onGoal = true;
-				GetComponent<TochControl>().onGoal = true;
+				GetComponent<TouchControl>().onGoal = true;
 
                 //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
                 playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
@@ -488,9 +503,9 @@ public class MapManager : MonoBehaviour
 	{
 		return faceNum;
 	}
-	public string GetColorName()
+	public int GetMapSize()
 	{
-		return colorName;
+		return textXNumber;
 	}
 
 }

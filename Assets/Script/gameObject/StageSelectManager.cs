@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,31 @@ public class StageSelectManager : MonoBehaviour
     //スクリプタぶるオブジェクトのClearは-1して
     //ステージセレクトから何番目のステージを選んだかを入れる変数
     [SerializeField] private StageScriptableObject StageObj;
-    private int selecetStageNum = 1;
+    private int selecetStageNum = 0;
     [SerializeField] private GameObject map;
     //マップファイル一覧
+    [Header("マップファイル一覧")]
+    [SerializeField]
+    private TextAsset TutorialMap;
     [SerializeField]
     private TextAsset MapFile1;
+    [SerializeField]
+    private TextAsset MapFile2;
+    [SerializeField]
+    private TextAsset MapFile3;
+    [SerializeField]
+    private TextAsset MapFile4;
+    [SerializeField]
+    private TextAsset MapFile5;
+    [SerializeField]
+    private TextAsset MapFile6;
+    [SerializeField]
+    private TextAsset MapFile7;
+    [SerializeField]
+    private TextAsset MapFile8;
+    [SerializeField]
+    private TextAsset MapFile9;
+
     List<TextAsset> mapFaileList = new();
 
     [Header("フェード")]
@@ -25,16 +46,32 @@ public class StageSelectManager : MonoBehaviour
 
     void Start()
     {
+
+        mapObject = null;
+        isClear = false;
+
+        selecetStageNum = 0;
+
+        selecetStageNum = StageObj.StageNum;
+
         //リストから呼び出すときは-1してね
         //テクストファイルのリストにマップのデータを全て格納する
         mapFaileList.Add(MapFile1);
+        mapFaileList.Add(MapFile2);
+        mapFaileList.Add(MapFile3);
+        mapFaileList.Add(MapFile4);
+        mapFaileList.Add(MapFile5);
+        mapFaileList.Add(MapFile6);
+        mapFaileList.Add(MapFile7);
+        mapFaileList.Add(MapFile8);
+        mapFaileList.Add(MapFile9);
 
-        if(selecetStageNum == 1)
-        {
-            mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            mapObject.GetComponent<MapManager>().MapFile = MapFile1;
-            mapObject.GetComponent<MapManager>().parentManager = this;
-        }
+       
+
+        mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        mapObject.GetComponent<MapManager>().MapFile = mapFaileList[selecetStageNum - 1];
+        mapObject.GetComponent<MapManager>().parentManager = this;
+        
 
     }
 
