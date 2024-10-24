@@ -3310,6 +3310,7 @@ MonoBehaviour:
   - {fileID: 2105749311}
   - {fileID: 231424752}
   - {fileID: 662576345}
+  debug: 1
 --- !u!4 &1573841044
 Transform:
   m_ObjectHideFlags: 0

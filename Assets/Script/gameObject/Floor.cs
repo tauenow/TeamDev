@@ -57,7 +57,6 @@ public class Floor : MonoBehaviour
 		//‰Šú‰»
         Mouse = false;
         Tap = false;
-        //parentMap = null;
         oldFloor = null;
 		rootCount = 0;
         motionCount = 0;
@@ -69,7 +68,6 @@ public class Floor : MonoBehaviour
         linkChange = false;
 
         cursor = false;
-        faceCount = 1;
         link = true;
     }
 
