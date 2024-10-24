@@ -16,11 +16,11 @@ public class SelectAnimation : MonoBehaviour
 	{
 		if (Revars)
 		{
-			moveButton.transform.localPosition = new Vector3((Mathf.Sin(Time.time) * MoveSpeed) * MoveDistance + startPos, 0, 0);
+			moveButton.transform.localPosition = new Vector3((Mathf.Sin(Time.time) * MoveSpeed) * MoveDistance + startPos, moveButton.transform.localPosition.y, 0);
 		}
 		else
 		{
-			moveButton.transform.localPosition = new Vector3(((Mathf.Sin(Time.time) * MoveSpeed) * MoveDistance + startPos) * -1, 0, 0);
+			moveButton.transform.localPosition = new Vector3(((Mathf.Sin(Time.time) * MoveSpeed) * MoveDistance + startPos) * -1, moveButton.transform.localPosition.y, 0);
 		}
 	}
 }
