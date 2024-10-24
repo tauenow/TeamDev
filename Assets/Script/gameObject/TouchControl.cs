@@ -19,7 +19,6 @@ public class TouchControl : MonoBehaviour
     void Start()
     {
         onGoal = false;
-        targetObject = null;
         result = false;
         mainCamera = Camera.main;
     }

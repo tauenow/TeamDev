@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class StageSelectManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     //スクリプタぶるオブジェクトのClearは-1して
     //ステージセレクトから何番目のステージを選んだかを入れる変数
     [SerializeField] private StageScriptableObject StageObj;

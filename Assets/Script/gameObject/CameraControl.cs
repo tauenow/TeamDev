@@ -109,8 +109,7 @@ public class CameraControl : MonoBehaviour
     }
     private void MoveCamera()
     {
-        currentTime += Time.deltaTime;
-       
+        
         if(currentTime >= 0.01f)
         {
             currentTime = 0.0f;
@@ -118,7 +117,7 @@ public class CameraControl : MonoBehaviour
         }
         if (motionCount < 1 / speed && motionCount >= 0)
         {
-            transform.RotateAround(centerObject.transform.position, Vector3.right, -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + 2)));
+            transform.RotateAround(centerObject.transform.position, Vector3.right, -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + +3)));
             Vector3 pos = transform.position;
             pos.z += -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() - 1)) * 0.2f;//マジックナンバーごめん
             transform.position = pos;
@@ -147,6 +146,8 @@ public class CameraControl : MonoBehaviour
             Debug.Log("リザルトはいりました");
             //GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
         }
+
+        currentTime += Time.deltaTime;
 
     }
     public void OnCameraMove()
