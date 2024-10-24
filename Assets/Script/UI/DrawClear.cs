@@ -25,6 +25,7 @@ public class DrawClear : MonoBehaviour
 	{
 		if (cameraControl.GetIsResult() == true && creatCount < 1)
 		{
+			Debug.Log("‚¹‚¢‚¹‚¢‚³‚ê‚Ä‚Ü‚·");
 			GameObject prefab1 = Instantiate(Images[0], new Vector3(0.0f, createPos[0], 0.0f), Quaternion.identity);
 			prefab1.transform.SetParent(canvas.transform, false);
 			prefab1.transform.DOScale(new Vector3(1.0f, 1.0f, 0.0f), duration).SetEase(Ease.OutBack);
