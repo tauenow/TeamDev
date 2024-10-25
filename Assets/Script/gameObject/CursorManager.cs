@@ -18,6 +18,9 @@ public class CursorManager : MonoBehaviour
 
     private bool result = false;
 
+    //一回しか処理しないための変数
+    private bool doOnce = false;
+
     void Start()
     {
         //初期化
@@ -54,34 +57,29 @@ public class CursorManager : MonoBehaviour
             {
                 targetObject = hit.collider.gameObject;
                 //SetCursor(false);
-                if (hit.collider.gameObject.CompareTag("Floor"))
+                if (MapManager.floorChange == false)
                 {
-                    if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
+                    if (hit.collider.gameObject.CompareTag("Floor"))
                     {
-                        //カーソルが当たっているのをオブジェクトに伝える
-                        targetObject.GetComponent<Floor>().OnCursor();
-                                                                      
-                        if (MapManager.floorChange == false)
+                        if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                         {
+                            //カーソルが当たっているのをオブジェクトに伝える
+                            targetObject.GetComponent<Floor>().OnCursor();
+
                             if (Input.GetMouseButtonDown(0))
                             {
-
+                                
+                                Debug.Log("押しました");
                                 MapManager.floorChange = true;
                                 GetComponent<MapManager>().ChangeMap(targetObject);
+                                enabled = false;
 
                             }
                         }
                     }
                 }
-
             }
-            }
-            else
-            {
-            targetObject = null;
-            SetCursor(true);
         }
-
     }
     void ClickChangeScene()
     {

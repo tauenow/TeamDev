@@ -62,9 +62,8 @@ public class MapManager : MonoBehaviour
 	public static bool floorChange = false;
 
 	//マップチェックTime
-	private bool check = false;
-	private bool mapCheck = false;
-	private float mapCheckTime = 0.0f;
+	private bool isOff = false;
+	private float waitTime = 0.0f;
 
 	//ゴールのたどり着くための変数
 	private bool onGoal;
@@ -79,7 +78,8 @@ public class MapManager : MonoBehaviour
 	[SerializeField]
 	private GameObject playerRootEffect = null;
 
-	//プレイヤーが通る色
+	[Header("共通データ")]
+	//共通データ
 	[SerializeField]
 	private StageScriptableObject scriptableObject;
 
@@ -91,17 +91,14 @@ public class MapManager : MonoBehaviour
 		floorChange = false;
 
         playerObject = null;
-        check = false;
-        mapCheck = false;
+		isOff = false;
 		onGoal = false;
         playerRoot = new();
 
         faceNum = 0;
-		//
-
+		
         string textLines = MapFile.text; // テキストの全体データの代入
-										 //print(textLines);
-
+										 //print(textLines)
 		// 改行でデータを分割して配列に代入
 		textData = textLines.Split('\n');
 
@@ -110,21 +107,9 @@ public class MapManager : MonoBehaviour
 		textYNumber = textData.Length;
 		textYNumber -= 1;
 
-
 		// ２次元配列の定義
 		dungeonMap = new string[textYNumber, textXNumber];//マップ
 		int state = 0;
-
-		for (int i = 0; i < 1; i++)
-		{
-			string[] tempWords = textData[i].Split(',');
-			for (int j = 0; j < 1; j++)
-			{
-				dungeonMap[i, j] = tempWords[j];
-
-				scriptableObject.colorName = dungeonMap[i, j];
-			}
-		}
 
 		Debug.Log(scriptableObject.colorName);
 
@@ -339,30 +324,18 @@ public class MapManager : MonoBehaviour
                 onGoal = false;
 			}
 
-
-
-            //マップチェック
-            if (check == true)
-            {
-                mapCheckTime += Time.deltaTime;
-            }
-            if (mapCheckTime >= 0.5f)
-            {
-                if (mapCheck == true)
-                {
-                    CheckMap();
-                    mapCheck = false;
-                }
-            }
-            if (mapCheckTime >= 2.0f)
-            {
-                mapCheckTime = 0.0f;
-                check = false;
-                floorChange = false;
-            }
         }
-		
-
+		if (isOff == true)
+		{
+			if(waitTime >= 10.0f)
+			{
+				OffFloorChange();
+				GetComponent<CursorManager>().enabled = true;
+				GetComponent<TouchControl>().enabled = true;
+                isOff = false;
+            }
+			waitTime++;
+		}
 	}
 
 	public List<GameObject> GetGameObjectList()
@@ -380,20 +353,14 @@ public class MapManager : MonoBehaviour
 	public void ChangeMap(GameObject obj)//床しか入れん
 	{
 
-		//このｆって変数なんなん
-		GameObject floor = mapObjects.Find(f => f.gameObject.GetComponent<Floor>() == obj.GetComponent<Floor>());
-
 		checkedFloorList.Clear();
-		float x = floor.GetComponent<Floor>().GetMapPosition().x;
-		float z = floor.GetComponent<Floor>().GetMapPosition().z;
+		string state = obj.GetComponent<Floor>().GetFloorState();
+		int num = obj.GetComponent<Floor>().GetFaceCount() + 1;
 
-		floor.GetComponent<Floor>().SetFloorState(floor.GetComponent<Floor>().GetFloorState());
+        obj.GetComponent<Floor>().SetFloorState(state);
+        obj.GetComponent<Floor>().SetFaceCount(num);
 
-		obj.GetComponent<Floor>().OnChange();//マップチェンジオン
-		obj.GetComponent<Floor>().SetFaceCount(obj.GetComponent<Floor>().GetFaceCount() + 1);
-
-		check = true;
-		mapCheck = true;
+        obj.GetComponent<Floor>().OnChange();//マップチェンジオン
 
 	}
 
@@ -406,11 +373,6 @@ public class MapManager : MonoBehaviour
 
 		checkedFloorList.Add(player.GetComponent<Floor>());
 		player.GetComponent<Floor>().CheckFloor();
-
-		//フロアの上下上下のフロアに行けるかどうか
-		//元居た場所には戻らないようにする(通ってきたフロアの座標をlistで保管するとか)
-		//今配置してあるプレイヤーが通れるフロアのlistを作り、つながっているかどうかの判定をするのはどう？
-		//配置してあるブロックごとに上と下と左と右のブロックの情報をチェックするやり方はどう？ ←採用
 
 	}
 
@@ -533,7 +495,18 @@ public class MapManager : MonoBehaviour
 	{
 		return textXNumber;
 	}
-
+	public void OffCheck()
+	{
+		isOff = true;
+	}
+	public void OffFloorChange()
+	{
+		floorChange = false;
+	}
+	public void OffFloorChangeWait()
+	{
+		Invoke(nameof(OffFloorChange), 0.1f);
+	}
 	//エフェクト生成
 	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
 	{

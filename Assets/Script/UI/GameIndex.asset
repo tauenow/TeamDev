@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69fe2d3b09d83a45b32447959b72f6d, type: 3}
   m_Name: GameIndex
   m_EditorClassIdentifier: 
-  StageNum: 5
+  StageNum: 1
   DifficultyIndex: 1
-  isClearList: 000000000000000000
-  ButtonNum: 0
-  SelectFaze: 0
+  isClearList: 010101010101010101
+  tutorialClear: 1
+  ButtonNum: 1
+  colorName: blue

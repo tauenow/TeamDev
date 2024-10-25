@@ -72,6 +72,7 @@ public class TouchControl : MonoBehaviour
 
                                     MapManager.floorChange = true;
                                     GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
+                                    enabled = false;
 
                                 }
                             }
