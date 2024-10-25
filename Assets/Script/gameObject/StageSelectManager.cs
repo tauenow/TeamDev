@@ -34,7 +34,7 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField]
     private TextAsset MapFile9;
 
-    List<TextAsset> mapFaileList = new();
+    private readonly List<TextAsset> mapFaileList = new();
 
     [Header("フェード")]
     [SerializeField] private Image fade = default;

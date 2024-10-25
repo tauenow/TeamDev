@@ -53,14 +53,14 @@ public class CursorManager : MonoBehaviour
             if (onGoal == false)//ゴールなら構えない
             {
                 targetObject = hit.collider.gameObject;
-                SetCursor(false);
-
+                //SetCursor(false);
                 if (hit.collider.gameObject.CompareTag("Floor"))
                 {
                     if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                     {
-                        targetObject.GetComponent<Floor>().OnCursor();//ここは変えたい
-                                                                      //カーソルが当たっているのをfloorのobjectに伝えたい
+                        //カーソルが当たっているのをオブジェクトに伝える
+                        targetObject.GetComponent<Floor>().OnCursor();
+                                                                      
                         if (MapManager.floorChange == false)
                         {
                             if (Input.GetMouseButtonDown(0))
@@ -104,7 +104,7 @@ public class CursorManager : MonoBehaviour
     }
     public void SetCursor(bool isDefault)
     {
-        if (isDefault)
+        if (isDefault == true)
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         }

@@ -22,7 +22,10 @@ public class CameraControl : MonoBehaviour
 
     // 補完スピードを決める
     [SerializeField]
-    private float speed = 0.01f;
+    private int cameraMotionCount = 50;
+    [SerializeField]
+    private float rotationSpeed = 0.01f;
+    private float moveSpeed = 0.0f;
 
     //Timeの計算用変数
     private float currentTime = 0.0f;
@@ -41,6 +44,11 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
 
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) moveSpeed = 0.02f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) moveSpeed = 0.09f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) moveSpeed = 0.1f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) moveSpeed = 0.1f;
+
         if (centerObject != null)
         {
             //transform.LookAt(centerObject.transform);//カメラターゲットを登録したオブジェクトにしてる
@@ -56,15 +64,16 @@ public class CameraControl : MonoBehaviour
                
             }
 
+
             //プレイヤーがゴールしたら
-            if(GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetClear() == true)
+            if (GameObject.Find("Player(Clone)").GetComponent<PlayerControl>().GetClear() == true)
             {
-               
+
                 Vector3 relativePos = lookPosition - transform.position;
                 // 方向を、回転情報に変換
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
                 // 現在の回転情報と、ターゲット方向の回転情報を補完する
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed);
 
             }//最初の処理
             else
@@ -77,9 +86,9 @@ public class CameraControl : MonoBehaviour
                 // 方向を、回転情報に変換
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
                 // 現在の回転情報と、ターゲット方向の回転情報を補完する
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed);
             }
-            
+
 
         }
         if (clearCameraMove == true)
@@ -101,7 +110,7 @@ public class CameraControl : MonoBehaviour
     private void rotateCamera()
     {
         Vector3 angle = new Vector3(
-                Input.GetAxis("Mouse X") * (speed * 10.0f),
+                Input.GetAxis("Mouse X") * (moveSpeed * 10.0f),
                 0,
                 0
         );
@@ -109,20 +118,20 @@ public class CameraControl : MonoBehaviour
     }
     private void MoveCamera()
     {
-        
-        if(currentTime >= 0.01f)
+
+        if (currentTime >= 0.02f)
         {
             currentTime = 0.0f;
             motionCount++;
         }
-        if (motionCount < 1 / speed && motionCount >= 0)
+        if (motionCount < cameraMotionCount && motionCount >= 0)
         {
-            transform.RotateAround(centerObject.transform.position, Vector3.right, -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + +3)));
+            transform.RotateAround(centerObject.transform.position, Vector3.right, -rotationSpeed);
             Vector3 pos = transform.position;
-            pos.z += -(speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() - 1)) * 0.2f;//マジックナンバーごめん
+            pos.z -= moveSpeed * 0.2f;//マジックナンバーごめん
             transform.position = pos;
         }
-        else if (motionCount < (1 / speed) * 2 && motionCount >= 1 / speed)
+        else if (motionCount < cameraMotionCount * 2 && motionCount >= cameraMotionCount)
         {
             centerObject = GameObject.Find("map(Clone)").GetComponent<MapManager>().GetGameObjectList().Find(match => match.GetComponent<Floor>().GetFloorState() == "goal");
             lookPosition = centerObject.transform.position;
@@ -134,9 +143,9 @@ public class CameraControl : MonoBehaviour
 
             pos.z = lookPosition.z - playerLength;//マジックナンバーごめん
 
-            transform.position = Vector3.MoveTowards(transform.position, pos, (speed * (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() + 2)) * 0.3f);
+            transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed);
         }
-        else if (motionCount >= (1 / speed) * 2)
+        else if (motionCount >= cameraMotionCount * 2)
         {
             //シーンを切り替え
             clearCameraMove = false;

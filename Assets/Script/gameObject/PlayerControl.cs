@@ -56,7 +56,7 @@ public class PlayerControl : MonoBehaviour
         {
             onGoalMove = false;
             playerClear = true;
-
+            transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
             //クリア時のカメラ演出
             GameObject.Find("Main Camera").GetComponent<CameraControl>().OnCameraMove();
         }
@@ -92,7 +92,6 @@ public class PlayerControl : MonoBehaviour
                 transform.position = transformPos;
                 transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             }
-
             moveFrame += playerMoveTime;
            
             if (moveFrame >= playerMoveTime / playerMoveTime)
@@ -101,7 +100,6 @@ public class PlayerControl : MonoBehaviour
 
                 moveCount++;
                 moveFrame = 0.0f;
-                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
             }
             //この下には処理書かない
         }
