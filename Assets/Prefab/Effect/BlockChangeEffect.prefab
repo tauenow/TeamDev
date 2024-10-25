@@ -48,10 +48,10 @@ MonoBehaviour:
   TimingOfUpdate: 0
   EmitterScale: 0
   TimeScale: 0
-  effectAsset: {fileID: 11400000, guid: 4fcf3df23b7fc394d8d9eba13971be9f, type: 2}
+  effectAsset: {fileID: 11400000, guid: ad56917c64338974684881dae7c5081a, type: 2}
   playOnStart: 1
   isLooping: 0
-  _speed: 0.8
+  _speed: 1
 --- !u!114 &1162417115624518125
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -200,7 +200,6 @@ public class Floor : MonoBehaviour
 
 			//ブロックがはまった時のエフェクトを生成
 		    effect = Instantiate(effectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + 0.5f), Quaternion.identity) as GameObject;
-			effect.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 			effect.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 			//ブロックがはまった時のエフェクトをした後にリンクしているエフェクトを生成
 			Invoke(nameof(CreateLinkEffect), 0.2f);
@@ -696,11 +695,6 @@ public class Floor : MonoBehaviour
         GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
         GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
         GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
-
-		linkEffectTop.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
-        linkEffectRight.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
-        linkEffectBottom.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
-        linkEffectLeft.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
 
 		linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
         linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);

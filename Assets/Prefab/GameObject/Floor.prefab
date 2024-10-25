@@ -123,7 +123,7 @@ MonoBehaviour:
   motionFrame: 0.01
   Hight: 0
   blockPlayerEmissive: 1
-  blockEmissive: 0.9
+  blockEmissive: 1
   scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   effectObject: {fileID: 7967224540855992966, guid: 49815a7668293754aa7a57d710a2eb7f, type: 3}
   linkEffectObject: {fileID: 3501983774216176969, guid: 4dfb616ad9e747045805f3beae3b6895, type: 3}
