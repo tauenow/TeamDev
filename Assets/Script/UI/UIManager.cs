@@ -25,8 +25,6 @@ public class UIManager : MonoBehaviour
 		{
 			ScriptableObject.ButtonNum = 0;
 		}
-
-		ScriptableObject.SelectFaze = 0;
 	}
 
 	public void AddDifficulty()
@@ -75,13 +73,5 @@ public class UIManager : MonoBehaviour
 	public void SetSelectNum()
 	{
 		ScriptableObject.ButtonNum = SelectSetNum;
-	}
-
-	public void SetSelectIndex()
-	{
-		if (ScriptableObject.SelectFaze < 3)
-		{
-			ScriptableObject.SelectFaze++;
-		}
 	}
 }
