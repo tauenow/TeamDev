@@ -32,6 +32,8 @@ public class CameraControl : MonoBehaviour
     private int motionCount = 0;
     void Start()
     {
+        
+
         //‰Šú‰»
         Hight = 0.0f;
         center = false;

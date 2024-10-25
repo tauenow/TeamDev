@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,11 +44,21 @@ public class StageSelectManager : MonoBehaviour
     //このステージをクリアしたかどうか
     public bool isClear = false;
 
-    void Start()
+    private void Awake()
     {
+        Application.targetFrameRate = 60;
 
         mapObject = null;
         isClear = false;
+
+        //最初だったらチュートリアルステージをやらせる
+        if (StageObj.tutorialClear == false)
+        {
+            mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
+            mapObject.GetComponent<MapManager>().parentManager = this;
+            mapObject.GetComponent<MapManager>().MapFile = TutorialMap;
+            return;
+        }
 
         selecetStageNum = 0;
 
@@ -65,14 +76,43 @@ public class StageSelectManager : MonoBehaviour
         mapFaileList.Add(MapFile8);
         mapFaileList.Add(MapFile9);
 
-       
 
         mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         mapObject.GetComponent<MapManager>().MapFile = mapFaileList[selecetStageNum - 1];
         mapObject.GetComponent<MapManager>().parentManager = this;
-        
 
+        string textLines = mapFaileList[selecetStageNum - 1].text; // テキストの全体データの代入
+                                                                   // 改行でデータを分割して配列に代入
+        string[] textData = textLines.Split('\n');
+        // 改行でデータを分割して配列に代入
+        textData = textLines.Split('\n');
+
+        // 行数と列数の取得
+        int textXNumber = textData[0].Split(',').Length;
+        int textYNumber = textData.Length;
+        textYNumber -= 1;
+
+
+        // ２次元配列の定義
+        string[,] dungeonMap = new string[textYNumber, textXNumber];//マップ
+
+        for (int i = 0; i < 1; i++)
+        {
+            string[] tempWords = textData[i].Split(',');
+            for (int j = 0; j < 1; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
+
+                StageObj.colorName = dungeonMap[i, j];
+            }
+        }
+
+        if (StageObj.colorName != "red" && StageObj.colorName != "blue" && StageObj.colorName != "yellow" && StageObj.colorName != "green")
+        {
+            Debug.Log("色の名前ちゃんと見て");
+        }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -89,7 +129,8 @@ public class StageSelectManager : MonoBehaviour
     }
     public void ChangeScene()
     {
-        StageObj.isClearList[selecetStageNum - 1] = true;
+        if (StageObj.tutorialClear == false) StageObj.tutorialClear = true;
+        else StageObj.isClearList[selecetStageNum - 1] = true;
         fade.GetComponent<FadeINOUT>().FadeToChangeScene();
     }
 }

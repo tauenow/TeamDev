@@ -41,7 +41,7 @@ public class Floor : MonoBehaviour
 	//色の数
 	private int  faceCount = 1;
 	//色情報を変える
-	private bool link = true;
+	private bool doOnec = true;
 
 	//選んでるときは色を発行させる
 	[SerializeField]
@@ -73,18 +73,19 @@ public class Floor : MonoBehaviour
         linkChange = false;
 
         cursor = false;
-        link = true;
+        doOnec = true;
     }
 
 	// Update is called once per frame
 	void Update()
 	{
 
-		ChangeFloor();
+		
 		if (Tap == true) TouchUpdate();
 		if (Mouse == true) CursorUpdate();
 
-		LinkChangeFloor();
+        ChangeFloor();
+        LinkChangeFloor();
 
 	}
 
@@ -93,17 +94,16 @@ public class Floor : MonoBehaviour
 		if (change == true)//床の色を変えるモーション
 		{
 			//一回しか入らないようにする
-			if (link == true)
+			if (doOnec == true)
 			{
-				//プレイヤーが選択した位置に向く
+                //周辺の色情報を変更
+                parentMap.LinkChangeFloor(gameObject);
+                //プレイヤーが選択した位置に向く
                 Vector3 lookPos = transform.position;
                 lookPos.y += 0.1f;
                 GameObject.Find("Player(Clone)").transform.LookAt(lookPos);
-				Debug.Log("周りも変えるで");
-				GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
-				//周辺の色情報を変更
-				parentMap.LinkChangeFloor(obj);
-				link = false;
+				
+				doOnec = false;
 			}
 			currentTime += Time.deltaTime;
 
@@ -174,18 +174,11 @@ public class Floor : MonoBehaviour
 		}
 		if (motionCount >= changeMotionCount * 3)
 		{
-
-			GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
-
-			if (obj != null)
-			{
-				parentMap.LinkChangeFloorMotion(obj);
-				link = true;
-			}
-			if (obj == null)
-			{
-				Debug.Log("中身ないよ");
-			}
+			//モーションが終わったらマップをチェック
+			parentMap.CheckMap();
+			//リンクするFloorのモーション処理
+			parentMap.LinkChangeFloorMotion(gameObject);
+			
 			if (parentMap.GetFaceNum() == 3)
 			{
 				if (faceCount >= 4)
@@ -205,11 +198,13 @@ public class Floor : MonoBehaviour
 			Invoke(nameof(CreateLinkEffect), 0.2f);
 
             motionCount = 0;
-			currentTime = 0.0f;
-			changeWait = false;
-			change = false;
+            currentTime = 0.0f;
 
-		}
+            changeWait = false;
+            change = false;
+            doOnec = true;
+
+        }
 	}
 	//マウスでの操作
 	private void CursorUpdate()
@@ -263,7 +258,7 @@ public class Floor : MonoBehaviour
 	}
 	private void LinkChangeFloor()
 	{
-		//このオブジェクトの周りも変える
+		//周りのオブジェクトをかえるモーション
 		if (linkChange == true)
 		{
 			currentLinkTime += Time.deltaTime;
@@ -275,29 +270,38 @@ public class Floor : MonoBehaviour
 				{
 					if (motionLinkCount >= changeMotionCount)
 					{
-						linkChange = false;
+
+						Debug.Log("モーション終了");
+						//周りの変更が終わったら初期化
 						currentLinkTime = 0.0f;
 						motionLinkCount = 0;
-					}
+
+                        linkChange = false;
+						parentMap.GetComponent<MapManager>().OffCheck();
+                    }
 					else if (motionLinkCount < changeMotionCount)
 					{
 						transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
 						currentLinkTime = 0.0f;
-						motionLinkCount++;
 						//光度変更
 						if (state == scriptableObject.colorName) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
 						else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
-					}
-				}
+                        motionLinkCount++;
+                    }
+                }
 				//3面の時
 				else if (parentMap.GetFaceNum() == 3)
 				{
 					if (motionLinkCount >= changeMotionCount)
 					{
-						linkChange = false;
+                        //周りの変更が終わったら初期化
 						currentLinkTime = 0.0f;
 						motionLinkCount = 0;
-						if (faceCount >= 4)
+
+                        linkChange = false;
+                        parentMap.GetComponent<MapManager>().OffCheck();
+
+                        if (faceCount >= 4)
 						{
 							transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
 							faceCount = 1;
@@ -310,22 +314,18 @@ public class Floor : MonoBehaviour
 					{
 						if (faceCount >= 4)
 						{
-							Debug.Log("z軸");
 							transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
 						}
 						else if (faceCount >= 1)
 						{
-							Debug.Log("x軸");
 							transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
 						}
 						currentLinkTime = 0.0f;
-						motionLinkCount++;
-					}
-				}
+                        motionLinkCount++;
+                    }
+                }
 
 			}
-
-
 		}
 	}
 
@@ -397,9 +397,7 @@ public class Floor : MonoBehaviour
 
 	public Vector3 GetMapPosition()
 	{
-
 		return position;
-
 	}
 
 	public string GetFloorState()
@@ -596,6 +594,7 @@ public class Floor : MonoBehaviour
 
         Debug.Log(position.x);
 		Debug.Log(position.z);
+		Debug.Log(state);
 		if (goal == false)
 		{
 			if (objList.Count == 1)
@@ -689,7 +688,6 @@ public class Floor : MonoBehaviour
 	{
 
 		float side = 0.7f;
-		float effectSize = 0.8f;
 
 		GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
         GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
