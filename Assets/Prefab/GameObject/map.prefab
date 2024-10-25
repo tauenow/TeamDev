@@ -56,6 +56,8 @@ MonoBehaviour:
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
   GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
   Player: {fileID: 4737396718679242285, guid: 39d27b020b0196544b671336d1d7ab91, type: 3}
+  goalEffect: {fileID: 7636683156239583371, guid: d172117593f1bc94781bff87a381cd07, type: 3}
+  playerRootEffect: {fileID: 3588455277886649297, guid: 039871e22a832fa4eb1e7e230ba7da7b, type: 3}
   scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
 --- !u!114 &3456823281251452489
 MonoBehaviour:

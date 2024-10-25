@@ -56,7 +56,7 @@ public class MapManager : MonoBehaviour
 	//Floorのlist
 	private List<GameObject> mapObjects;
 	//チェックするときの通ったオブジェクトを格納する
-	private List<Floor> oldlist;
+	private List<Floor> checkedFloorList;
 
 	//ここみんな気を付けて
 	public static bool floorChange = false;
@@ -73,6 +73,12 @@ public class MapManager : MonoBehaviour
 	//面の数
 	private int faceNum = 0;
 
+	//ゴールエフェクトオブジェクト
+	[SerializeField]
+	private GameObject goalEffect = null;
+	[SerializeField]
+	private GameObject playerRootEffect = null;
+
 	//プレイヤーが通る色
 	[SerializeField]
 	private StageScriptableObject scriptableObject;
@@ -81,7 +87,7 @@ public class MapManager : MonoBehaviour
 	{
 		//初期化
 		mapObjects = new();
-		oldlist = new();
+		checkedFloorList = new();
 		floorChange = false;
 
         playerObject = null;
@@ -271,38 +277,55 @@ public class MapManager : MonoBehaviour
 		{
 			if (onGoal == true)
 			{
+				List<Floor> goalRootFloor = new();
 				parentManager.isClear = true;
 				Debug.Log(parentManager.isClear);
 				//いらないルートを消す
-				for (int i = 0; i < oldlist.Count; i++)
+				for (int i = 0; i < checkedFloorList.Count; i++)
 				{
-					if (oldlist[i].GetRootCount() == 0)
+					if (checkedFloorList[i].GetRootCount() == 0)
 					{
-						oldlist[i].CheckOldRoot();
+						checkedFloorList[i].CheckOldRoot();
 					}
 				}
 				//プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
-				for (int i = 0; i < oldlist.Count; i++)
+				for (int i = 0; i < checkedFloorList.Count; i++)
 				{
-					if (oldlist[i].GetRootCount() != 0)
+					if (checkedFloorList[i].GetRootCount() != 0)
 					{
-						playerRoot.Add(oldlist[i].GetMapPosition());
+						playerRoot.Add(checkedFloorList[i].GetMapPosition());
+						goalRootFloor.Add(checkedFloorList[i]);
 					}
 				}
-				//ゴールのpositionも格納
-				Floor goal = oldlist.Find(match => match.GetFloorState() == "goal");
+                //かぶっているポジションデータがあったら消去
+                for (int i = 0; i < playerRoot.Count; i++)
+                {
+                    if (i != 0 && i != playerRoot.Count)
+                    {
+                        if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
+                        {
+							Debug.Log("かぶった");
+                            playerRoot.RemoveAt(i);
+                        }
+                    }
+                }
+				
+                //ゴールのpositionも格納
+                Floor goal = mapObjects.Find(match => match.GetComponent<Floor>().GetFloorState() == "goal").GetComponent<Floor>();
+				checkedFloorList.Add(goal);
 				playerRoot.Add(goal.GetMapPosition());
 
-				for (int i = 0; i < playerRoot.Count; i++)
+				float waitTime = 0.1f;
+
+				//ゴールまでのルートにエフェクトを生成
+				foreach(Floor floor in goalRootFloor)
 				{
-					if (i != 0 && i != playerRoot.Count)
-					{
-						if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
-						{
-							playerRoot.RemoveAt(i);
-						}
-					}
+					Vector3 pos = floor.transform.position;
+					pos.y -= 1.0f;
+					StartCoroutine(CreateGoalEffect(waitTime, pos));
+					waitTime += 0.1f;
 				}
+
 				//ゴールしたらいじれんようにする
 				GetComponent<CursorManager>().onGoal = true;
 				GetComponent<TouchControl>().onGoal = true;
@@ -315,6 +338,9 @@ public class MapManager : MonoBehaviour
                 //一回はいればよくね？
                 onGoal = false;
 			}
+
+
+
             //マップチェック
             if (check == true)
             {
@@ -357,7 +383,7 @@ public class MapManager : MonoBehaviour
 		//このｆって変数なんなん
 		GameObject floor = mapObjects.Find(f => f.gameObject.GetComponent<Floor>() == obj.GetComponent<Floor>());
 
-		oldlist.Clear();
+		checkedFloorList.Clear();
 		float x = floor.GetComponent<Floor>().GetMapPosition().x;
 		float z = floor.GetComponent<Floor>().GetMapPosition().z;
 
@@ -376,9 +402,9 @@ public class MapManager : MonoBehaviour
 
 		GameObject player = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "player");
 
-		oldlist.Clear();
+		checkedFloorList.Clear();
 
-		oldlist.Add(player.GetComponent<Floor>());
+		checkedFloorList.Add(player.GetComponent<Floor>());
 		player.GetComponent<Floor>().CheckFloor();
 
 		//フロアの上下上下のフロアに行けるかどうか
@@ -480,9 +506,9 @@ public class MapManager : MonoBehaviour
 
     }
 
-    public List<Floor> GetOldList()
+    public List<Floor> GetCheckedFloorList()
 	{
-		return oldlist;
+		return checkedFloorList;
 	}
 	public void InGoal()
 	{
@@ -508,4 +534,13 @@ public class MapManager : MonoBehaviour
 		return textXNumber;
 	}
 
+	//エフェクト生成
+	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
+	{
+		yield return new WaitForSeconds(waitTime);
+		Instantiate(goalEffect,pos,Quaternion.identity);
+		pos.y -= 1.0f;
+        Instantiate(playerRootEffect, pos, Quaternion.identity);
+
+    }
 }

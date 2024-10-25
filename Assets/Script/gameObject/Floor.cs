@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-	public bool Mouse = false;
-	public bool Tap = false;
+	//マウスの処理のOnOff
+	[SerializeField]
+	private bool Mouse = false;
+	//タッチ操作のOnOff
+    [SerializeField]
+    private bool Tap = false;
 
 	//Floorの変数
 	private Vector3 position;//このFloorの2次元配列のポジション
@@ -50,13 +55,13 @@ public class Floor : MonoBehaviour
 	[SerializeField]
 	private GameObject effectObject = null;
 	private GameObject effect = null;
+	[SerializeField]
+	private GameObject linkEffectObject = null;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		//初期化
-        Mouse = false;
-        Tap = false;
         oldFloor = null;
 		rootCount = 0;
         motionCount = 0;
@@ -90,8 +95,9 @@ public class Floor : MonoBehaviour
 			//一回しか入らないようにする
 			if (link == true)
 			{
+				//プレイヤーが選択した位置に向く
                 Vector3 lookPos = transform.position;
-                lookPos.y += 1.0f;
+                lookPos.y += 0.1f;
                 GameObject.Find("Player(Clone)").transform.LookAt(lookPos);
 				Debug.Log("周りも変えるで");
 				GameObject obj = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == position.x && match.GetComponent<Floor>().GetMapPosition().z == position.z);
@@ -192,11 +198,12 @@ public class Floor : MonoBehaviour
 			if (state == scriptableObject.colorName) GetComponent<MeshRenderer>().material.color = Color.white * blockPlayerEmissive;
 			else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
 
+			//ブロックがはまった時のエフェクトを生成
 		    effect = Instantiate(effectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + 0.5f), Quaternion.identity) as GameObject;
 			effect.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 			effect.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-
-			Invoke(nameof(DestroyObject), 1.0f);
+			//ブロックがはまった時のエフェクトをした後にリンクしているエフェクトを生成
+			Invoke(nameof(CreateLinkEffect), 0.2f);
 
             motionCount = 0;
 			currentTime = 0.0f;
@@ -215,7 +222,7 @@ public class Floor : MonoBehaviour
 				if (cursor == true)
 				{
 					Vector3 pos = transform.position;
-					pos.y = 0.2f;//マジックナンバーごめん
+					pos.y = 0.3f;//マジックナンバーごめん
 					transform.position = pos;
 					cursor = false;
 					return;
@@ -446,12 +453,12 @@ public class Floor : MonoBehaviour
 
 		if (obj1 != null)
 		{
-			if (parentMap.GetOldList().Contains(obj1.GetComponent<Floor>()) == false)
+			if (parentMap.GetCheckedFloorList().Contains(obj1.GetComponent<Floor>()) == false)
 			{ 
 				if (obj1.GetComponent<Floor>().GetFloorState() == "goal")
 				{
 					goal = true;
-					parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
+					parentMap.GetCheckedFloorList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -461,12 +468,12 @@ public class Floor : MonoBehaviour
 		}
 		if (obj2 != null)
 		{
-			if (parentMap.GetOldList().Contains(obj2.GetComponent<Floor>()) == false)
+			if (parentMap.GetCheckedFloorList().Contains(obj2.GetComponent<Floor>()) == false)
 			{
 				if (obj2.GetComponent<Floor>().GetFloorState() == "goal")
 				{
                     goal = true;
-                    parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    parentMap.GetCheckedFloorList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -478,12 +485,12 @@ public class Floor : MonoBehaviour
 		}
 		if (obj3 != null)
 		{
-			if (parentMap.GetOldList().Contains(obj3.GetComponent<Floor>()) == false)
+			if (parentMap.GetCheckedFloorList().Contains(obj3.GetComponent<Floor>()) == false)
 			{
 				if (obj3.GetComponent<Floor>().GetFloorState() == "goal")
 				{
                     goal = true;
-                    parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    parentMap.GetCheckedFloorList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -495,12 +502,12 @@ public class Floor : MonoBehaviour
 		}
 		if (obj4 != null)
 		{
-			if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
+			if (parentMap.GetCheckedFloorList().Contains(obj4.GetComponent<Floor>()) == false)
 			{
 				if (obj4.GetComponent<Floor>().GetFloorState() == "goal")
 				{
                     goal = true;
-                    parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+                    parentMap.GetCheckedFloorList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
 					Debug.Log("goalです");
 					rootCount++;
 					//ゴールしたことをマップマネージャーに伝える
@@ -516,13 +523,13 @@ public class Floor : MonoBehaviour
 		{
 			if (obj1 != null)
 			{
-				if (parentMap.GetOldList().Contains(obj1.GetComponent<Floor>()) == false)
+				if (parentMap.GetCheckedFloorList().Contains(obj1.GetComponent<Floor>()) == false)
 				{
 
 					//Debug.Log("探索してきたlistの中になかったのでチェックします"
 					if (obj1.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
 					{
-						parentMap.GetOldList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
+						parentMap.GetCheckedFloorList().Add(obj1.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
 						//rootの数と自分の情報を登録                                                      
 						rootCount++;
@@ -536,12 +543,12 @@ public class Floor : MonoBehaviour
 			//Debug.Log("↓を調べます");
 			if (obj2 != null)
 			{
-				if (parentMap.GetOldList().Contains(obj2.GetComponent<Floor>()) == false)
+				if (parentMap.GetCheckedFloorList().Contains(obj2.GetComponent<Floor>()) == false)
 				{
 
 					if (obj2.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
 					{
-						parentMap.GetOldList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録;
+						parentMap.GetCheckedFloorList().Add(obj2.GetComponent<Floor>());//チェックしたFloorはlistに登録;
 						rootCount++;
 						obj2.GetComponent<Floor>().SetOldFloor(this);
 						objList.Add(obj2);
@@ -552,12 +559,12 @@ public class Floor : MonoBehaviour
 			//Debug.Log("←を調べます");
 			if (obj3 != null)
 			{
-				if (parentMap.GetOldList().Contains(obj3.GetComponent<Floor>()) == false)
+				if (parentMap.GetCheckedFloorList().Contains(obj3.GetComponent<Floor>()) == false)
 				{
 
 					if (obj3.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
 					{
-						parentMap.GetOldList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
+						parentMap.GetCheckedFloorList().Add(obj3.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
 						//rootの数と自分の情報を登録
 						rootCount++;
@@ -571,12 +578,12 @@ public class Floor : MonoBehaviour
 			//Debug.Log("→を調べます");
 			if (obj4 != null)
 			{
-				if (parentMap.GetOldList().Contains(obj4.GetComponent<Floor>()) == false)
+				if (parentMap.GetCheckedFloorList().Contains(obj4.GetComponent<Floor>()) == false)
 				{
 					//探索していたlistの中になければ進む
 					if (obj4.GetComponent<Floor>().GetFloorState() == scriptableObject.colorName)
 					{
-						parentMap.GetOldList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
+						parentMap.GetCheckedFloorList().Add(obj4.GetComponent<Floor>());//チェックしたFloorはlistに登録
 
 						//rootの数と自分の情報を登録
 						rootCount++;
@@ -679,9 +686,27 @@ public class Floor : MonoBehaviour
 	{
 		return changeWait;
 	}
-	private void DestroyEffect()
+	void CreateLinkEffect()
 	{
-		Destroy(effect);
-	}
 
+		float side = 0.7f;
+		float effectSize = 0.8f;
+
+		GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
+        GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
+        GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
+        GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
+
+		linkEffectTop.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+        linkEffectRight.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+        linkEffectBottom.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+        linkEffectLeft.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+
+		linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+        linkEffectBottom.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        linkEffectLeft.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+
+
+    }
 }
