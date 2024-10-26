@@ -19,4 +19,6 @@ public class StageScriptableObject : UnityEngine.ScriptableObject
 	[SerializeField] public int ButtonNum = 0;
 	// 各ステージの色
 	public string colorName = "None";
+	// テキストの番号
+	public int textIndex = 0;
 }
