@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   - defaultCursor: {instanceID: 0}
   - interactCursor: {instanceID: 0}
   executionOrder: 0

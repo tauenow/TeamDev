@@ -33,9 +33,6 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         
-
-        //初期化
-        Hight = 0.0f;
         center = false;
         clearCameraMove = false;
         isResult = false;
@@ -56,6 +53,7 @@ public class CameraControl : MonoBehaviour
             //transform.LookAt(centerObject.transform);//カメラターゲットを登録したオブジェクトにしてる
             if (center == false)
             {
+                Debug.Log("センターオブジェクトを見る");
                 lookPosition = centerObject.transform.position;
                 float x = lookPosition.x;
                 Vector3 pos = lookPosition;
@@ -90,8 +88,6 @@ public class CameraControl : MonoBehaviour
                 // 現在の回転情報と、ターゲット方向の回転情報を補完する
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, moveSpeed);
             }
-
-
         }
         if (clearCameraMove == true)
         {
@@ -102,10 +98,13 @@ public class CameraControl : MonoBehaviour
     public void CentrCretae(GameObject center)
     {
         centerObject = center;//カメラのセンターになるオブジェクトを見つける
+        
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) Hight = 9.0f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) Hight = 11.0f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) Hight = 12.5f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) Hight = 14.5f;
+
+        
 
     }
    

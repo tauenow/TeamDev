@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    
 
-    //ゴールしました
-    public bool onGoal = false;
+    //共通データ
+    [SerializeField]
+    private StageScriptableObject scriptableObject;
+   
     [SerializeField]
     Texture2D defaultCursor = null;
     [SerializeField]
@@ -23,8 +24,9 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
+        enabled = true;
         //初期化
-        onGoal = false;
+        
         result = false;
 
         mainCamera = Camera.main;
@@ -32,6 +34,7 @@ public class CursorManager : MonoBehaviour
     }
     void Update()
     {
+        //シーン切り替え処理
         if(result == true)
         {
             ClickChangeScene();
@@ -40,7 +43,10 @@ public class CursorManager : MonoBehaviour
         {
             Invoke(nameof(OnResultClick), 2.0f);
         }
+        //カーソル処理
         CastRay();
+        //チューリアルの時のカーソル処理
+        TutorialCastRay();
     }
     void OnDisable()
     {
@@ -49,32 +55,58 @@ public class CursorManager : MonoBehaviour
     // マウスカーソルの位置から「レイ」を飛ばして、何かのコライダーに当たるかどうかをチェック
     void CastRay()
     {
+        if (scriptableObject.tutorialClear == false) return;
+
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
         {
-            
-            if (onGoal == false)//ゴールなら構えない
+
+            targetObject = hit.collider.gameObject;
+
+            if (hit.collider.gameObject.CompareTag("Floor"))
             {
-                targetObject = hit.collider.gameObject;
-                //SetCursor(false);
-                if (MapManager.floorChange == false)
+                if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                 {
-                    if (hit.collider.gameObject.CompareTag("Floor"))
+                    //カーソルが当たっているのをオブジェクトに伝える
+                    targetObject.GetComponent<Floor>().OnCursor();
+
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
+
+                        Debug.Log("押しました");
+                        MapManager.floorChange = true;
+                        GetComponent<MapManager>().ChangeMap(targetObject);
+                        enabled = false;
+
+                    }
+                }
+            }
+        }
+    }
+    void TutorialCastRay()
+    {
+        if (scriptableObject.tutorialClear == true) return;
+
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+        {
+
+            targetObject = hit.collider.gameObject;
+
+            if (hit.collider.gameObject.CompareTag("Floor"))
+            {
+                if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
+                {
+                    //カーソルが当たっているのをオブジェクトに伝える
+                    targetObject.GetComponent<Floor>().OnCursor();
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
                         {
-                            //カーソルが当たっているのをオブジェクトに伝える
-                            targetObject.GetComponent<Floor>().OnCursor();
-
-                            if (Input.GetMouseButtonDown(0))
-                            {
-                                
-                                Debug.Log("押しました");
-                                MapManager.floorChange = true;
-                                GetComponent<MapManager>().ChangeMap(targetObject);
-                                enabled = false;
-
-                            }
+                            Debug.Log("押しました");
+                            GetComponent<MapManager>().ChangeMap(targetObject);
+                            enabled = false;
                         }
                     }
                 }
