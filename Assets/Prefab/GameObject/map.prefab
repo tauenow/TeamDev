@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a32f7ca7b624e4f8aa8673b40c162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   onGoal: 0
   defaultCursor: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   interactCursor: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
@@ -86,4 +87,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42ccaebfe4480c49890af3937222986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   onGoal: 0

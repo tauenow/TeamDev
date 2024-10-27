@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using System.ComponentModel.Design;
 
 
 public class MapManager : MonoBehaviour
@@ -66,7 +67,8 @@ public class MapManager : MonoBehaviour
 	private float waitTime = 0.0f;
 
 	//ゴールのたどり着くための変数
-	private bool onGoal;
+	private bool isMapClear;//マップをクリアしたかの判定
+	private bool onGoal;//ゴールに行くプレイヤーのモーションをOn(動的にoffにはしない)
 	private List<Vector3> playerRoot;
 
 	//面の数
@@ -92,13 +94,14 @@ public class MapManager : MonoBehaviour
 
         playerObject = null;
 		isOff = false;
+		isMapClear = false;
 		onGoal = false;
         playerRoot = new();
 
         faceNum = 0;
 		
         string textLines = MapFile.text; // テキストの全体データの代入
-										 //print(textLines)
+										 
 		// 改行でデータを分割して配列に代入
 		textData = textLines.Split('\n');
 
@@ -230,7 +233,6 @@ public class MapManager : MonoBehaviour
 			}
 		}
 
-		Debug.Log("センターを登録");
 		if (centerPosRegister == false)//センターポスがなかったら登録する
 		{
 			startPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -241,7 +243,8 @@ public class MapManager : MonoBehaviour
 			GameObject centerObj = Instantiate(centerObject, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity) as GameObject;
 
 			centerPosRegister = true;//一つ登録すればOK
-			GameObject.Find("Main Camera").GetComponent<CameraControl>().CentrCretae(centerObj);//カメラのセンターになるオブジェクトを見つける
+            Debug.Log("センターを登録");
+            GameObject.Find("Main Camera").GetComponent<CameraControl>().CentrCretae(centerObj);//カメラのセンターになるオブジェクトを見つける
 
 		}
 
@@ -253,86 +256,100 @@ public class MapManager : MonoBehaviour
 		playerObject.transform.LookAt(transformLookPos);
 
 		//プレイヤーがゴールを向くようにする
+
+		if (scriptableObject.tutorialClear == false)
+		{
+			foreach (GameObject obj in mapObjects)
+			{
+				if (obj.GetComponent<Floor>().GetMapPosition().x != 2|| obj.GetComponent<Floor>().GetMapPosition().z != 2)
+				{
+				    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.6f;
+				}
+
+            }
+		}
 	}
 
 	private void Update()
 	{
-
-		if (GetComponent<CursorManager>().onGoal == false && GetComponent<TouchControl>().onGoal == false)
-		{
-			if (onGoal == true)
-			{
-				List<Floor> goalRootFloor = new();
-				parentManager.isClear = true;
-				Debug.Log(parentManager.isClear);
-				//いらないルートを消す
-				for (int i = 0; i < checkedFloorList.Count; i++)
-				{
-					if (checkedFloorList[i].GetRootCount() == 0)
-					{
-						checkedFloorList[i].CheckOldRoot();
-					}
-				}
-				//プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
-				for (int i = 0; i < checkedFloorList.Count; i++)
-				{
-					if (checkedFloorList[i].GetRootCount() != 0)
-					{
-						playerRoot.Add(checkedFloorList[i].GetMapPosition());
-						goalRootFloor.Add(checkedFloorList[i]);
-					}
-				}
-                //かぶっているポジションデータがあったら消去
-                for (int i = 0; i < playerRoot.Count; i++)
+        if (onGoal == true)
+        {
+            List<Floor> goalRootFloor = new();
+            parentManager.isClear = true;
+            Debug.Log(parentManager.isClear);
+            //いらないルートを消す
+            foreach (Floor floor in checkedFloorList)
+            {
+                if (floor.GetRootCount() == 0)
                 {
-                    if (i != 0 && i != playerRoot.Count)
+                    floor.CheckOldRoot();
+					Debug.Log("ルート消去");
+                }
+            }
+            //プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
+            foreach (Floor floor in checkedFloorList)
+            {
+                if (floor.GetRootCount() == 1)
+                {
+                    goalRootFloor.Add(floor);
+                    playerRoot.Add(floor.GetMapPosition());
+                }
+            }
+            //かぶっているポジションデータがあったら消去
+            for (int i = 0; i < playerRoot.Count; i++)
+            {
+                if (i != 0 && i != playerRoot.Count)
+                {
+                    if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
                     {
-                        if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
-                        {
-							Debug.Log("かぶった");
-                            playerRoot.RemoveAt(i);
-                        }
+                        Debug.Log("かぶった");
+                        playerRoot.RemoveAt(i);
                     }
                 }
-				
-                //ゴールのpositionも格納
-                Floor goal = mapObjects.Find(match => match.GetComponent<Floor>().GetFloorState() == "goal").GetComponent<Floor>();
-				checkedFloorList.Add(goal);
-				playerRoot.Add(goal.GetMapPosition());
+            }
 
-				float waitTime = 0.1f;
+            //ゴールのpositionも格納
+            Floor goal = mapObjects.Find(match => match.GetComponent<Floor>().GetFloorState() == "goal").GetComponent<Floor>();
+            checkedFloorList.Add(goal);
+            playerRoot.Add(goal.GetMapPosition());
 
-				//ゴールまでのルートにエフェクトを生成
-				foreach(Floor floor in goalRootFloor)
-				{
-					Vector3 pos = floor.transform.position;
-					pos.y -= 1.0f;
-					StartCoroutine(CreateGoalEffect(waitTime, pos));
-					waitTime += 0.1f;
-				}
+            float waitTime = 0.1f;
 
-				//ゴールしたらいじれんようにする
-				GetComponent<CursorManager>().onGoal = true;
-				GetComponent<TouchControl>().onGoal = true;
+            //ゴールまでのルートにエフェクトを生成
+            foreach (Floor floor in goalRootFloor)
+            {
+                //Debug.Log(floor.GetRootCount());
+                //Debug.Log(floor.GetMapPosition());
+                Vector3 pos = floor.transform.position;
+                pos.y -= 1.0f;
+                StartCoroutine(CreateGoalEffect(waitTime, pos));
+                waitTime += 0.1f;
+            }
 
-                //プレイヤーが通るルートを格納&&プレイヤーがゴールまで動くのを許可
-                playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
-				//プレイヤーが動くのを遅延
-				Invoke(nameof(OnGoal), 2.0f);
+            //プレイヤーが通るルートを格納
+            playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
+            //プレイヤーが動く処理を遅延
+            WaitPlayerMove(2.0f);
 
-                //一回はいればよくね？
-                onGoal = false;
-			}
-
+            //一回はいればよくね？
+            onGoal = false;
         }
-		if (isOff == true)
+
+
+        //マップのチェンジがオフになったらマップを変えれるようにする
+        if (isOff == true)
 		{
 			if(waitTime >= 10.0f)
 			{
-				OffFloorChange();
-				GetComponent<CursorManager>().enabled = true;
-				GetComponent<TouchControl>().enabled = true;
-                isOff = false;
+                //マップをクリアしていなかったら操作できる
+                if (isMapClear == false)
+				{
+					GetComponent<CursorManager>().enabled = true;
+					GetComponent<TouchControl>().enabled = true;
+				}
+				//チェンジができるようにする
+                isOff = false;//DoOnce
+                floorChange = false;
             }
 			waitTime++;
 		}
@@ -359,8 +376,8 @@ public class MapManager : MonoBehaviour
 
         obj.GetComponent<Floor>().SetFloorState(state);
         obj.GetComponent<Floor>().SetFaceCount(num);
-
-        obj.GetComponent<Floor>().OnChange();//マップチェンジオン
+        //マップチェンジオン
+        obj.GetComponent<Floor>().OnChange();
 
 	}
 
@@ -472,22 +489,34 @@ public class MapManager : MonoBehaviour
 	{
 		return checkedFloorList;
 	}
-	public void InGoal()
+　　
+	public void IsMapClear()
+	{
+		isMapClear = true;
+	}
+	void OnGoal()
 	{
 		onGoal = true;
 	}
-    public void OnGoal()
+	//ゴールした判定を遅延
+	public void WaitOnGoal()
+	{
+		//この処理の仕方だとマップのサイズ増やしたらバグります。
+		Invoke(nameof(OnGoal), 1.0f);
+	}
+    private void PlayerMove()
     {
-
-		playerObject.GetComponent<PlayerControl>().OnPlayerMove();
+        Debug.Log("プレイヤー動きます");
+        playerObject.GetComponent<PlayerControl>().OnPlayerMove();
+    }
+    public void WaitPlayerMove(float waitTime)
+	{
+		
+		Invoke(nameof(PlayerMove), waitTime);
 
     }
-    public bool GetInGoal()
-	{
-		return onGoal;
-	}
-
-	public int GetFaceNum()
+    
+    public int GetFaceNum()
 	{
 		return faceNum;
 	}
@@ -495,18 +524,11 @@ public class MapManager : MonoBehaviour
 	{
 		return textXNumber;
 	}
-	public void OffCheck()
+	public void ChangeOff()
 	{
 		isOff = true;
 	}
-	public void OffFloorChange()
-	{
-		floorChange = false;
-	}
-	public void OffFloorChangeWait()
-	{
-		Invoke(nameof(OffFloorChange), 0.1f);
-	}
+	
 	//エフェクト生成
 	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
 	{
