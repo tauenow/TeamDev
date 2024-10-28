@@ -129,8 +129,18 @@ public class StageSelectManager : MonoBehaviour
     }
     public void ChangeScene()
     {
-        if (StageObj.tutorialClear == false) StageObj.tutorialClear = true;
-        else StageObj.isClearList[selecetStageNum - 1] = true;
+        // ステージをクリアしたかどうかを設定
+        if (StageObj.tutorialClear == false)
+        {
+            StageObj.tutorialClear = true;
+        }
+        else
+        {
+            StageObj.isClearList[selecetStageNum - 1] = true;
+        }
+
+        // フェードイン・アウトを実行
         fade.GetComponent<FadeINOUT>().FadeToChangeScene();
+
     }
 }
