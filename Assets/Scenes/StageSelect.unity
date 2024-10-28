@@ -2798,6 +2798,10 @@ PrefabInstance:
       propertyPath: buttons.Array.data[3]
       value: 
       objectReference: {fileID: 476466842}
+    - target: {fileID: 6080164031773957511, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1380329074}
     - target: {fileID: 6394054958424183263, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

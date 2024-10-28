@@ -417,7 +417,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -885203209
+  m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &567891437
@@ -5967,6 +5967,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1570729716}
+    - target: {fileID: 6080164031773957511, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6394054958424183263, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6440,7 +6444,7 @@ MonoBehaviour:
   MapFile9: {fileID: 0}
   fade: {fileID: 1814192286}
   isClear: 1
-  tutorialClear: 0
+  tutorialMode: 0
 --- !u!4 &1540891743
 Transform:
   m_ObjectHideFlags: 0
@@ -7127,7 +7131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6132419608564412803, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0009765625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6132419608564412803, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
