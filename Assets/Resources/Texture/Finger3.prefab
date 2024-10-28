@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4707554045959553545}
   - component: {fileID: 4074348423499194631}
   m_Layer: 5
-  m_Name: Finger1
+  m_Name: Finger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,5 +91,5 @@ MonoBehaviour:
   image: {fileID: 4707554045959553545}
   MoveSpeed: 1
   MoveDistance: 50
-  startPos: 350
+  startPos: -500
   Revars: 0

@@ -29,12 +29,24 @@ public class MoveMessageBox : MonoBehaviour
 				}
 				break;
 			case 1:
+				if (createCount < 1)
+				{
+					CreateImage(0);
+				}
+
 				isMove = false;
+				break;
+			case 2:
+				if (GameObject.Find("Finger1(Clone)") != null)
+				{
+					createCount--;
+					Destroy(GameObject.Find("Finger1(Clone)"));
+				}
 				break;
 			case 4:
 				if (createCount < 1)
 				{
-					CreateImage(0);
+					CreateImage(1);
 				}
 
 				break;
@@ -44,22 +56,22 @@ public class MoveMessageBox : MonoBehaviour
 					moveMassageBox();
 				}
 
-				if (GameObject.Find("Finger1(Clone)") != null)
-				{
-					createCount--;
-					Destroy(GameObject.Find("Finger1(Clone)"));
-				}
-
-				if (createCount < 1)
-				{
-					CreateImage(1);
-				}
-				break;
-			case 6:
 				if (GameObject.Find("Finger2(Clone)") != null)
 				{
 					createCount--;
 					Destroy(GameObject.Find("Finger2(Clone)"));
+				}
+
+				if (createCount < 1)
+				{
+					CreateImage(2);
+				}
+				break;
+			case 6:
+				if (GameObject.Find("Finger3(Clone)") != null)
+				{
+					createCount--;
+					Destroy(GameObject.Find("Finger3(Clone)"));
 				}
 
 				isMove = false;
@@ -106,10 +118,13 @@ public class MoveMessageBox : MonoBehaviour
 		switch (CreateNum)
 		{
 			case 0:
-				createPrefab = Instantiate(prefab[CreateNum], CreatePos1, Quaternion.identity);
+				createPrefab = Instantiate(prefab[0], CreatePos1, new Quaternion(0.0f, 0.0f, 180.0f, 0.0f));
 				break;
 			case 1:
-				createPrefab = Instantiate(prefab[CreateNum], CreatePos1, new Quaternion(0.0f, 0.0f, 180.0f, 0.0f));
+				createPrefab = Instantiate(prefab[1], CreatePos1, Quaternion.identity);
+				break;
+			case 2:
+				createPrefab = Instantiate(prefab[2], CreatePos1, new Quaternion(0.0f, 0.0f, 180.0f, 0.0f));
 				break;
 		}
 

@@ -22,6 +22,8 @@ public class TextDraw : MonoBehaviour
 	// コルーチン格納用変数
 	private Coroutine showCoroutine;
 
+	private bool Faze2 = true;
+
 	private void Start()
 	{
 		scriptableObject.textIndex = 0;
@@ -48,6 +50,11 @@ public class TextDraw : MonoBehaviour
 
 		// １文字ずつ表示する演出のコルーチンを実行する
 		showCoroutine = StartCoroutine(ShowCoroutine());
+
+		if (scriptableObject.textIndex == 2)
+		{
+			Faze2 = false;
+		}
 	}
 
 	// １文字ずつ表示する演出のコルーチン
@@ -82,7 +89,15 @@ public class TextDraw : MonoBehaviour
 		//{ return; }
 
 		//Touch touch = Input.GetTouch(0);
-		if (scriptableObject.textIndex != 1)
+		if (scriptableObject.textIndex == 2 && Faze2 == true)
+		{
+			if (showCoroutine == null && scriptableObject.textIndex < 7)
+			{
+				if (scriptableObject.textIndex <= 6)
+					Show();
+			}
+		}
+		else if (scriptableObject.textIndex != 1)
 		{
 			if (/*touch.phase == TouchPhase.Began ||*/ Input.GetMouseButtonDown(0))
 			{
@@ -98,5 +113,7 @@ public class TextDraw : MonoBehaviour
 				}
 			}
 		}
+
+
 	}
 }
