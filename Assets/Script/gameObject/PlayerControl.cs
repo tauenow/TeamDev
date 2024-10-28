@@ -36,7 +36,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //プレイヤーがゴールまでいくモーション
         if (onGoalMove == true)
         {
             if (currentTime >= playerMoveTime * 0.1f)

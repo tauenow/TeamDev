@@ -85,6 +85,14 @@ public class MapManager : MonoBehaviour
 	[SerializeField]
 	private StageScriptableObject scriptableObject;
 
+	[Header("ゴールのエフェクトを出す時間")]
+	[SerializeField]
+	private float effectCreateTime = 0.2f;
+
+	[Header("クリアの待つ時間")]
+	[SerializeField]
+	private float clearwaitTime = 1.0f;
+
 	private void Start()
 	{
 		//初期化
@@ -259,11 +267,7 @@ public class MapManager : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetMouseButtonDown(1))
-		{
-			MapReset();
-		}
-
+		
         if (onGoal == true)
         {
             List<Floor> goalRootFloor = new();
@@ -305,7 +309,7 @@ public class MapManager : MonoBehaviour
             checkedFloorList.Add(goal);
             playerRoot.Add(goal.GetMapPosition());
 
-            float waitTime = 0.1f;
+            float waitTime = effectCreateTime;
 
             //ゴールまでのルートにエフェクトを生成
             foreach (Floor floor in goalRootFloor)
@@ -321,13 +325,11 @@ public class MapManager : MonoBehaviour
             //プレイヤーが通るルートを格納
             playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
             //プレイヤーが動く処理を遅延
-            WaitPlayerMove(2.0f);
+            WaitPlayerMove(clearwaitTime);
 
             //一回はいればよくね？
             onGoal = false;
         }
-
-
         //マップのチェンジがオフになったらマップを変えれるようにする
         if (isOff == true)
 		{
@@ -336,6 +338,7 @@ public class MapManager : MonoBehaviour
                 //マップをクリアしていなかったら操作できる
                 if (isMapClear == false)
 				{
+					Debug.Log("チェンジ可能");
 					GetComponent<CursorManager>().enabled = true;
 					GetComponent<TouchControl>().enabled = true;
 				}
@@ -460,19 +463,19 @@ public class MapManager : MonoBehaviour
 
         if (obj_top != null)
         {
-			obj_top.GetComponent<Floor>().LinkChange();
+			obj_top.GetComponent<Floor>().OnLinkChange();
         }
         if (obj_bottom != null)
         {
-            obj_bottom.GetComponent<Floor>().LinkChange();
+            obj_bottom.GetComponent<Floor>().OnLinkChange();
         }
         if (obj_left != null)
         {
-			obj_left.GetComponent<Floor>().LinkChange();
+			obj_left.GetComponent<Floor>().OnLinkChange();
         }
         if (obj_right != null)
         {
-            obj_right.GetComponent<Floor>().LinkChange();
+            obj_right.GetComponent<Floor>().OnLinkChange();
         }
 
     }

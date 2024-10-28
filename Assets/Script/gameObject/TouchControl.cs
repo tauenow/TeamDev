@@ -68,16 +68,23 @@ public class TouchControl : MonoBehaviour
                 {
                     if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                     {
-                        if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
+                        if (targetObject.GetComponent<Floor>().GetChangeState() == false && targetObject.GetComponent<Floor>().GetLinkChangeState() == false)
                         {
-                            targetObject.GetComponent<Floor>().SetChangeWait(true);
+                            if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
+                            {
+                                targetObject.GetComponent<Floor>().SetChangeWait(true);
+                            }
+                            else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
+                            {
+
+                                MapManager.floorChange = true;
+                                GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
+                                enabled = false;
+                            }
                         }
-                        else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
+                        else
                         {
-                            
-                            MapManager.floorChange = true;
-                            GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
-                            enabled = false;
+                            GetComponent<MapManager>().AllFloorWaitOff();
                         }
                     }
                 }
