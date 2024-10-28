@@ -121,6 +121,7 @@ MonoBehaviour:
   Mouse: 1
   Tap: 1
   motionFrame: 0.01
+  changeMotionCount: 20
   Hight: 0
   blockPlayerEmissive: 0.9
   blockEmissive: 0.9

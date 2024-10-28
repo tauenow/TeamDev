@@ -248,30 +248,22 @@ public class MapManager : MonoBehaviour
 
 		}
 
-		GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
+        //プレイヤーがゴールを向くようにする
+        GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
 
 		Vector3 transformLookPos = goalObj.transform.position;
 		transformLookPos.y += 1;
 
 		playerObject.transform.LookAt(transformLookPos);
-
-		//プレイヤーがゴールを向くようにする
-
-		if (scriptableObject.tutorialClear == false)
-		{
-			foreach (GameObject obj in mapObjects)
-			{
-				if (obj.GetComponent<Floor>().GetMapPosition().x != 2|| obj.GetComponent<Floor>().GetMapPosition().z != 2)
-				{
-				    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.6f;
-				}
-
-            }
-		}
 	}
 
 	private void Update()
 	{
+		if(Input.GetMouseButtonDown(1))
+		{
+			MapReset();
+		}
+
         if (onGoal == true)
         {
             List<Floor> goalRootFloor = new();
@@ -339,7 +331,7 @@ public class MapManager : MonoBehaviour
         //マップのチェンジがオフになったらマップを変えれるようにする
         if (isOff == true)
 		{
-			if(waitTime >= 10.0f)
+			if(waitTime >= 30.0f)
 			{
                 //マップをクリアしていなかったら操作できる
                 if (isMapClear == false)
@@ -515,7 +507,6 @@ public class MapManager : MonoBehaviour
 		Invoke(nameof(PlayerMove), waitTime);
 
     }
-    
     public int GetFaceNum()
 	{
 		return faceNum;
@@ -528,6 +519,7 @@ public class MapManager : MonoBehaviour
 	{
 		isOff = true;
 	}
+
 	
 	//エフェクト生成
 	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
@@ -536,6 +528,103 @@ public class MapManager : MonoBehaviour
 		Instantiate(goalEffect,pos,Quaternion.identity);
 		pos.y -= 1.0f;
         Instantiate(playerRootEffect, pos, Quaternion.identity);
+
+    }
+	//マップのリセット
+    public void MapReset()
+	{
+		foreach(GameObject obj in mapObjects)
+		{
+			Destroy(obj);
+		}
+
+		mapObjects.RemoveAll(match => match != null);
+
+		int state = 0;
+
+        for (int i = 1; i < textYNumber; i++)
+        {
+            string[] tempWords = textData[i].Split(',');
+
+            for (int j = 0; j < textXNumber; j++)
+            {
+                dungeonMap[i, j] = tempWords[j];
+
+                state = int.Parse(dungeonMap[i, j]);
+
+                if (dungeonMap[i, j] != null)
+                {
+                    switch (state)//スイッチ文ゴミ
+                    {
+                        case 0:
+
+                            break;
+                        case 1:
+                            GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor1.GetComponent<Floor>().SetParentmap(this);
+                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
+                            floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            floor1.GetComponent<Floor>().SetFaceCount(1);
+                            mapObjects.Add(floor1);
+
+
+                            break;
+
+                        case 2:
+                            GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor2.GetComponent<Floor>().SetParentmap(this);
+                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
+                            floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
+                            floor2.GetComponent<Floor>().SetFaceCount(2);
+                            mapObjects.Add(floor2);
+
+
+                            break;
+                        case 3:
+                            GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor3.GetComponent<Floor>().SetParentmap(this);
+                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
+                            floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
+                            floor3.GetComponent<Floor>().SetFaceCount(3);
+                            mapObjects.Add(floor3);
+
+
+                            break;
+                        case 4:
+                            GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+                            floor4.GetComponent<Floor>().SetParentmap(this);
+                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
+                            floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
+                            mapObjects.Add(floor4);
+
+
+                            break;
+						case 5:
+							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor5.GetComponent<Floor>().SetParentmap(this);
+							floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
+							mapObjects.Add(floor5);
+
+
+							break;
+						case 6:
+							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor6.GetComponent<Floor>().SetParentmap(this);
+							floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
+							if (scriptableObject.colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
+
+							mapObjects.Add(floor6);
+
+							break;
+						default:
+                            break;
+                    }
+                }
+            }
+        }
 
     }
 }

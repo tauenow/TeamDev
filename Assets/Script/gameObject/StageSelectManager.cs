@@ -4,7 +4,7 @@ using System.IO.Compression;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class StageSelectManager : MonoBehaviour
 {
     //スクリプタぶるオブジェクトのClearは-1して
@@ -44,12 +44,13 @@ public class StageSelectManager : MonoBehaviour
     //このステージをクリアしたかどうか
     public bool isClear = false;
 
+    [Header("チュートリアル")]
     [SerializeField]
-    public bool tutorial = false;
+    public bool tutorialClear = false;
 
     private void Awake()
     {
-        StageObj.tutorialClear = tutorial;
+        StageObj.tutorialClear = tutorialClear;
 
         Application.targetFrameRate = 60;
         string textLines = null;
@@ -135,8 +136,8 @@ public class StageSelectManager : MonoBehaviour
     }
     public void ChangeScene()
     {
-        if (StageObj.tutorialClear == false) StageObj.tutorialClear = true;
-        else StageObj.isClearList[selecetStageNum - 1] = true;
+        //ゲームシーンだったらステージをクリアにする(チュートリアルシーンは見ない)
+        if(SceneManager.GetActiveScene().name == "SampleScene") StageObj.isClearList[selecetStageNum - 1] = true;
         fade.GetComponent<FadeINOUT>().FadeToChangeScene();
     }
 }

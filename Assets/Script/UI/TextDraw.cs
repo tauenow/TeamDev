@@ -82,13 +82,20 @@ public class TextDraw : MonoBehaviour
 		//{ return; }
 
 		//Touch touch = Input.GetTouch(0);
-		if (/*touch.phase == TouchPhase.Began ||*/ Input.GetMouseButtonDown(0))
+		if (scriptableObject.textIndex != 1)
 		{
-			if (showCoroutine == null && scriptableObject.textIndex < 7)
+			if (/*touch.phase == TouchPhase.Began ||*/ Input.GetMouseButtonDown(0))
 			{
-				scriptableObject.textIndex++;
-				if (scriptableObject.textIndex <= 6)
-					Show();
+				if (showCoroutine == null && scriptableObject.textIndex < 7)
+				{
+					scriptableObject.textIndex++;
+					if (scriptableObject.textIndex <= 6)
+						Show();
+				}
+				if (scriptableObject.textIndex == 7)
+				{
+					scriptableObject.tutorialClear = true;
+				}
 			}
 		}
 	}

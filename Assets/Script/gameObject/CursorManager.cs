@@ -11,8 +11,6 @@ public class CursorManager : MonoBehaviour
    
     [SerializeField]
     Texture2D defaultCursor = null;
-    [SerializeField]
-    Texture2D interactCursor = null;
     Camera mainCamera;
     RaycastHit hit;
     GameObject targetObject;
@@ -47,10 +45,6 @@ public class CursorManager : MonoBehaviour
         CastRay();
         //チューリアルの時のカーソル処理
         TutorialCastRay();
-    }
-    void OnDisable()
-    {
-        SetCursor(true);
     }
     // マウスカーソルの位置から「レイ」を飛ばして、何かのコライダーに当たるかどうかをチェック
     void CastRay()
@@ -104,9 +98,13 @@ public class CursorManager : MonoBehaviour
                     {
                         if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
                         {
-                            Debug.Log("押しました");
-                            GetComponent<MapManager>().ChangeMap(targetObject);
-                            enabled = false;
+                            if (scriptableObject.textIndex == 1)
+                            {
+                                Debug.Log("押しました");
+                                GetComponent<MapManager>().ChangeMap(targetObject);
+                                enabled = false;
+                                scriptableObject.textIndex++;
+                            }
                         }
                     }
                 }
@@ -137,10 +135,6 @@ public class CursorManager : MonoBehaviour
         if (isDefault == true)
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
-        }
-        else
-        {
-            Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.Auto);
         }
     }
     void OnResultClick()

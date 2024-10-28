@@ -6177,7 +6177,7 @@ MonoBehaviour:
   MapFile9: {fileID: 4900000, guid: ba1889a8737a0044e9c5bd6432a1d59c, type: 3}
   fade: {fileID: 172529889}
   isClear: 0
-  tutorial: 1
+  tutorialClear: 1
 --- !u!4 &1143344578
 Transform:
   m_ObjectHideFlags: 0

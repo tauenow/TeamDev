@@ -108,7 +108,7 @@ public class TouchControl : MonoBehaviour
                     if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                     {
                         if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
-                        {
+                        { 
                             if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                             {
 
@@ -116,10 +116,12 @@ public class TouchControl : MonoBehaviour
                             }
                             else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
                             {
-
-                                GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
-                                enabled = false;
-
+                                if (scriptableObject.textIndex == 1)
+                                {
+                                    GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
+                                    enabled = false;
+                                    scriptableObject.textIndex++;
+                                }
                             }
                         }
                     }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    
+    private GameObject thisGameObject = null;
 	//マウスの処理のOnOff
 	[SerializeField]
 	private bool Mouse = false;
@@ -76,6 +78,8 @@ public class Floor : MonoBehaviour
 
         cursor = false;
         doOnec = true;
+
+        thisGameObject = parentMap.GetGameObjectList().Find(match => match == gameObject);
     }
 
 	// Update is called once per frame
@@ -220,7 +224,7 @@ public class Floor : MonoBehaviour
             if (doOnec == true)
             {
                 //周辺の色情報を変更
-                parentMap.LinkChangeFloor(gameObject);
+                parentMap.LinkChangeFloor(thisGameObject);
                 //プレイヤーが選択した位置に向く
                 Vector3 lookPos = transform.position;
                 lookPos.y += 0.1f;

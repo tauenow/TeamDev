@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4838918030150645612}
   - component: {fileID: 7606274210754195181}
   - component: {fileID: 3871864324699293210}
-  - component: {fileID: -1676623527714532464}
   - component: {fileID: -3080961083470304875}
   m_Layer: 0
   m_Name: Goal
@@ -107,24 +106,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1676623527714532464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6428310960531333526}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 828110c9545281d448b5915a30d28145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  change: 0
-  Hight: 0
-  tagName1: RedFloor
-  tagName2: BlueFloor
-  mat_red: {fileID: 2100000, guid: f86bcfb1d3fdf4f4bb870784e5b18355, type: 2}
-  mat_blue: {fileID: 2100000, guid: fe0d5d41255641a4cb194e07a468dac6, type: 2}
 --- !u!114 &-3080961083470304875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,3 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d640f99b43e5e154589534a6a69d640e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mouse: 0
+  Tap: 0
+  motionFrame: 0.1
+  changeMotionCount: 20
+  Hight: 0
+  blockPlayerEmissive: 0
+  blockEmissive: 0
+  scriptableObject: {fileID: 0}
+  effectObject: {fileID: 0}
+  linkEffectObject: {fileID: 0}
