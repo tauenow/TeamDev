@@ -127,22 +127,30 @@ public class Floor : MonoBehaviour
 	{
 		return faceCount;
 	}
-    public void LinkChange()
-    {
-        linkChange = true;
-    }
-
     public void OnChange()
     {
         change = true;
         currentTime = 0.0f;
 
     }
+    public void OnLinkChange()
+    {
+        linkChange = true;
+        currentLinkTime = 0.0f;
+    }
     public void OnCursor()
     {
         cursor = true;
     }
 
+    public bool GetChangeState()
+    {
+        return change;
+    }
+    public bool GetLinkChangeState()
+    {
+        return linkChange;
+    }
     public void SetChangeWait(bool value)
     {
         changeWait = value;
@@ -620,10 +628,7 @@ public class Floor : MonoBehaviour
                 }
             }
         }
-		//Debug.Log(position.x);
-		//Debug.Log(position.z);
-		//Debug.Log(state);
-
+		
 		float wait = 0.01f;
 
         if (objList.Count == 1)

@@ -8,6 +8,7 @@ public class TutorialManager : MonoBehaviour
     private StageScriptableObject scriptableObject = null;
     private GameObject MapObject = null;
     private bool doOnce = false;
+    private bool tutorialClear = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,14 +53,20 @@ public class TutorialManager : MonoBehaviour
         }
         else if(scriptableObject.textIndex >= 7)
         {
-            MapObject.GetComponent<CursorManager>().enabled = true;
-            MapObject.GetComponent<TouchControl>().enabled = true;
-
-            foreach (GameObject obj in MapObject.GetComponent<MapManager>().GetGameObjectList())
+            if (tutorialClear == false)
             {
-               
-                obj.GetComponent<MeshRenderer>().material.color = Color.white;
-                
+
+                MapObject.GetComponent<CursorManager>().enabled = true;
+                MapObject.GetComponent<TouchControl>().enabled = true;
+
+                foreach (GameObject obj in MapObject.GetComponent<MapManager>().GetGameObjectList())
+                {
+
+                    obj.GetComponent<MeshRenderer>().material.color = Color.white;
+
+                }
+
+                tutorialClear = true;
             }
 
         }
