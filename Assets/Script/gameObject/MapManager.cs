@@ -100,16 +100,16 @@ public class MapManager : MonoBehaviour
 		checkedFloorList = new();
 		floorChange = false;
 
-        playerObject = null;
+		playerObject = null;
 		isOff = false;
 		isMapClear = false;
 		onGoal = false;
-        playerRoot = new();
+		playerRoot = new();
 
-        faceNum = 0;
-		
-        string textLines = MapFile.text; // テキストの全体データの代入
-										 
+		faceNum = 0;
+
+		string textLines = MapFile.text; // テキストの全体データの代入
+
 		// 改行でデータを分割して配列に代入
 		textData = textLines.Split('\n');
 
@@ -124,20 +124,20 @@ public class MapManager : MonoBehaviour
 
 		Debug.Log(scriptableObject.colorName);
 
-        for (int i = 0; i < 1; i++)
-        {
-            string[] tempWords = textData[i].Split(',');
-            for (int j = 1; j < 2; j++)
-            {
-                dungeonMap[i, j] = tempWords[j];
+		for (int i = 0; i < 1; i++)
+		{
+			string[] tempWords = textData[i].Split(',');
+			for (int j = 1; j < 2; j++)
+			{
+				dungeonMap[i, j] = tempWords[j];
 
-                faceNum = int.Parse(dungeonMap[i, j]);
-            }
-        }
+				faceNum = int.Parse(dungeonMap[i, j]);
+			}
+		}
 
 		Debug.Log(faceNum);
 
-        if (faceNum == 2)
+		if (faceNum == 2)
 		{
 			Floor.GetComponent<MeshRenderer>().material = color_2;
 			Debug.Log("2色です");
@@ -172,63 +172,63 @@ public class MapManager : MonoBehaviour
 							break;
 						case 1:
 							GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor1.GetComponent<Floor>().SetParentmap(this);
-                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
+							floor1.GetComponent<Floor>().SetParentmap(this);
+							floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
 							floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
 							floor1.GetComponent<Floor>().SetFaceCount(1);
 							mapObjects.Add(floor1);
-							
+
 
 							break;
 
 						case 2:
 							GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor2.GetComponent<Floor>().SetParentmap(this);
-                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
+							floor2.GetComponent<Floor>().SetParentmap(this);
+							floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
 							floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
 							floor2.GetComponent<Floor>().SetFaceCount(2);
 							mapObjects.Add(floor2);
-							
+
 
 							break;
 						case 3:
 							GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetParentmap(this);
-                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
+							floor3.GetComponent<Floor>().SetParentmap(this);
+							floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
 							floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
 							floor3.GetComponent<Floor>().SetFaceCount(3);
 							mapObjects.Add(floor3);
-							
+
 
 							break;
 						case 4:
 							GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetParentmap(this);
-                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
+							floor4.GetComponent<Floor>().SetParentmap(this);
+							floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
 							floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
 							mapObjects.Add(floor4);
-							
+
 
 							break;
 						case 5:
 							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor5.GetComponent<Floor>().SetParentmap(this);
-                            floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
+							floor5.GetComponent<Floor>().SetParentmap(this);
+							floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
 							mapObjects.Add(floor5);
-							
+
 
 							break;
 						case 6:
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor6.GetComponent<Floor>().SetParentmap(this);
-                            floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
-							if(scriptableObject.colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
-                            else if (scriptableObject.colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
-                            else if (scriptableObject.colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
-                            else if (scriptableObject.colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
+							floor6.GetComponent<Floor>().SetParentmap(this);
+							floor6.GetComponent<Floor>().SetMapPosition(j, i - 1, "player");
+							if (scriptableObject.colorName == "red") floor6.transform.Rotate(180.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "blue") floor6.transform.Rotate(270.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "yellow") floor6.transform.Rotate(0.0f, 0.0f, 0.0f);
+							else if (scriptableObject.colorName == "green") floor6.transform.Rotate(90.0f, 0.0f, 0.0f);
 
-                            mapObjects.Add(floor6);
-							
+							mapObjects.Add(floor6);
+
 							//プレイヤー生成
 							playerObject = Instantiate(Player, new Vector3(transform.position.x + j, transform.position.y + 0.5f, transform.position.z - i), Quaternion.identity) as GameObject;
 							playerObject.GetComponent<PlayerControl>().SetMapPosition(floor6.GetComponent<Floor>().GetMapPosition());
@@ -251,13 +251,12 @@ public class MapManager : MonoBehaviour
 			GameObject centerObj = Instantiate(centerObject, new Vector3(center.x, transform.position.y, center.z), Quaternion.identity) as GameObject;
 
 			centerPosRegister = true;//一つ登録すればOK
-            Debug.Log("センターを登録");
-            GameObject.Find("Main Camera").GetComponent<CameraControl>().CentrCretae(centerObj);//カメラのセンターになるオブジェクトを見つける
-
+			Debug.Log("センターを登録");
+			GameObject.Find("Main Camera").GetComponent<CameraControl>().CentrCretae(centerObj);//カメラのセンターになるオブジェクトを見つける
 		}
 
-        //プレイヤーがゴールを向くようにする
-        GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
+		//プレイヤーがゴールを向くようにする
+		GameObject goalObj = mapObjects.Find(match => match.gameObject.GetComponent<Floor>().GetFloorState() == "goal");
 
 		Vector3 transformLookPos = goalObj.transform.position;
 		transformLookPos.y += 1;
@@ -267,85 +266,85 @@ public class MapManager : MonoBehaviour
 
 	private void Update()
 	{
-		
-        if (onGoal == true)
-        {
-            List<Floor> goalRootFloor = new();
-            parentManager.isClear = true;
-            Debug.Log(parentManager.isClear);
-            //いらないルートを消す
-            foreach (Floor floor in checkedFloorList)
-            {
-                if (floor.GetRootCount() == 0)
-                {
-                    floor.CheckOldRoot();
-					Debug.Log("ルート消去");
-                }
-            }
-            //プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
-            foreach (Floor floor in checkedFloorList)
-            {
-                if (floor.GetRootCount() == 1)
-                {
-                    goalRootFloor.Add(floor);
-                    playerRoot.Add(floor.GetMapPosition());
-                }
-            }
-            //かぶっているポジションデータがあったら消去
-            for (int i = 0; i < playerRoot.Count; i++)
-            {
-                if (i != 0 && i != playerRoot.Count)
-                {
-                    if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
-                    {
-                        Debug.Log("かぶった");
-                        playerRoot.RemoveAt(i);
-                    }
-                }
-            }
 
-            //ゴールのpositionも格納
-            Floor goal = mapObjects.Find(match => match.GetComponent<Floor>().GetFloorState() == "goal").GetComponent<Floor>();
-            checkedFloorList.Add(goal);
-            playerRoot.Add(goal.GetMapPosition());
-
-            float waitTime = effectCreateTime;
-
-            //ゴールまでのルートにエフェクトを生成
-            foreach (Floor floor in goalRootFloor)
-            {
-                //Debug.Log(floor.GetRootCount());
-                //Debug.Log(floor.GetMapPosition());
-                Vector3 pos = floor.transform.position;
-                pos.y -= 1.0f;
-                StartCoroutine(CreateGoalEffect(waitTime, pos));
-                waitTime += 0.1f;
-            }
-
-            //プレイヤーが通るルートを格納
-            playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
-            //プレイヤーが動く処理を遅延
-            WaitPlayerMove(clearwaitTime);
-
-            //一回はいればよくね？
-            onGoal = false;
-        }
-        //マップのチェンジがオフになったらマップを変えれるようにする
-        if (isOff == true)
+		if (onGoal == true)
 		{
-			if(waitTime >= 30.0f)
+			List<Floor> goalRootFloor = new();
+			parentManager.isClear = true;
+			Debug.Log(parentManager.isClear);
+			//いらないルートを消す
+			foreach (Floor floor in checkedFloorList)
 			{
-                //マップをクリアしていなかったら操作できる
-                if (isMapClear == false)
+				if (floor.GetRootCount() == 0)
+				{
+					floor.CheckOldRoot();
+					Debug.Log("ルート消去");
+				}
+			}
+			//プレイヤーのポジションからゴールのルートまでのrootのpositionを格納
+			foreach (Floor floor in checkedFloorList)
+			{
+				if (floor.GetRootCount() == 1)
+				{
+					goalRootFloor.Add(floor);
+					playerRoot.Add(floor.GetMapPosition());
+				}
+			}
+			//かぶっているポジションデータがあったら消去
+			for (int i = 0; i < playerRoot.Count; i++)
+			{
+				if (i != 0 && i != playerRoot.Count)
+				{
+					if (playerRoot[i].x == playerRoot[i - 1].x && playerRoot[i].z == playerRoot[i - 1].z)
+					{
+						Debug.Log("かぶった");
+						playerRoot.RemoveAt(i);
+					}
+				}
+			}
+
+			//ゴールのpositionも格納
+			Floor goal = mapObjects.Find(match => match.GetComponent<Floor>().GetFloorState() == "goal").GetComponent<Floor>();
+			checkedFloorList.Add(goal);
+			playerRoot.Add(goal.GetMapPosition());
+
+			float waitTime = effectCreateTime;
+
+			//ゴールまでのルートにエフェクトを生成
+			foreach (Floor floor in goalRootFloor)
+			{
+				//Debug.Log(floor.GetRootCount());
+				//Debug.Log(floor.GetMapPosition());
+				Vector3 pos = floor.transform.position;
+				pos.y -= 1.0f;
+				StartCoroutine(CreateGoalEffect(waitTime, pos));
+				waitTime += 0.1f;
+			}
+
+			//プレイヤーが通るルートを格納
+			playerObject.GetComponent<PlayerControl>().SetGoalRoot(playerRoot);
+			//プレイヤーが動く処理を遅延
+			WaitPlayerMove(clearwaitTime);
+
+			//一回はいればよくね？
+			onGoal = false;
+		}
+		//マップのチェンジがオフになったらマップを変えれるようにする
+		if (isOff == true)
+		{
+			if (waitTime >= 30.0f)
+			{
+				//マップをクリアしていなかったら操作できる
+				if (isMapClear == false)
 				{
 					Debug.Log("チェンジ可能");
 					GetComponent<CursorManager>().enabled = true;
 					GetComponent<TouchControl>().enabled = true;
 				}
 				//チェンジができるようにする
-                isOff = false;//DoOnce
-                floorChange = false;
-            }
+				isOff = false;//DoOnce
+				floorChange = false;
+			}
 			waitTime++;
 		}
 	}
@@ -369,10 +368,10 @@ public class MapManager : MonoBehaviour
 		string state = obj.GetComponent<Floor>().GetFloorState();
 		int num = obj.GetComponent<Floor>().GetFaceCount() + 1;
 
-        obj.GetComponent<Floor>().SetFloorState(state);
-        obj.GetComponent<Floor>().SetFaceCount(num);
-        //マップチェンジオン
-        obj.GetComponent<Floor>().OnChange();
+		obj.GetComponent<Floor>().SetFloorState(state);
+		obj.GetComponent<Floor>().SetFaceCount(num);
+		//マップチェンジオン
+		obj.GetComponent<Floor>().OnChange();
 
 	}
 
@@ -414,77 +413,77 @@ public class MapManager : MonoBehaviour
 
 		if (obj_top != null)
 		{
-			
+
 			obj_top.GetComponent<Floor>().SetFaceCount(obj_top.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_top.GetComponent<Floor>().SetFloorState(obj_top.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_bottom != null)
 		{
-			
+
 			obj_bottom.GetComponent<Floor>().SetFaceCount(obj_bottom.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_bottom.GetComponent<Floor>().SetFloorState(obj_bottom.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_left != null)
 		{
-			
+
 			obj_left.GetComponent<Floor>().SetFaceCount(obj_left.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_left.GetComponent<Floor>().SetFloorState(obj_left.GetComponent<Floor>().GetFloorState());
 		}
 		if (obj_right != null)
-		{ 
+		{
 			obj_right.GetComponent<Floor>().SetFaceCount(obj_right.GetComponent<Floor>().GetFaceCount() + 1);
 			obj_right.GetComponent<Floor>().SetFloorState(obj_right.GetComponent<Floor>().GetFloorState());
 		}
 
 	}
-    public void LinkChangeFloorMotion(GameObject gameObject)
-    {
-        GameObject obj_top = null;
-        GameObject obj_bottom = null;
-        GameObject obj_left = null;
-        GameObject obj_right = null;
+	public void LinkChangeFloorMotion(GameObject gameObject)
+	{
+		GameObject obj_top = null;
+		GameObject obj_bottom = null;
+		GameObject obj_left = null;
+		GameObject obj_right = null;
 
-        //↑
-        obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
-        //↓
-        obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
-        //←
-        obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
-        //→
-        obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
-
-
-        if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
-        if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
-        if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
-        if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
+		//↑
+		obj_top = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z - 1);
+		//↓
+		obj_bottom = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z + 1);
+		//←
+		obj_left = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
+		//→
+		obj_right = mapObjects.Find(match => match.GetComponent<Floor>().GetMapPosition().x == gameObject.GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == gameObject.GetComponent<Floor>().GetMapPosition().z);
 
 
+		if (obj_top != null) if (obj_top.GetComponent<Floor>().GetFloorState() == "player") obj_top = null;
+		if (obj_bottom != null) if (obj_bottom.GetComponent<Floor>().GetFloorState() == "player") obj_bottom = null;
+		if (obj_left != null) if (obj_left.GetComponent<Floor>().GetFloorState() == "player") obj_left = null;
+		if (obj_right != null) if (obj_right.GetComponent<Floor>().GetFloorState() == "player") obj_right = null;
 
-        if (obj_top != null)
-        {
+
+
+		if (obj_top != null)
+		{
 			obj_top.GetComponent<Floor>().OnLinkChange();
-        }
-        if (obj_bottom != null)
-        {
-            obj_bottom.GetComponent<Floor>().OnLinkChange();
-        }
-        if (obj_left != null)
-        {
+		}
+		if (obj_bottom != null)
+		{
+			obj_bottom.GetComponent<Floor>().OnLinkChange();
+		}
+		if (obj_left != null)
+		{
 			obj_left.GetComponent<Floor>().OnLinkChange();
-        }
-        if (obj_right != null)
-        {
-            obj_right.GetComponent<Floor>().OnLinkChange();
-        }
+		}
+		if (obj_right != null)
+		{
+			obj_right.GetComponent<Floor>().OnLinkChange();
+		}
 
-    }
+	}
 
-    public List<Floor> GetCheckedFloorList()
+	public List<Floor> GetCheckedFloorList()
 	{
 		return checkedFloorList;
 	}
-　　
+
 	public void IsMapClear()
 	{
 		isMapClear = true;
@@ -499,18 +498,18 @@ public class MapManager : MonoBehaviour
 		//この処理の仕方だとマップのサイズ増やしたらバグります。
 		Invoke(nameof(OnGoal), 1.0f);
 	}
-    private void PlayerMove()
-    {
-        Debug.Log("プレイヤー動きます");
-        playerObject.GetComponent<PlayerControl>().OnPlayerMove();
-    }
-    public void WaitPlayerMove(float waitTime)
+	private void PlayerMove()
 	{
-		
+		Debug.Log("プレイヤー動きます");
+		playerObject.GetComponent<PlayerControl>().OnPlayerMove();
+	}
+	public void WaitPlayerMove(float waitTime)
+	{
+
 		Invoke(nameof(PlayerMove), waitTime);
 
-    }
-    public int GetFaceNum()
+	}
+	public int GetFaceNum()
 	{
 		return faceNum;
 	}
@@ -523,20 +522,20 @@ public class MapManager : MonoBehaviour
 		isOff = true;
 	}
 
-	
+
 	//エフェクト生成
 	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
 	{
 		yield return new WaitForSeconds(waitTime);
-		Instantiate(goalEffect,pos,Quaternion.identity);
+		Instantiate(goalEffect, pos, Quaternion.identity);
 		pos.y -= 1.0f;
-        Instantiate(playerRootEffect, pos, Quaternion.identity);
+		Instantiate(playerRootEffect, pos, Quaternion.identity);
 
-    }
+	}
 	//マップのリセット
-    public void MapReset()
+	public void MapReset()
 	{
-		foreach(GameObject obj in mapObjects)
+		foreach (GameObject obj in mapObjects)
 		{
 			Destroy(obj);
 		}
@@ -545,63 +544,63 @@ public class MapManager : MonoBehaviour
 
 		int state = 0;
 
-        for (int i = 1; i < textYNumber; i++)
-        {
-            string[] tempWords = textData[i].Split(',');
+		for (int i = 1; i < textYNumber; i++)
+		{
+			string[] tempWords = textData[i].Split(',');
 
-            for (int j = 0; j < textXNumber; j++)
-            {
-                dungeonMap[i, j] = tempWords[j];
+			for (int j = 0; j < textXNumber; j++)
+			{
+				dungeonMap[i, j] = tempWords[j];
 
-                state = int.Parse(dungeonMap[i, j]);
+				state = int.Parse(dungeonMap[i, j]);
 
-                if (dungeonMap[i, j] != null)
-                {
-                    switch (state)//スイッチ文ゴミ
-                    {
-                        case 0:
+				if (dungeonMap[i, j] != null)
+				{
+					switch (state)//スイッチ文ゴミ
+					{
+						case 0:
 
-                            break;
-                        case 1:
-                            GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor1.GetComponent<Floor>().SetParentmap(this);
-                            floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
-                            floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
-                            floor1.GetComponent<Floor>().SetFaceCount(1);
-                            mapObjects.Add(floor1);
-
-
-                            break;
-
-                        case 2:
-                            GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor2.GetComponent<Floor>().SetParentmap(this);
-                            floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
-                            floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
-                            floor2.GetComponent<Floor>().SetFaceCount(2);
-                            mapObjects.Add(floor2);
+							break;
+						case 1:
+							GameObject floor1 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor1.GetComponent<Floor>().SetParentmap(this);
+							floor1.GetComponent<Floor>().SetMapPosition(j, i - 1, "red");
+							floor1.transform.Rotate(180.0f, 0.0f, 0.0f);
+							floor1.GetComponent<Floor>().SetFaceCount(1);
+							mapObjects.Add(floor1);
 
 
-                            break;
-                        case 3:
-                            GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor3.GetComponent<Floor>().SetParentmap(this);
-                            floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
-                            floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
-                            floor3.GetComponent<Floor>().SetFaceCount(3);
-                            mapObjects.Add(floor3);
+							break;
+
+						case 2:
+							GameObject floor2 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor2.GetComponent<Floor>().SetParentmap(this);
+							floor2.GetComponent<Floor>().SetMapPosition(j, i - 1, "blue");
+							floor2.transform.Rotate(270.0f, 0.0f, 0.0f);
+							floor2.GetComponent<Floor>().SetFaceCount(2);
+							mapObjects.Add(floor2);
 
 
-                            break;
-                        case 4:
-                            GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
-                            floor4.GetComponent<Floor>().SetParentmap(this);
-                            floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
-                            floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
-                            mapObjects.Add(floor4);
+							break;
+						case 3:
+							GameObject floor3 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor3.GetComponent<Floor>().SetParentmap(this);
+							floor3.GetComponent<Floor>().SetMapPosition(j, i - 1, "yellow");
+							floor3.transform.Rotate(0.0f, 0.0f, 0.0f);
+							floor3.GetComponent<Floor>().SetFaceCount(3);
+							mapObjects.Add(floor3);
 
 
-                            break;
+							break;
+						case 4:
+							GameObject floor4 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							floor4.GetComponent<Floor>().SetParentmap(this);
+							floor4.GetComponent<Floor>().SetMapPosition(j, i - 1, "green");
+							floor4.transform.Rotate(90.0f, 0.0f, 0.0f);
+							mapObjects.Add(floor4);
+
+
+							break;
 						case 5:
 							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
 							floor5.GetComponent<Floor>().SetParentmap(this);
@@ -623,11 +622,11 @@ public class MapManager : MonoBehaviour
 
 							break;
 						default:
-                            break;
-                    }
-                }
-            }
-        }
+							break;
+					}
+				}
+			}
+		}
 
-    }
+	}
 }

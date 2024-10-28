@@ -93,7 +93,7 @@ public class MoveMessageBox : MonoBehaviour
 		switch (scriptableObject.textIndex)
 		{
 			case 0:
-				image.transform.DOLocalMoveY(-560.0f, 1.0f, false).SetEase(Ease.OutBack);
+				image.transform.DOLocalMoveY(-650.0f, 1.0f, false).SetEase(Ease.OutBack);
 				break;
 			case 5:
 				image.transform.DOLocalMoveY(520.0f, 1.0f, false).SetEase(Ease.OutCubic);
