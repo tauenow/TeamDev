@@ -6837,6 +6837,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5ccfa024935b67847a1f341e319d85a3, type: 3}
   - {fileID: 21300000, guid: 58dd95583eebd3b4fb0a8b5fe9468bf3, type: 3}
   - {fileID: 21300000, guid: 86f0a06c66388984da64336bdce110d1, type: 3}
+--- !u!114 &2062161072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49532277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb33fcf916268404caeb82a2742c7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &687944027885512976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6925,6 +6937,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2062161072}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MapReset
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OnBottonResetMap, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
       propertyPath: m_Name
       value: RetryButton
@@ -6936,6 +6980,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2062161069}
+    - targetCorrespondingSourceObject: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2062161072}
   m_SourcePrefab: {fileID: 100100000, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
