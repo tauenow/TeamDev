@@ -4,44 +4,66 @@ using UnityEngine;
 
 public class SEManager : MonoBehaviour
 {
-    // シングルトンインスタンス (他のスクリプトからアクセスするための共有インスタンス)
-    public static SEManager Instance;
+    public static SEManager Instance { get; private set; }
 
-    // SE（サウンドエフェクト）を再生するためのAudioSource
     private AudioSource audioSource;
+    private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    private bool isPlaying; // 再生中かどうかを示すフラグ
 
-    // Awakeメソッドはゲームオブジェクトがシーンにロードされたときに最初に呼ばれる
     private void Awake()
     {
-        // シングルトンパターンの設定: インスタンスがまだない場合は、このゲームオブジェクトをインスタンスとして設定
         if (Instance == null)
         {
             Instance = this;
-            // シーンが切り替わってもこのゲームオブジェクトを破棄しない
-            DontDestroyOnLoad(gameObject);
-            // AudioSourceコンポーネントを取得
-            audioSource = GetComponent<AudioSource>();
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
         else
         {
-            // すでにインスタンスが存在する場合は新しいゲームオブジェクトを削除
             Destroy(gameObject);
         }
     }
 
-    // サウンドエフェクトを再生するためのメソッド
-    public void PlaySE(AudioClip seClip)
+    public void AddAudioClip(string clipName, AudioClip clip)
     {
-        // AudioClipがnullでない場合に再生を行う
-        if (seClip != null)
+        if (!audioClips.ContainsKey(clipName))
         {
-            // 指定されたAudioClipを再生 (PlayOneShotはSEを重ねて再生するのに適している)
-            audioSource.PlayOneShot(seClip);
+            audioClips.Add(clipName, clip);
+        }
+    }
+
+    public void PlaySE(string clipName)
+    {
+        if (audioClips.TryGetValue(clipName, out AudioClip clip))
+        {
+            //audioSource.PlayOneShot(clip); // 常に再生
+
+            // フラグを設定し、コルーチンを開始
+            if (clipName == "ColorChange")
+            {
+                Debug.Log(isPlaying);
+                if (!isPlaying) // 再生中でない場合のみフラグを設定
+                {
+                    Debug.Log("再生します");
+                    isPlaying = true; // 再生中フラグをセット
+                    audioSource.PlayOneShot(clip); // 常に再生
+
+                    StartCoroutine(ResetPlayingFlag(clip.length)); // コルーチンを開始
+                }
+            }
+            else
+            {
+                audioSource.PlayOneShot(clip); // 常に再生
+            }
         }
         else
         {
-            // nullの場合は警告メッセージを表示
-            Debug.LogWarning("PlaySE: SEクリップがnullです。AudioClipが設定されているか確認してください。");
+            Debug.LogWarning($"SEManager: Clip '{clipName}' not found!");
         }
+    }
+
+    private IEnumerator ResetPlayingFlag(float duration)
+    {
+        yield return new WaitForSeconds(duration); // クリップの長さだけ待機
+        isPlaying = false; // 再生中フラグをリセット
     }
 }
