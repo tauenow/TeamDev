@@ -171,6 +171,8 @@ public class FadeINOUT : MonoBehaviour
             // 最初のシーン名を使ってフェードアウトを開始
             if (sceneNames.Count > 0)
             {
+                SEManager.Instance.PlaySE("Select");
+
                 StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
             }
 

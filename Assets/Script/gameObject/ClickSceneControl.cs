@@ -36,6 +36,7 @@ public class ClickSceneControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            SEManager.Instance.PlaySE("Select");
             GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
         }
     }
