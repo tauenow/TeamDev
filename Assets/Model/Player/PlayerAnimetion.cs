@@ -31,7 +31,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("Yubisasi", true);
         isYubisasiPlaying = true;
-        MapManager.floorChange = false; // 条件をリセット
         StartCoroutine(OffYubisasi(1.5f)); // 3秒後にYubisasiを終了する
     }
 

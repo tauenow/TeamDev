@@ -345,13 +345,13 @@ public class MapManager : MonoBehaviour
                 if (isMapClear == false)
 				{
 					floorChange = false;
-				}
-                //チェンジができるようにする
-                Debug.Log("チェンジ可能");
+                }
                 GetComponent<CursorManager>().enabled = true;
                 GetComponent<TouchControl>().enabled = true;
+                //チェンジができるようにする
+                Debug.Log("チェンジ可能");
+                
                 isOff = false;//DoOnce
-                floorChange = false;
             }
 			waitTime++;
 		}
