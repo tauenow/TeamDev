@@ -37,6 +37,7 @@ public class SaveManager : MonoBehaviour
 		// データを書き込む
 		writer.Write("ClearList", GameIndex.isClearList);
 		writer.Write("Difficulty", GameIndex.DifficultyIndex);
+		writer.Write("TutorialClear", GameIndex.tutorialClear);
 
 		// 変更を反映
 		writer.Commit();
@@ -56,5 +57,6 @@ public class SaveManager : MonoBehaviour
 		// データを読み込む
 		GameIndex.isClearList = reader.Read<List<bool>>("ClearList");
 		GameIndex.DifficultyIndex = reader.Read<int>("Difficulty");
+		GameIndex.tutorialClear = reader.Read<bool>("TutorialClear");
 	}
 }
