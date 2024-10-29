@@ -18,12 +18,18 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private StageScriptableObject ScriptableObject;
 	[SerializeField] private int SetNum = default;
 	[SerializeField] private int SelectSetNum = 0;
+	[SerializeField] private Button[] Buttons;
 
 	private void Start()
 	{
 		if (ScriptableObject.ButtonNum != 0)
 		{
 			ScriptableObject.ButtonNum = 0;
+		}
+
+		for (int i = 0; i < Buttons.Length; i++)
+		{
+			Buttons[i].enabled = true;
 		}
 	}
 
@@ -76,5 +82,13 @@ public class UIManager : MonoBehaviour
 	public void SetSelectNum()
 	{
 		ScriptableObject.ButtonNum = SelectSetNum;
+	}
+
+	public void SetButtonEnable()
+	{
+		for (int i = 0; i < Buttons.Length; i++)
+		{
+			Buttons[i].enabled = false;
+		}
 	}
 }

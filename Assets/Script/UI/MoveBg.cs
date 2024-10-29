@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class MoveBg : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class MoveBg : MonoBehaviour
 	[SerializeField] private RectTransform imageTransform;
 	[SerializeField] private Canvas cloudCanvas;
 	private static int DifficultNum;
+	[SerializeField] private Button[] buttons;
 
 	// Start is called before the first frame update
 	void Start()
@@ -35,6 +38,8 @@ public class MoveBg : MonoBehaviour
 
 	public void BackGroundMove()
 	{
+		Debug.Log(buttons.Count());
+
 		switch (scriptableNum.DifficultyIndex)
 		{
 			case 1:
@@ -42,10 +47,21 @@ public class MoveBg : MonoBehaviour
 					.OnStart(() =>
 					{
 						cloudCanvas.enabled = false;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = false;
+						}
+
 					})
 					.OnComplete(() =>
 					{
 						cloudCanvas.enabled = true;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = true;
+						}
 					});
 				break;
 			case 2:
@@ -53,10 +69,20 @@ public class MoveBg : MonoBehaviour
 					.OnStart(() =>
 					{
 						cloudCanvas.enabled = false;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = false;
+						}
 					})
 					.OnComplete(() =>
 					{
 						cloudCanvas.enabled = true;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = true;
+						}
 					});
 				break;
 			case 3:
@@ -64,10 +90,20 @@ public class MoveBg : MonoBehaviour
 					.OnStart(() =>
 					{
 						cloudCanvas.enabled = false;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = false;
+						}
 					})
 					.OnComplete(() =>
 					{
 						cloudCanvas.enabled = true;
+
+						for (int i = 0; i < buttons.Length; i++)
+						{
+							buttons[i].enabled = true;
+						}
 					});
 				break;
 		}
