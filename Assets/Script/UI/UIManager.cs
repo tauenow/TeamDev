@@ -58,14 +58,17 @@ public class UIManager : MonoBehaviour
 			case 1:
 				// マップの番号をセットした内容に変更
 				ScriptableObject.StageNum = SetNum;
+				ScriptableObject.oldIsClear[SetNum] = ScriptableObject.isClearList[SetNum];
 				break;
 			case 2:
 				// マップの番号をセットした内容に変更
 				ScriptableObject.StageNum = SetNum + 3;
+				ScriptableObject.oldIsClear[SetNum] = ScriptableObject.isClearList[SetNum];
 				break;
 			case 3:
 				// マップの番号をセットした内容に変更
 				ScriptableObject.StageNum = SetNum + 6;
+				ScriptableObject.oldIsClear[SetNum] = ScriptableObject.isClearList[SetNum];
 				break;
 		}
 	}

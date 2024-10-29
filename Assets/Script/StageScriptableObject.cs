@@ -7,18 +7,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageNum", menuName = "ScriptableObjects/CreateStageNumAsset")]
 public class StageScriptableObject : UnityEngine.ScriptableObject
 {
-	// ステージ番号
+	[Header("ステージ番号")]
 	[SerializeField] public int StageNum = 1;
-	// 難易度
+	[Header("難易度")]
 	[SerializeField] public int DifficultyIndex = 1;
-	// 各ステージのクリア判定
+	[Header("各ステージのクリア判定(ステージ開始時)")]
+	public List<bool> oldIsClear = new List<bool>();
+	[Header("各ステージのクリア判定()")]
 	public List<bool> isClearList = new List<bool>();
-	// チュートリアルクリアしてるか
+	[Header("チュートリアルクリアしてるか")]
 	[SerializeField] public bool tutorialClear = false;
-	// ボタンの番号
+	[Header("ボタンの番号")]
 	[SerializeField] public int ButtonNum = 0;
-	// 各ステージの色
+	[Header("各ステージの色")]
 	public string colorName = "None";
-	// テキストの番号
+	[Header("チュートリアルテキストの番号")]
 	public int textIndex = 0;
 }
