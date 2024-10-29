@@ -257,6 +257,7 @@ public class Floor : MonoBehaviour
                         }
                         else if (motionCount < changeMotionCount * 2)
                         {
+                            SEManager.Instance.PlaySE("ColorChange");
                             transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
 
                         }
@@ -284,11 +285,13 @@ public class Floor : MonoBehaviour
                             if (faceCount >= 4)
                             {
                                 Debug.Log("zé≤");
+                                SEManager.Instance.PlaySE("ColorChange");
                                 transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
                             }
                             else if (faceCount >= 1)
                             {
                                 Debug.Log("xé≤");
+                                SEManager.Instance.PlaySE("ColorChange");
                                 transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
                             }
 
@@ -337,7 +340,7 @@ public class Floor : MonoBehaviour
             changeWait = false;
             change = false;
             doOnec = true;
-
+            SEManager.Instance.PlaySE("Block_Fit");
         }
     }
     //É}ÉEÉXÇ≈ÇÃëÄçÏ

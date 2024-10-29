@@ -46,7 +46,6 @@ public class FadeINOUT : MonoBehaviour
     // ゲーム開始時にフェードインを開始
     void Start()
     {
-
         // フェードインのコルーチンを開始
         StartCoroutine(BeginTransitionIn());
 
@@ -75,7 +74,7 @@ public class FadeINOUT : MonoBehaviour
         // 画面タップモードが選択されている場合、タップでフェードアウトを開始
         if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
         {
-            
+            SEManager.Instance.PlaySE("Select");
             HandleTapTransition();
         }
     }
@@ -83,6 +82,10 @@ public class FadeINOUT : MonoBehaviour
     // ボタンからのフェードアウト処理をまとめたメソッド
     private void HandleButtonTransition(int index)
     {
+        // SEを再生
+        SEManager.Instance.PlaySE("Select");
+
+        // 対応するシーンに切り替え
         StartCoroutine(BeginTransitionOut(sceneNames[index])); // 対応するシーンに切り替え
     }
 

@@ -96,6 +96,7 @@ public class PlayerControl : MonoBehaviour
            
             if (moveFrame >= playerMoveTime / playerMoveTime)
             {
+                SEManager.Instance.PlaySE("Player_walk");
                 position = goalRoot[moveCount];
 
                 moveCount++;

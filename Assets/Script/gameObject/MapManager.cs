@@ -327,6 +327,9 @@ public class MapManager : MonoBehaviour
             //プレイヤーが動く処理を遅延
             WaitPlayerMove(clearwaitTime);
 
+			// BGM停止
+			BGMManager.instance.StopBGM();
+
             //一回はいればよくね？
             onGoal = false;
         }
@@ -531,6 +534,7 @@ public class MapManager : MonoBehaviour
 		Instantiate(goalEffect,pos,Quaternion.identity);
 		pos.y -= 1.0f;
         Instantiate(playerRootEffect, pos, Quaternion.identity);
+		SEManager.Instance.PlaySE("Block_Completion");
 
     }
 	//マップのリセット

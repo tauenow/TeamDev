@@ -32,6 +32,13 @@ public class DrawClear : MonoBehaviour
 			GameObject prefab2 = Instantiate(Images[1], new Vector3(0.0f, createPos[1], 0.0f), Quaternion.identity);
 			prefab2.transform.SetParent(canvas.transform, false);
 			prefab2.transform.DOLocalMoveY(-700.0f, duration).SetEase(Ease.OutCirc).SetDelay(1f);
+
+			// ƒNƒŠƒASEÄ¶
+            SEManager.Instance.PlaySE("Congratulation");
+
+			// BGMÄ¶
+			BGMManager.instance.PlayBGM("Clear");
+
 			creatCount++;
 		}
 	}

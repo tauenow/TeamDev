@@ -24,9 +24,11 @@ public class BGMManager : MonoBehaviour
 
     public AudioSource titleBGM;
     public AudioSource stageSelectBGM;
+    public AudioSource clearBGM;
     public AudioSource easyBGM;
     public AudioSource mediumBGM;
     public AudioSource hardBGM;
+
 
     private AudioSource currentBGM;
     private string previousScene;
@@ -91,4 +93,45 @@ public class BGMManager : MonoBehaviour
         // åªç›ÇÃÉVÅ[ÉìñºÇï€ë∂
         previousScene = sceneName;
     }
+
+    public void PlayBGM(string bgmName)
+    {
+        
+        Debug.Log(clearBGM.name);
+
+        if(bgmName == "TitleBGM")
+        {
+            currentBGM = titleBGM;
+        }
+        else if(bgmName == "StageSelect")
+        {
+            currentBGM = stageSelectBGM;
+        }
+        else if(bgmName == "Clear")
+        {
+            currentBGM = clearBGM;
+        }
+        else if (bgmName == "Morning")
+        {
+            currentBGM = easyBGM;
+        }
+        else if (bgmName == "Noon")
+        {
+            currentBGM = mediumBGM;
+        }
+        else if (bgmName == "Evening")
+        {
+            currentBGM = hardBGM;
+        }
+
+        currentBGM.Play();
+
+    }
+
+    public void StopBGM()
+    {
+        currentBGM.Stop();
+    }
+
+
 }
