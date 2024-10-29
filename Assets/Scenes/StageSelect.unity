@@ -360,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
@@ -385,7 +385,7 @@ PrefabInstance:
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1192664517}
+      objectReference: {fileID: 1192664515}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
@@ -412,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SetSelectIndex
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
@@ -428,11 +428,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: UnityEngine.Behaviour, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
@@ -629,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 0
   SelectSetNum: 0
 --- !u!114 &287423552
@@ -762,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b0f7b60518ddf46bf2233af56fdb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableNum: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   imageTransform: {fileID: 1785097031}
   cloudCanvas: {fileID: 1674828470}
 --- !u!114 &287423556
@@ -777,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b2221862bbeea46af082b566cadb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableObj: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeButtons:
   - {fileID: 1192664515}
   - {fileID: 1662845334}
@@ -798,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 287423553}
   changeSprites:
   - {fileID: 21300000, guid: 176683f8c13b2454985899d16e7d757b, type: 3}
@@ -1096,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 324345591}
   changeSprites:
   - {fileID: 21300000, guid: 5d0ac5d5f3cc6ac42a592afae312961a, type: 3}
@@ -1265,7 +1269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 407270873}
   changeSprites:
   - {fileID: 21300000, guid: 40ef9c62ceccd774180d4803b1b5f891, type: 3}
@@ -1443,7 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84483c02684cee47855f109319e2426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   Button: {fileID: 476466842}
   changeSprites:
   - {fileID: 21300000, guid: 5ccfa024935b67847a1f341e319d85a3, type: 3}
@@ -1548,7 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 509221072}
   changeSprites:
   - {fileID: 21300000, guid: 6d66bf18414c86046b428b2b6030ea49, type: 3}
@@ -1896,7 +1900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6921248105135701957, guid: 871843803a77eb946828819cde555a0e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -2106,6 +2110,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &885666572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885666573}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885666573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885666572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.72032, y: -6.5689707, z: 17.232956}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &927898076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2454,7 +2489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 0
   SelectSetNum: 0
 --- !u!114 &1031909627
@@ -2587,7 +2622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b0f7b60518ddf46bf2233af56fdb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableNum: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableNum: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   imageTransform: {fileID: 1785097031}
   cloudCanvas: {fileID: 1674828470}
 --- !u!114 &1031909631
@@ -2602,7 +2637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b2221862bbeea46af082b566cadb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableObj: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeButtons:
   - {fileID: 1192664515}
   - {fileID: 1662845334}
@@ -2623,7 +2658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 1031909628}
   changeSprites:
   - {fileID: 21300000, guid: 176683f8c13b2454985899d16e7d757b, type: 3}
@@ -3219,7 +3254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 1
   SelectSetNum: 1
 --- !u!114 &1192664518 stripped
@@ -3245,7 +3280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 1192664518}
   changeSprites:
   - {fileID: 21300000, guid: 53b1503a65b366d479be3c90397603f1, type: 3}
@@ -3356,7 +3391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 3
   SelectSetNum: 3
 --- !u!114 &1328444122 stripped
@@ -3382,7 +3417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 1328444122}
   changeSprites:
   - {fileID: 21300000, guid: 39782e41bf91a4b4fad570ef33136386, type: 3}
@@ -3499,7 +3534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdf13e243fbbd840a79469426a413d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObj: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableObj: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   buttons:
   - {fileID: 1031909627}
   - {fileID: 287423552}
@@ -3650,7 +3685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f771292091b3d743888c94722f15a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  scriptableIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   Clears:
   - {fileID: 2105749311}
   - {fileID: 231424752}
@@ -3704,7 +3739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 2
   SelectSetNum: 2
 --- !u!114 &1662845337 stripped
@@ -3730,7 +3765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce61493c2df034a838ed79263cc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   changeImage: {fileID: 1662845337}
   changeSprites:
   - {fileID: 21300000, guid: fad28de5cf0dcd54e911ce547d28fc4e, type: 3}
@@ -3937,7 +3972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1291251830858a044b3f1b3c95f0387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  ScriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   SetNum: 0
   SelectSetNum: 0
 --- !u!1 &1881424620
@@ -3969,7 +4004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d2cf9841bb71646a81938ecfd80ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIndex: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+  GameIndex: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
 --- !u!4 &1881424622
 Transform:
   m_ObjectHideFlags: 0
@@ -4500,6 +4535,10 @@ PrefabInstance:
       value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 4684963880880183682, guid: 98122cc441d0fab42b3d51c9eb67a14e, type: 3}
+      propertyPath: scriptableObj
+      value: 
+      objectReference: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
+    - target: {fileID: 4684963880880183682, guid: 98122cc441d0fab42b3d51c9eb67a14e, type: 3}
       propertyPath: changeSprites.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -4782,3 +4821,4 @@ SceneRoots:
   - {fileID: 698262781}
   - {fileID: 1573841044}
   - {fileID: 1881424622}
+  - {fileID: 885666573}
