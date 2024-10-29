@@ -118,10 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d640f99b43e5e154589534a6a69d640e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mouse: 1
+  Mouse: 0
   Tap: 1
   motionFrame: 0.01
-  changeMotionCount: 20
+  changeMotionCount: 15
   Hight: 0
   blockPlayerEmissive: 0.9
   blockEmissive: 0.9
