@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SEManager : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class SEManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void SetAudioMixerGroup(AudioMixerGroup mixerGroup)
+    {
+        if (audioSource != null)
+        {
+            audioSource.outputAudioMixerGroup = mixerGroup;
         }
     }
 
