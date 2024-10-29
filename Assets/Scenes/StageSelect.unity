@@ -777,6 +777,7 @@ MonoBehaviour:
   - {fileID: 1662845334}
   - {fileID: 791935775}
   - {fileID: 476466842}
+  flick: {fileID: 814218829}
 --- !u!114 &287423556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2017,6 +2018,7 @@ GameObject:
   - component: {fileID: 814218827}
   - component: {fileID: 814218826}
   - component: {fileID: 814218825}
+  - component: {fileID: 814218829}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -2118,6 +2120,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &814218829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814218824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5d29b3376d37f4f9758448a0a2f751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlickMinRange: {x: 30, y: 30}
+  SwipeMinRange: {x: 50, y: 50}
+  NoneCountMax: 2
 --- !u!1 &885666572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,6 +2675,7 @@ MonoBehaviour:
   - {fileID: 1662845334}
   - {fileID: 791935775}
   - {fileID: 476466842}
+  flick: {fileID: 814218829}
 --- !u!114 &1031909631
 MonoBehaviour:
   m_ObjectHideFlags: 0
