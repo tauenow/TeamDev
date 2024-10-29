@@ -13,11 +13,11 @@ public class FadeINOUT : MonoBehaviour
 
     // フェードインに使用するマテリアル
     [SerializeField]
-    private Material _transitionIn;
+    private Material transitionIn;
 
     // フェードアウトに使用するマテリアル
     [SerializeField]
-    private Material _transitionOut;
+    private Material transitionOut;
 
     // フェード中に呼び出されるイベント
     [SerializeField]
@@ -36,6 +36,8 @@ public class FadeINOUT : MonoBehaviour
     [SerializeField]
     private List<string> sceneNames;
 
+    private bool doOnce = false;
+
     // フェードアウトをトリガーする方法の選択肢
     public enum FadeTriggerMode { Tap, Button }
 
@@ -46,6 +48,8 @@ public class FadeINOUT : MonoBehaviour
     // ゲーム開始時にフェードインを開始
     void Start()
     {
+        doOnce = false;
+
         // フェードインのコルーチンを開始
         StartCoroutine(BeginTransitionIn());
 
@@ -72,16 +76,21 @@ public class FadeINOUT : MonoBehaviour
     void Update()
     {
         // 画面タップモードが選択されている場合、タップでフェードアウトを開始
-        if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
+        if(doOnce == false)
         {
-            SEManager.Instance.PlaySE("Select");
-            HandleTapTransition();
+            if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
+            {
+                SEManager.Instance.PlaySE("Select");
+                HandleTapTransition();
+                doOnce = true;
+            }
         }
     }
 
     // ボタンからのフェードアウト処理をまとめたメソッド
     private void HandleButtonTransition(int index)
     {
+
         // SEを再生
         SEManager.Instance.PlaySE("Select");
 
@@ -102,7 +111,7 @@ public class FadeINOUT : MonoBehaviour
     IEnumerator BeginTransitionIn()
     {
         // フェードインアニメーションを指定された時間で実行
-        yield return Animate(_transitionIn, 1);
+        yield return Animate(transitionIn, 1);
 
         // フェードイン中に指定されたイベントを実行
         OnTransition?.Invoke();
@@ -115,7 +124,7 @@ public class FadeINOUT : MonoBehaviour
     IEnumerator BeginTransitionOut(string sceneName)
     {
         // フェードアウトアニメーションを指定された時間で実行
-        yield return Animate(_transitionOut, 1);
+        yield return Animate(transitionOut, 1);
 
         // フェードアウトが終了後に指定されたイベントを実行
         OnComplete?.Invoke();
@@ -157,11 +166,17 @@ public class FadeINOUT : MonoBehaviour
 
     public void FadeToChangeScene()
     {
-       
-        // 最初のシーン名を使ってフェードアウトを開始
-        if (sceneNames.Count > 0)
+        if(doOnce == false)
         {
-            StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+            // 最初のシーン名を使ってフェードアウトを開始
+            if (sceneNames.Count > 0)
+            {
+                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+            }
+
+            doOnce = true;
+
         }
+       
     }
 }
