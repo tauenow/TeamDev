@@ -31,6 +31,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("Yubisasi", true);
         isYubisasiPlaying = true;
+        MapManager.floorChange = false;
         StartCoroutine(OffYubisasi(1.5f)); // 3•bŒã‚ÉYubisasi‚ğI—¹‚·‚é
     }
 

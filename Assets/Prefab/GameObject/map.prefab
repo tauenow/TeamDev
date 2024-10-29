@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 514173838957410423}
   - component: {fileID: 3456823281251452489}
   - component: {fileID: -5333805253712221415}
+  - component: {fileID: 6460792303606302822}
+  - component: {fileID: -6789408943446366843}
   m_Layer: 0
   m_Name: map
   m_TagString: Untagged
@@ -56,9 +58,12 @@ MonoBehaviour:
   centerObject: {fileID: 6419066211419575003, guid: 99a5e9e1f104fc84f99858398d8ef133, type: 3}
   GameManager: {fileID: 497881703396183975, guid: b8582ea6a7ab512448f50f99be20ae27, type: 3}
   Player: {fileID: 4737396718679242285, guid: 39d27b020b0196544b671336d1d7ab91, type: 3}
-  goalEffect: {fileID: 7636683156239583371, guid: d172117593f1bc94781bff87a381cd07, type: 3}
-  playerRootEffect: {fileID: 3588455277886649297, guid: 039871e22a832fa4eb1e7e230ba7da7b, type: 3}
-  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
+  GoalEffect:
+  - {fileID: 7636683156239583371, guid: d172117593f1bc94781bff87a381cd07, type: 3}
+  - {fileID: 7636683156239583371, guid: 3ba07005b6f937b42a77baa2545752e2, type: 3}
+  - {fileID: 7636683156239583371, guid: e55d06a874f2f1447b54730197ed5616, type: 3}
+  - {fileID: 7636683156239583371, guid: 316df2e4389069c4099112a72bd84153, type: 3}
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   effectCreateTime: 0.2
   clearwaitTime: 1
 --- !u!114 &3456823281251452489
@@ -73,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a32f7ca7b624e4f8aa8673b40c162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
   defaultCursor: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &-5333805253712221415
 MonoBehaviour:
@@ -87,5 +92,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42ccaebfe4480c49890af3937222986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
-  onGoal: 0
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+--- !u!114 &6460792303606302822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906910617886301708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a259f8fc3bf2241b6a17378daf9142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}
+--- !u!114 &-6789408943446366843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906910617886301708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04a73d6a334d8147a5881c0cb743ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 96511e3609d9ebe459c13d0d1decc4ae, type: 2}

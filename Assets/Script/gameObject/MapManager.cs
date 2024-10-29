@@ -273,6 +273,12 @@ public class MapManager : MonoBehaviour
 		
         if (onGoal == true)
         {
+
+            GetComponent<CursorManager>().enabled = false;
+            GetComponent<TouchControl>().enabled = false;
+			GetComponent<ClickSceneControl>().enabled = true;
+			GetComponent<TouchSceneControl>().enabled = true;
+
             List<Floor> goalRootFloor = new();
             parentManager.isClear = true;
             Debug.Log(parentManager.isClear);
@@ -345,12 +351,12 @@ public class MapManager : MonoBehaviour
                 if (isMapClear == false)
 				{
 					floorChange = false;
+                    GetComponent<CursorManager>().enabled = true;
+                    GetComponent<TouchControl>().enabled = true;
                 }
-                GetComponent<CursorManager>().enabled = true;
-                GetComponent<TouchControl>().enabled = true;
+                
                 //チェンジができるようにする
                 Debug.Log("チェンジ可能");
-                
                 isOff = false;//DoOnce
             }
 			waitTime++;

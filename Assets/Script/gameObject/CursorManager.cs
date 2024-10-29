@@ -15,30 +15,17 @@ public class CursorManager : MonoBehaviour
     RaycastHit hit;
     GameObject targetObject;
 
-    private bool result = false;
-
     void Start()
     {
         enabled = true;
         //初期化
         
-        result = false;
-
         mainCamera = Camera.main;
         SetCursor(true);
     }
     void Update()
     {
-        //シーン切り替え処理
-        if(result == true)
-        {
-            Debug.Log("シーン変える");
-            ClickChangeScene();
-        }
-        else if (mainCamera.GetComponent<CameraControl>().GetIsResult() == true)
-        {
-            Invoke(nameof(OnResultClick), 2.0f);
-        }
+       
         //カーソル処理
         CastRay();
         //チューリアルの時のカーソル処理
@@ -115,25 +102,8 @@ public class CursorManager : MonoBehaviour
             }
         }
     }
-    void ClickChangeScene()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
-        }
-    }
-    // 対象のオブジェクトを調べる処理
-    void LookUpTargetObject()
-    {
-        if (targetObject == null)
-        {
-            return;
-        }
-        SetCursor(true);
-        //targetObject.GetComponent<InteractableObject>().LookUp();
-        // このコンポーネントを無効にする（そうしないと調べている最中に別のオブジェクトを調べることができてしまう）
-        //enabled = false;
-    }
+    
+    // 対象のオブジェクトを調べる処
     public void SetCursor(bool isDefault)
     {
         if (isDefault == true)
@@ -141,9 +111,5 @@ public class CursorManager : MonoBehaviour
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         }
     }
-    void OnResultClick()
-    {
-        Debug.Log("シーン変えれるで");
-        result = true;
-    }
+    
 }
