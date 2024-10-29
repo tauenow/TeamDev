@@ -20,6 +20,14 @@ public class Option : MonoBehaviour
 		option.enabled = false;
 	}
 
+	private void Update()
+	{
+		if (option.enabled == true)
+		{
+			cursorManager.enabled = false;
+		}
+	}
+
 	public void CreateOption()
 	{
 		if (SceneManager.GetActiveScene().name == "SampleScene")
