@@ -43,7 +43,7 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
 
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) moveSpeed = 0.08f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) moveSpeed = 0.1f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) moveSpeed = 0.09f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) moveSpeed = 0.1f;
         if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) moveSpeed = 0.1f;
@@ -154,7 +154,7 @@ public class CameraControl : MonoBehaviour
             motionCount = 0;
             isResult = true;
             Debug.Log("ƒŠƒUƒ‹ƒg‚Í‚¢‚è‚Ü‚µ‚½");
-            //GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
+           
         }
 
         currentTime += Time.deltaTime;

@@ -17,9 +17,6 @@ public class CursorManager : MonoBehaviour
 
     private bool result = false;
 
-    //一回しか処理しないための変数
-    private bool doOnce = false;
-
     void Start()
     {
         enabled = true;
@@ -35,6 +32,7 @@ public class CursorManager : MonoBehaviour
         //シーン切り替え処理
         if(result == true)
         {
+            Debug.Log("シーン変える");
             ClickChangeScene();
         }
         else if (mainCamera.GetComponent<CameraControl>().GetIsResult() == true)
@@ -63,17 +61,20 @@ public class CursorManager : MonoBehaviour
                 {
                     if (targetObject.GetComponent<Floor>().GetChangeState() == false && targetObject.GetComponent<Floor>().GetLinkChangeState() == false)
                     {
-                        //カーソルが当たっているのをオブジェクトに伝える
-                        targetObject.GetComponent<Floor>().OnCursor();
-
-                        if (Input.GetMouseButtonDown(0))
+                        if (MapManager.floorChange == false)
                         {
+                            //カーソルが当たっているのをオブジェクトに伝える
+                            targetObject.GetComponent<Floor>().OnCursor();
 
-                            Debug.Log("押しました");
-                            MapManager.floorChange = true;
-                            GetComponent<MapManager>().ChangeMap(targetObject);
-                            enabled = false;
+                            if (Input.GetMouseButtonDown(0))
+                            {
 
+                                Debug.Log("押しました");
+                                MapManager.floorChange = true;
+                                GetComponent<MapManager>().ChangeMap(targetObject);
+                                enabled = false;
+
+                            }
                         }
                     }
                 }
