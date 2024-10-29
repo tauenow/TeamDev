@@ -349,7 +349,7 @@ MonoBehaviour:
   selectClip: {fileID: 8300000, guid: 83bca09fc1f28db4c98e78d30c85340d, type: 3}
   colorChangeClip: {fileID: 8300000, guid: 39631f83d87ed26409ffc6b3a1615767, type: 3}
   BlockFitClip: {fileID: 8300000, guid: 00be3321c5be75048b8f9c6b4a2e7bec, type: 3}
-  BlockCompletionClip: {fileID: 8300000, guid: 4244228132b22cb4aa8fb0381f93ea84, type: 3}
+  BlockCompletionClip: {fileID: 8300000, guid: 41cbb7573fa69314b8d92ca8fdc2c712, type: 3}
   CongratulationClip: {fileID: 8300000, guid: 2bfd131cf9d1b244585c97c9cd3483a9, type: 3}
   PlayerwalkClip: {fileID: 8300000, guid: b129ad6065ecf904da64202e3edb178e, type: 3}
 --- !u!82 &593089984 stripped
