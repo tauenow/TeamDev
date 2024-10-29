@@ -16,5 +16,6 @@ MonoBehaviour:
   DifficultyIndex: 1
   isClearList: 010101010101010101
   tutorialClear: 1
-  ButtonNum: 1
-  colorName: blue
+  ButtonNum: 0
+  colorName: red
+  textIndex: 0
