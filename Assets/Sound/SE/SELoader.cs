@@ -1,25 +1,28 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioLoader : MonoBehaviour
 {
     [SerializeField]
     private AudioClip selectClip; // "Select"の音声クリップ
     [SerializeField]
-    private AudioClip colorChangeClip; 
+    private AudioClip colorChangeClip;
     [SerializeField]
-    private AudioClip BlockFitClip; 
+    private AudioClip BlockFitClip;
     [SerializeField]
-    private AudioClip BlockCompletionClip; 
+    private AudioClip BlockCompletionClip;
     [SerializeField]
-    private AudioClip CongratulationClip; 
+    private AudioClip CongratulationClip;
     [SerializeField]
-    private AudioClip PlayerwalkClip; 
-
-
+    private AudioClip PlayerwalkClip;
+    [SerializeField]
+    private AudioMixerGroup audioMixerGroup; // 出力先のAudioMixerGroup
 
 
     private void Start()
     {
+        SEManager.Instance.SetAudioMixerGroup(audioMixerGroup); // AudioSourceの出力先を指定
+
         // SEManagerに音声クリップを追加
         SEManager.Instance.AddAudioClip("Select", selectClip);
         SEManager.Instance.AddAudioClip("ColorChange", colorChangeClip);
