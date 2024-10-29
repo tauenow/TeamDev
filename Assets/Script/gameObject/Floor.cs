@@ -359,7 +359,7 @@ public class Floor : MonoBehaviour
             //else GetComponent<MeshRenderer>().material.color = Color.white * blockEmissive;
 
             //ブロックがはまった時のエフェクトを生成
-            effect = Instantiate(effectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + 0.5f), Quaternion.identity) as GameObject;
+            effect = Instantiate(effectObject, new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z + 0.5f), Quaternion.identity) as GameObject;
             effect.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             //ブロックがはまった時のエフェクトをした後にリンクしているエフェクトを生成
             Invoke(nameof(CreateLinkEffect), 0.2f);
