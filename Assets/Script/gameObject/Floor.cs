@@ -735,10 +735,10 @@ public class Floor : MonoBehaviour
         GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
         GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
 
-        GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
-        GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
-        GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
-        GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
+        GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z + side), Quaternion.identity) as GameObject;
+        GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 1.0f, transform.position.z), Quaternion.identity) as GameObject;
+        GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z - side), Quaternion.identity) as GameObject;
+        GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 1.0f, transform.position.z), Quaternion.identity) as GameObject;
         
 
         if (obj1 != null) linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
