@@ -154,6 +154,7 @@ public class FadeINOUT : MonoBehaviour
 
     public void FadeToChangeScene()
     {
+       
         // 最初のシーン名を使ってフェードアウトを開始
         if (sceneNames.Count > 0)
         {

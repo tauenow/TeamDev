@@ -4,6 +4,7 @@ using System.IO.Compression;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StageSelectManager : MonoBehaviour
 {
@@ -43,48 +44,53 @@ public class StageSelectManager : MonoBehaviour
 	private GameObject mapObject;
 	//このステージをクリアしたかどうか
 	public bool isClear = false;
-	[SerializeField] private bool tutorialMode;
 
 	private void Awake()
 	{
-		StageObj.tutorialClear = tutorialMode;
-
+		
 		Application.targetFrameRate = 60;
 
 		mapObject = null;
 		isClear = false;
 
-		//最初だったらチュートリアルステージをやらせる
-		if (StageObj.tutorialClear == false)
+        selecetStageNum = 0;
+        selecetStageNum = StageObj.StageNum;
+
+		string textLines = null;
+
+        if (SceneManager.GetActiveScene().name == "TutorialScene")
 		{
-			mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
+            //最初だったらチュートリアルステージをやらせる
+
+            mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
+            mapObject.GetComponent<MapManager>().parentManager = this;
+            mapObject.GetComponent<MapManager>().MapFile = TutorialMap;
+
+			textLines = TutorialMap.text;
+        }
+
+		if (SceneManager.GetActiveScene().name == "SampleScene")
+		{
+			//リストから呼び出すときは-1してね
+			//テクストファイルのリストにマップのデータを全て格納する
+			mapFaileList.Add(MapFile1);
+			mapFaileList.Add(MapFile2);
+			mapFaileList.Add(MapFile3);
+			mapFaileList.Add(MapFile4);
+			mapFaileList.Add(MapFile5);
+			mapFaileList.Add(MapFile6);
+			mapFaileList.Add(MapFile7);
+			mapFaileList.Add(MapFile8);
+			mapFaileList.Add(MapFile9);
+
+			mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+			mapObject.GetComponent<MapManager>().MapFile = mapFaileList[selecetStageNum - 1];
 			mapObject.GetComponent<MapManager>().parentManager = this;
-			mapObject.GetComponent<MapManager>().MapFile = TutorialMap;
-			return;
-		}
 
-		selecetStageNum = 0;
+            textLines = mapFaileList[selecetStageNum - 1].text; // テキストの全体データの代入
 
-		selecetStageNum = StageObj.StageNum;
-
-		//リストから呼び出すときは-1してね
-		//テクストファイルのリストにマップのデータを全て格納する
-		mapFaileList.Add(MapFile1);
-		mapFaileList.Add(MapFile2);
-		mapFaileList.Add(MapFile3);
-		mapFaileList.Add(MapFile4);
-		mapFaileList.Add(MapFile5);
-		mapFaileList.Add(MapFile6);
-		mapFaileList.Add(MapFile7);
-		mapFaileList.Add(MapFile8);
-		mapFaileList.Add(MapFile9);
-
-
-		mapObject = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-		mapObject.GetComponent<MapManager>().MapFile = mapFaileList[selecetStageNum - 1];
-		mapObject.GetComponent<MapManager>().parentManager = this;
-
-		string textLines = mapFaileList[selecetStageNum - 1].text; // テキストの全体データの代入
+        }
+		
 																   // 改行でデータを分割して配列に代入
 		string[] textData = textLines.Split('\n');
 		// 改行でデータを分割して配列に代入
@@ -133,15 +139,10 @@ public class StageSelectManager : MonoBehaviour
 	public void ChangeScene()
 	{
 		// ステージをクリアしたかどうかを設定
-		if (StageObj.tutorialClear == false)
-		{
-			StageObj.tutorialClear = true;
-		}
-		else
+		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
 			StageObj.isClearList[selecetStageNum - 1] = true;
 		}
-
 		// フェードイン・アウトを実行
 		fade.GetComponent<FadeINOUT>().FadeToChangeScene();
 
