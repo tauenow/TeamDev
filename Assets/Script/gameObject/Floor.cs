@@ -315,6 +315,7 @@ public class Floor : MonoBehaviour
             parentMap.CheckMap();
             //ƒŠƒ“ƒN‚·‚éFloor‚Ìƒ‚[ƒVƒ‡ƒ“ˆ—
             parentMap.LinkChangeFloorMotion(gameObject);
+            parentMap.AllFloorWaitOff();
 
             if (parentMap.GetFaceNum() == 3)
             {
@@ -700,15 +701,23 @@ public class Floor : MonoBehaviour
 
 		float side = 0.7f;
 
-		GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
+        GameObject obj1 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z - 1);
+        GameObject obj2 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z + 1);
+        GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+        GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
+
+        GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
         GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
         GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
         GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
+        
 
-		linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-        linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
-        linkEffectBottom.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        linkEffectLeft.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+        if (obj1 != null) linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        if(obj2 != null) linkEffectBottom.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        if (obj3 != null) linkEffectLeft.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+        if (obj4 != null) linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+
+
 
 
     }

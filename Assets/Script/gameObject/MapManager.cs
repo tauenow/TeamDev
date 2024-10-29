@@ -341,11 +341,12 @@ public class MapManager : MonoBehaviour
                 //マップをクリアしていなかったら操作できる
                 if (isMapClear == false)
 				{
-					Debug.Log("チェンジ可能");
-					GetComponent<CursorManager>().enabled = true;
-					GetComponent<TouchControl>().enabled = true;
+					floorChange = false;
 				}
-				//チェンジができるようにする
+                //チェンジができるようにする
+                Debug.Log("チェンジ可能");
+                GetComponent<CursorManager>().enabled = true;
+                GetComponent<TouchControl>().enabled = true;
                 isOff = false;//DoOnce
                 floorChange = false;
             }
