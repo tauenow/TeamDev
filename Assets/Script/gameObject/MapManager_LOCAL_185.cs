@@ -74,16 +74,10 @@ public class MapManager : MonoBehaviour
 	//面の数
 	private int faceNum = 0;
 
-    //ゴールエフェクトオブジェクト
-    //[SerializeField]
-    //private GameObject goalEffect = null;
-    
-    //後藤作 気に入らなかったら消してね
-    [Header("クリアエフェクト格納用")]
-    [SerializeField]
-    private GameObject[] GoalEffect = new GameObject[4];
-
-    [SerializeField]
+	//ゴールエフェクトオブジェクト
+	[SerializeField]
+	private GameObject goalEffect = null;
+	[SerializeField]
 	private GameObject playerRootEffect = null;
 
 	[Header("共通データ")]
@@ -99,9 +93,7 @@ public class MapManager : MonoBehaviour
 	[SerializeField]
 	private float clearwaitTime = 1.0f;
 
-
-
-    private void Start()
+	private void Start()
 	{
 		//初期化
 		mapObjects = new();
@@ -535,41 +527,9 @@ public class MapManager : MonoBehaviour
 	private IEnumerator CreateGoalEffect(float waitTime, Vector3 pos)
 	{
 		yield return new WaitForSeconds(waitTime);
-<<<<<<< HEAD
 		Instantiate(goalEffect, pos, Quaternion.identity);
 		pos.y -= 1.0f;
 		Instantiate(playerRootEffect, pos, Quaternion.identity);
-=======
-        //ブロックより上に上げてエフェクトを見えるようにする
-		pos.y += 1.0f;
-        //各色のゴールエフェクト生成
-        switch (scriptableObject.colorName)
-        {
-            //赤なら配列0番目を
-            case "red":
-				Instantiate(GoalEffect[0], pos, Quaternion.identity);
-                break;
-            //青なら配列1番目を
-            case "blue":
-                Instantiate(GoalEffect[1], pos, Quaternion.identity);
-                break;
-            //黄色なら配列2番目を
-            case "yellow":
-                Instantiate(GoalEffect[2], pos, Quaternion.identity);
-                break;
-            //緑なら配列3番目を
-            case "green":
-                Instantiate(GoalEffect[3], pos, Quaternion.identity);
-                break;
-            //例外用
-            default:
-                Debug.Log("ゴールエフェクトエラー");
-                break;
-        }
-        //Instantiate(goalEffect,pos,Quaternion.identity);
-		//pos.y -= 1.0f;
-        //Instantiate(playerRootEffect, pos, Quaternion.identity);
->>>>>>> morigoto
 
 	}
 	//マップのリセット
