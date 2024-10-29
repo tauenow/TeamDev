@@ -12,6 +12,8 @@ public class MoveBg : MonoBehaviour
 	[SerializeField] private Canvas cloudCanvas;
 	private static int DifficultNum;
 	[SerializeField] private Button[] buttons;
+	[SerializeField] private InputFlick flick;
+	private bool isMove = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -33,19 +35,25 @@ public class MoveBg : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		if (flick.GetNowFlick() == InputFlick.FlickDirection.LEFT ||
+			flick.GetNowFlick() == InputFlick.FlickDirection.RIGHT ||
+			flick.GetNowSwipe() == InputFlick.SwipeDirection.LEFT ||
+			flick.GetNowSwipe() == InputFlick.SwipeDirection.RIGHT)
+		{
+			BackGroundMove();
+		}
 	}
 
 	public void BackGroundMove()
 	{
-		Debug.Log(buttons.Count());
-
 		switch (scriptableNum.DifficultyIndex)
 		{
 			case 1:
 				imageTransform.transform.DOLocalMoveX(2160.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
+						isMove = true;
+
 						cloudCanvas.enabled = false;
 
 						for (int i = 0; i < buttons.Length; i++)
@@ -62,18 +70,23 @@ public class MoveBg : MonoBehaviour
 						{
 							buttons[i].enabled = true;
 						}
+
+						isMove = false;
 					});
 				break;
 			case 2:
 				imageTransform.transform.DOLocalMoveX(0.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
+						isMove = true;
+
 						cloudCanvas.enabled = false;
 
 						for (int i = 0; i < buttons.Length; i++)
 						{
 							buttons[i].enabled = false;
 						}
+
 					})
 					.OnComplete(() =>
 					{
@@ -83,18 +96,23 @@ public class MoveBg : MonoBehaviour
 						{
 							buttons[i].enabled = true;
 						}
+
+						isMove = false;
 					});
 				break;
 			case 3:
 				imageTransform.transform.DOLocalMoveX(-2160.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
+						isMove = true;
+
 						cloudCanvas.enabled = false;
 
 						for (int i = 0; i < buttons.Length; i++)
 						{
 							buttons[i].enabled = false;
 						}
+
 					})
 					.OnComplete(() =>
 					{
@@ -104,6 +122,8 @@ public class MoveBg : MonoBehaviour
 						{
 							buttons[i].enabled = true;
 						}
+
+						isMove = false;
 					});
 				break;
 		}
