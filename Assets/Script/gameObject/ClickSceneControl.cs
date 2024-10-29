@@ -23,7 +23,7 @@ public class ClickSceneControl : MonoBehaviour
         //シーン切り替え処理
         if (result == true)
         {
-            Debug.Log("シーン変える");
+            //Debug.Log("シーン変える");
             ClickChangeScene();
         }
         else if (mainCamera.GetComponent<CameraControl>().GetIsResult() == true)
@@ -36,14 +36,12 @@ public class ClickSceneControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SEManager.Instance.PlaySE("Select");
             GameObject.Find("StageManager").GetComponent<StageSelectManager>().ChangeScene();
         }
     }
 
     void OnResultClick()
     {
-        Debug.Log("シーン変えれるで");
         result = true;
     }
 

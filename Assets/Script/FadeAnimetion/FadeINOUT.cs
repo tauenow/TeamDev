@@ -172,13 +172,10 @@ public class FadeINOUT : MonoBehaviour
             if (sceneNames.Count > 0)
             {
                 SEManager.Instance.PlaySE("Select");
+                doOnce = true;
 
                 StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
             }
-
-            doOnce = true;
-
         }
-       
     }
 }
