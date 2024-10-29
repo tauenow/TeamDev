@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// 森口作のプレイヤーの色を変更するスクリプト。
+/// 森口後藤作のプレイヤーの色を変更するスクリプト。
 /// コーディングとかくそも無い奴なんで、何かあったら殺してください。
 /// </summary>
 public class PlayerColor : MonoBehaviour
@@ -14,17 +14,18 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] Texture[] playerColor = new Texture[4];
 
+    //モデルのオブジェクトを格納する変数
     public GameObject cup;
     public GameObject sotai;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //プレイヤーモデルを取得
         cup = GameObject.Find("cup");
         sotai = GameObject.Find("sotai");
 
-        //stageスクリプトオブジェクトから参照。
+        //ステージカラーに応じてプレイヤーモデルのマテリアルのテクスチャ情報を変更
         switch (scriptableObject.colorName)
         {
             //赤なら配列0番目を

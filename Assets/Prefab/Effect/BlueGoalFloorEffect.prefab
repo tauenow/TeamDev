@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6615080359992638888}
   - component: {fileID: 3707866093713470508}
   m_Layer: 0
-  m_Name: GoalFloorEffect
+  m_Name: BlueGoalFloorEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,10 +48,10 @@ MonoBehaviour:
   TimingOfUpdate: 0
   EmitterScale: 0
   TimeScale: 0
-  effectAsset: {fileID: 11400000, guid: b8f568b6aad67e94c81cee10db30bb99, type: 2}
+  effectAsset: {fileID: 11400000, guid: 59e8462e509e81d4db5bf1c993868c95, type: 2}
   playOnStart: 1
   isLooping: 0
-  _speed: 1
+  _speed: 0.7
 --- !u!114 &3707866093713470508
 MonoBehaviour:
   m_ObjectHideFlags: 0
