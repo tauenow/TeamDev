@@ -41,33 +41,33 @@ public class MoveBg : MonoBehaviour
 				imageTransform.transform.DOLocalMoveX(2160.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
-						cloudCanvas.gameObject.SetActive(false);
+						cloudCanvas.enabled = false;
 					})
 					.OnComplete(() =>
 					{
-						cloudCanvas.gameObject.SetActive(true);
+						cloudCanvas.enabled = true;
 					});
 				break;
 			case 2:
 				imageTransform.transform.DOLocalMoveX(0.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
-						cloudCanvas.gameObject.SetActive(false);
+						cloudCanvas.enabled = false;
 					})
 					.OnComplete(() =>
 					{
-						cloudCanvas.gameObject.SetActive(true);
+						cloudCanvas.enabled = true;
 					});
 				break;
 			case 3:
 				imageTransform.transform.DOLocalMoveX(-2160.0f, 1.0f, true).SetEase(Ease.InOutCirc)
 					.OnStart(() =>
 					{
-						cloudCanvas.gameObject.SetActive(false);
+						cloudCanvas.enabled = false;
 					})
 					.OnComplete(() =>
 					{
-						cloudCanvas.gameObject.SetActive(true);
+						cloudCanvas.enabled = true;
 					});
 				break;
 		}

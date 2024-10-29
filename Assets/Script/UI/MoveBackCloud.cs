@@ -30,22 +30,6 @@ public class MoveBackCloud : MonoBehaviour
 	// ”wŒi‚ÌˆÊ’u
 	private Vector3 pos;
 
-	private void Start()
-	{
-		switch (scriptableObj.DifficultyIndex)
-		{
-			case 1:
-				Image.sprite = changeSprites[0];
-				break;
-			case 2:
-				Image.sprite = changeSprites[1];
-				break;
-			case 3:
-				Image.sprite = changeSprites[2];
-				break;
-		}
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
@@ -70,24 +54,27 @@ public class MoveBackCloud : MonoBehaviour
 		}
 
 		// “ïˆÕ“x‚É‡‚í‚¹‚Ä‰æ‘œ‚ğ•ÏX
-		switch (scriptableObj.DifficultyIndex)
+		if (canvas.gameObject.activeSelf == true)
 		{
-			case 1:
-				Image.sprite = changeSprites[0];
-				break;
-			case 2:
-				Image.sprite = changeSprites[1];
-				break;
-			case 3:
-				Image.sprite = changeSprites[2];
-				break;
+			switch (scriptableObj.DifficultyIndex)
+			{
+				case 1:
+					Image.sprite = changeSprites[0];
+					break;
+				case 2:
+					Image.sprite = changeSprites[1];
+					break;
+				case 3:
+					Image.sprite = changeSprites[2];
+					break;
+			}
 		}
 	}
 
 	void CreateCloud()
 	{
-		Vector3 CreatePos1 = new Vector3(GeneratePos, 0.0f, 0.0f);
-		GameObject createPrefab = Instantiate(prefab, CreatePos1, Quaternion.identity);
+		Vector3 createPos1 = new Vector3(GeneratePos, 0.0f, 0.0f);
+		GameObject createPrefab = Instantiate(prefab, createPos1, Quaternion.identity);
 		createPrefab.transform.SetParent(canvas.transform, false);
 		BGcount++;
 	}
