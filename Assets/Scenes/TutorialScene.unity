@@ -352,7 +352,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1570729716}
-  m_PlaneDistance: 5
+  m_PlaneDistance: 3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -5925,7 +5925,7 @@ PrefabInstance:
       objectReference: {fileID: 1570729716}
     - target: {fileID: 6080164031773957511, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_PlaneDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6394054958424183263, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7049,11 +7049,15 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
     - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: sceneNames.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: sceneNames.Array.data[0]
       value: Scenes/TitleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
+      propertyPath: sceneNames.Array.data[1]
+      value: Scenes/StageSelect
       objectReference: {fileID: 0}
     - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: transitionButtons.Array.size

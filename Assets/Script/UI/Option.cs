@@ -46,7 +46,7 @@ public class Option : MonoBehaviour
 
 	public void DestroyOption()
 	{
-		if (SceneManager.GetActiveScene().name == "SampleScene")
+		if (GameObject.Find("map(Clone)") != null)
 		{
 			cursorManager = GameObject.Find("map(Clone)").GetComponent<CursorManager>();
 			cursorManager.enabled = true;
