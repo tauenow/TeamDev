@@ -68,11 +68,11 @@ public class ClearManager : MonoBehaviour
 				break;
 		}
 
-		switch (scriptableIndex.DifficultyIndex)
-		{
-			case 1:
+		//switch (scriptableIndex.DifficultyIndex)
+		//{
+		//	case 1:
 
-		}
+		//}
 	}
 
 	// Update is called once per frame
