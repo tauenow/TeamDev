@@ -6204,7 +6204,7 @@ MonoBehaviour:
   cameraZpos: 0
   sideLength: 1
   cameraMotionCount: 50
-  rotationSpeed: 0.2
+  rotationSpeed: 0.4
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

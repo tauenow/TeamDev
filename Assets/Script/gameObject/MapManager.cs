@@ -223,6 +223,8 @@ public class MapManager : MonoBehaviour
                             else if (scriptableObject.colorName == "green") floor5.transform.Rotate(90.0f, 0.0f, 0.0f);
 
                             mapObjects.Add(floor5);
+
+							Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y + 1, transform.position.z - i), Quaternion.identity);
 							
 							break;
 						case 6:
@@ -351,6 +353,7 @@ public class MapManager : MonoBehaviour
 		{
 			if(waitTime >= 30.0f)
 			{
+				AllFloorWaitOff();
                 //マップをクリアしていなかったら操作できる
                 if (isMapClear == false)
 				{
