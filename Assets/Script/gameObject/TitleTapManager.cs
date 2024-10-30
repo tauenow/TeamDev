@@ -7,10 +7,11 @@ public class TitleTapManager : MonoBehaviour
     // Start is called before the first frame update
     public void TapOff()
     {
-        FadeINOUT.buttonTap = false;
+        FadeINOUT.buttonTap = true;
+       
     }
     public void TapOn()
     {
-        FadeINOUT.buttonTap = true;
+        FadeINOUT.buttonTap = false;
     }
 }
