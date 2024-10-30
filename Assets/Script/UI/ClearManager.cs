@@ -37,6 +37,19 @@ public class ClearManager : MonoBehaviour
 					}
 				}
 
+				buttons[0].enabled = true;
+
+				for (int i = 1; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
+					}
+				}
 				break;
 			case 2:
 				for (int i = 3; i < 6; i++)
@@ -51,6 +64,17 @@ public class ClearManager : MonoBehaviour
 					}
 				}
 
+				for (int i = 0; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i + 3] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
+					}
+				}
 				break;
 			case 3:
 				for (int i = 6; i < 9; i++)
@@ -65,14 +89,19 @@ public class ClearManager : MonoBehaviour
 					}
 				}
 
+				for (int i = 0; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i + 6] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
+					}
+				}
 				break;
 		}
-
-		//switch (scriptableIndex.DifficultyIndex)
-		//{
-		//	case 1:
-
-		//}
 	}
 
 	// Update is called once per frame
@@ -92,6 +121,20 @@ public class ClearManager : MonoBehaviour
 						Clears[i].enabled = false;
 					}
 				}
+
+				buttons[0].enabled = true;
+
+				for (int i = 1; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
+					}
+				}
 				break;
 			case 2:
 				for (int i = 3; i < 6; i++)
@@ -105,6 +148,18 @@ public class ClearManager : MonoBehaviour
 						Clears[i - 3].enabled = false;
 					}
 				}
+
+				for (int i = 0; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i + 3] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
+					}
+				}
 				break;
 			case 3:
 				for (int i = 6; i < 9; i++)
@@ -116,6 +171,18 @@ public class ClearManager : MonoBehaviour
 					else
 					{
 						Clears[i - 6].enabled = false;
+					}
+				}
+
+				for (int i = 0; i < 3; i++)
+				{
+					if (scriptableIndex.isClearList[i + 6] == true)
+					{
+						buttons[i].enabled = true;
+					}
+					else
+					{
+						buttons[i].enabled = false;
 					}
 				}
 				break;
