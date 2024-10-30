@@ -82,19 +82,22 @@ public class CursorManager : MonoBehaviour
             {
                 if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                 {
-                    //カーソルが当たっているのをオブジェクトに伝える
-                    targetObject.GetComponent<Floor>().OnCursor();
-
-                    if (Input.GetMouseButtonDown(0))
+                    if (MapManager.floorChange == false)
                     {
-                        if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
+                        //カーソルが当たっているのをオブジェクトに伝える
+                        targetObject.GetComponent<Floor>().OnCursor();
+
+                        if (Input.GetMouseButtonDown(0))
                         {
-                            if (scriptableObject.textIndex == 1)
+                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
                             {
-                                Debug.Log("押しました");
-                                GetComponent<MapManager>().ChangeMap(targetObject);
-                                enabled = false;
-                                scriptableObject.textIndex++;
+                                if (scriptableObject.textIndex == 1)
+                                {
+                                    Debug.Log("押しました");
+                                    GetComponent<MapManager>().ChangeMap(targetObject);
+                                    enabled = false;
+                                    scriptableObject.textIndex++;
+                                }
                             }
                         }
                     }
