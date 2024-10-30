@@ -418,8 +418,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.48
-  m_fontSizeBase: 31.48
+  m_fontSize: 46.96
+  m_fontSizeBase: 46.96
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1698,7 +1698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3165389080138203925, guid: 7ad2d4e4ba3845e4c942b2df006f9206, type: 3}
-  canvas: {fileID: 1493997894}
 --- !u!114 &2073313830
 MonoBehaviour:
   m_ObjectHideFlags: 0
