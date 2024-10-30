@@ -43,10 +43,10 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
 
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) moveSpeed = 0.1f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) moveSpeed = 0.09f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) moveSpeed = 0.1f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) moveSpeed = 0.1f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) moveSpeed = 0.12f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) moveSpeed = 0.14f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) moveSpeed = 0.15f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) moveSpeed = 0.15f;
 
         if (centerObject != null)
         {
@@ -99,10 +99,10 @@ public class CameraControl : MonoBehaviour
     {
         centerObject = center;//カメラのセンターになるオブジェクトを見つける
         
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) Hight = 9.0f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) Hight = 11.0f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) Hight = 12.5f;
-        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) Hight = 14.5f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 5) Hight = 10.5f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 6) Hight = 12.5f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 7) Hight = 14.5f;
+        if (GameObject.Find("map(Clone)").GetComponent<MapManager>().GetMapSize() == 8) Hight = 16.0f;
 
         
 

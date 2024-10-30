@@ -104,7 +104,7 @@ public class TouchControl : MonoBehaviour
                     {
                         if (MapManager.floorChange == false)
                         {
-                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
+                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 1 && targetObject.GetComponent<Floor>().GetMapPosition().z == 1)//触っていいオブジェクト
                             {
                                 if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                                 {

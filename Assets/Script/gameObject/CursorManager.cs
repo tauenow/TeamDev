@@ -89,7 +89,7 @@ public class CursorManager : MonoBehaviour
 
                         if (Input.GetMouseButtonDown(0))
                         {
-                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
+                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 1 && targetObject.GetComponent<Floor>().GetMapPosition().z == 1)//触っていいオブジェクト
                             {
                                 if (scriptableObject.textIndex == 1)
                                 {
