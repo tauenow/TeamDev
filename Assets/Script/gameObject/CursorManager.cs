@@ -15,6 +15,8 @@ public class CursorManager : MonoBehaviour
     RaycastHit hit;
     GameObject targetObject;
 
+    public bool CursorOn = false; 
+
     void Start()
     {
         enabled = true;
@@ -25,11 +27,13 @@ public class CursorManager : MonoBehaviour
     }
     void Update()
     {
-       
-        //カーソル処理
-        CastRay();
-        //チューリアルの時のカーソル処理
-        TutorialCastRay();
+        if (CursorOn == true)
+        {
+            //カーソル処理
+            CastRay();
+            //チューリアルの時のカーソル処理
+            TutorialCastRay();
+        }
     }
     // マウスカーソルの位置から「レイ」を飛ばして、何かのコライダーに当たるかどうかをチェック
     void CastRay()

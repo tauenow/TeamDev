@@ -60,6 +60,7 @@ public class TouchControl : MonoBehaviour
                             {
                                 if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                                 {
+                                    GetComponent<MapManager>().AllFloorWaitOff();
                                     targetObject.GetComponent<Floor>().SetChangeWait(true);
                                 }
                                 else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
@@ -69,10 +70,6 @@ public class TouchControl : MonoBehaviour
                                     enabled = false;
                                 }
                             }
-                        }
-                        else
-                        {
-                            GetComponent<MapManager>().AllFloorWaitOff();
                         }
                     }
                 }
