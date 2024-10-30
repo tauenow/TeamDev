@@ -23,4 +23,7 @@ public class StageScriptableObject : UnityEngine.ScriptableObject
 	public string colorName = "None";
 	[Header("チュートリアルテキストの番号")]
 	public int textIndex = 0;
+
+	[SerializeField]
+	public string oldSceneName = "None";
 }
