@@ -22,7 +22,7 @@ public class Option : MonoBehaviour
 
 	private void Update()
 	{
-		if (option.enabled == true)
+		if (option.enabled == true && cursorManager != null)
 		{
 			cursorManager.enabled = false;
 		}

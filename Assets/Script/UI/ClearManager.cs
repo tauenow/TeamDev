@@ -7,21 +7,19 @@ public class ClearManager : MonoBehaviour
 {
 	[SerializeField] private StageScriptableObject scriptableIndex;
 	[SerializeField] private Image[] Clears;
+	[SerializeField] private Button[] buttons;
 	[Header("デバッグモード")]
 	[SerializeField] private bool debug = false;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-
-		if(debug == true)
+		if (debug == true)
 		{
-			for(int i = 0; i < scriptableIndex.isClearList.Count;i++)
+			for (int i = 0; i < scriptableIndex.isClearList.Count; i++)
 			{
 				scriptableIndex.isClearList[i] = true;
-
-            }
-			
+			}
 		}
 
 		switch (scriptableIndex.DifficultyIndex)
@@ -68,6 +66,12 @@ public class ClearManager : MonoBehaviour
 				}
 
 				break;
+		}
+
+		switch (scriptableIndex.DifficultyIndex)
+		{
+			case 1:
+
 		}
 	}
 
