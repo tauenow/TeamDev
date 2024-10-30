@@ -77,10 +77,13 @@ public class FadeINOUT : MonoBehaviour
     // フレームごとの処理で、画面タップでフェードアウトを開始
     void Update()
     {
-        // 画面タップモードが選択されている場合、タップでフェードアウトを開始
-        if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
+        if (buttonTap == false)
         {
-            Invoke(nameof(HandleTapTransition), 0.5f);
+            // 画面タップモードが選択されている場合、タップでフェードアウトを開始
+            if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
+            {
+                Invoke(nameof(HandleTapTransition), 0.3f);
+            }
         }
     }
 
