@@ -44,7 +44,7 @@ public class CursorManager : MonoBehaviour
 
             if (hit.collider.gameObject.CompareTag("Floor"))
             {
-                if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
+                if (targetObject.GetComponent<Floor>().GetFloorState() != "player" && targetObject.GetComponent<Floor>().GetFloorState() != "goal")
                 {
                     if (targetObject.GetComponent<Floor>().GetChangeState() == false && targetObject.GetComponent<Floor>().GetLinkChangeState() == false)
                     {
