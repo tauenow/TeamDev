@@ -954,7 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 578aec3cd89bbe74da641a86fb1160d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObject: {fileID: 0}
+  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   transitionIn: {fileID: 2100000, guid: 2b956f78abf6b714393d91926057c268, type: 2}
   transitionOut: {fileID: 2100000, guid: 7e07086362aa4bb45b26fbec6f2c1269, type: 2}
   OnTransition:
@@ -990,6 +990,7 @@ MonoBehaviour:
   transitionButtons: []
   sceneNames:
   - Scenes/StageSelect
+  - Scenes/TutorialScene
   fadeTriggerMode: 0
 --- !u!114 &1618947789
 MonoBehaviour:

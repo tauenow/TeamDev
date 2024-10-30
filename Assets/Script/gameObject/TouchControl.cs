@@ -52,7 +52,7 @@ public class TouchControl : MonoBehaviour
                 }
                 else if (targetObject.CompareTag("Floor"))
                 {
-                    if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
+                    if (targetObject.GetComponent<Floor>().GetFloorState() != "player"&&targetObject.GetComponent<Floor>().GetFloorState() != "goal")
                     {
                         if (targetObject.GetComponent<Floor>().GetChangeState() == false && targetObject.GetComponent<Floor>().GetLinkChangeState() == false)
                         {

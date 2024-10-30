@@ -100,10 +100,21 @@ public class FadeINOUT : MonoBehaviour
 
     private void HandleTapTransition()
     {
-        // 最初のシーン名を使ってフェードアウトを開始
-        if (sceneNames.Count > 0)
+        if (scriptableObject.tutorialClear == true)
         {
-            StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+            // 最初のシーン名を使ってフェードアウトを開始
+            if (sceneNames.Count > 0)
+            {
+                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+            }
+        }
+        else if(scriptableObject.tutorialClear == false)
+        {
+            // 最初のシーン名を使ってフェードアウトを開始
+            if (sceneNames.Count > 0)
+            {
+                StartCoroutine(BeginTransitionOut(sceneNames[1])); // 例として最初のシーン名を使用
+            }
         }
     }
 
