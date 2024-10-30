@@ -649,10 +649,14 @@ public class MapManager : MonoBehaviour
 
                             break;
 						case 5:
-							GameObject floor5 = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
+							GameObject floor5 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
 							floor5.GetComponent<Floor>().SetParentmap(this);
 							floor5.GetComponent<Floor>().SetMapPosition(j, i - 1, "goal");
-							mapObjects.Add(floor5);
+                            if (scriptableObject.colorName == "red") floor5.transform.Rotate(180.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "blue") floor5.transform.Rotate(270.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "yellow") floor5.transform.Rotate(0.0f, 0.0f, 0.0f);
+                            else if (scriptableObject.colorName == "green") floor5.transform.Rotate(90.0f, 0.0f, 0.0f);
+                            mapObjects.Add(floor5);
 
 
 							break;

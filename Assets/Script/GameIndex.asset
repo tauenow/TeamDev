@@ -17,6 +17,6 @@ MonoBehaviour:
   oldIsClear: 000100000000000000
   isClearList: 010101010101010101
   tutorialClear: 0
-  ButtonNum: 1
+  ButtonNum: 0
   colorName: red
-  textIndex: 0
+  textIndex: 5

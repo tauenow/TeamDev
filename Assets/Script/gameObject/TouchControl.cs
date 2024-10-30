@@ -102,20 +102,23 @@ public class TouchControl : MonoBehaviour
                 {
                     if (targetObject.GetComponent<Floor>().GetFloorState() != "player")
                     {
-                        if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
-                        { 
-                            if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
+                        if (MapManager.floorChange == false)
+                        {
+                            if (targetObject.GetComponent<Floor>().GetMapPosition().x == 2 && targetObject.GetComponent<Floor>().GetMapPosition().z == 2)//触っていいオブジェクト
                             {
-
-                                targetObject.GetComponent<Floor>().SetChangeWait(true);
-                            }
-                            else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
-                            {
-                                if (scriptableObject.textIndex == 1)
+                                if (targetObject.GetComponent<Floor>().GetChangeWait() == false)
                                 {
-                                    GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
-                                    enabled = false;
-                                    scriptableObject.textIndex++;
+
+                                    targetObject.GetComponent<Floor>().SetChangeWait(true);
+                                }
+                                else if (targetObject.GetComponent<Floor>().GetChangeWait() == true)
+                                {
+                                    if (scriptableObject.textIndex == 1)
+                                    {
+                                        GetComponent<MapManager>().ChangeMap(targetObject);//マップチェンジとチェック
+                                        enabled = false;
+                                        scriptableObject.textIndex++;
+                                    }
                                 }
                             }
                         }
