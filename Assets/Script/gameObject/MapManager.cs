@@ -225,8 +225,9 @@ public class MapManager : MonoBehaviour
 
                             mapObjects.Add(floor5);
 
+							//ゴールオブジェクト(旗の生成)
 							goalObject = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y + 0.5f, transform.position.z - i), Quaternion.identity) as GameObject;
-							goalObject.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+							goalObject.transform.rotation = Quaternion.Euler(-30.0f, 180.0f, 0.0f);
 
 							break;
 						case 6:
@@ -293,7 +294,11 @@ public class MapManager : MonoBehaviour
             goalPos.z += 0.2f;
 			
 			goalObject.transform.position = goalPos;
-			//エフェクト用ゴールのルートを格納
+
+            //ゴールの回転を元に戻す
+            goalObject.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
+            //エフェクト用ゴールのルートを格納
             List<Floor> goalRootFloor = new();
             parentManager.isClear = true;
             Debug.Log(parentManager.isClear);
