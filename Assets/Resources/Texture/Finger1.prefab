@@ -91,5 +91,5 @@ MonoBehaviour:
   image: {fileID: 4707554045959553545}
   MoveSpeed: 1
   MoveDistance: 50
-  startPos: 350
+  startPos: 380
   Revars: 0

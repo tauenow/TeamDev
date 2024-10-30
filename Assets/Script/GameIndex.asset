@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageNum: 1
   DifficultyIndex: 1
-  oldIsClear: 000100000000000000
-  isClearList: 010101010101010101
-  tutorialClear: 0
-  ButtonNum: 1
+  oldIsClear: 000000000000000000
+  isClearList: 010000000000000000
+  tutorialClear: 1
+  ButtonNum: 0
   colorName: red
-  textIndex: 2
+  textIndex: 7

@@ -126,7 +126,7 @@ public class ClearManager : MonoBehaviour
 
 				for (int i = 1; i < 3; i++)
 				{
-					if (scriptableIndex.isClearList[i] == true)
+					if (scriptableIndex.isClearList[i - 1] == true)
 					{
 						buttons[i].enabled = true;
 					}
@@ -151,7 +151,7 @@ public class ClearManager : MonoBehaviour
 
 				for (int i = 0; i < 3; i++)
 				{
-					if (scriptableIndex.isClearList[i + 3] == true)
+					if (scriptableIndex.isClearList[i + 2] == true)
 					{
 						buttons[i].enabled = true;
 					}
@@ -176,7 +176,7 @@ public class ClearManager : MonoBehaviour
 
 				for (int i = 0; i < 3; i++)
 				{
-					if (scriptableIndex.isClearList[i + 6] == true)
+					if (scriptableIndex.isClearList[i + 5] == true)
 					{
 						buttons[i].enabled = true;
 					}

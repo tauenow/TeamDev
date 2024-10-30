@@ -17,19 +17,23 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	[SerializeField] private StageScriptableObject ScriptableObject;
 	[SerializeField] private int SetNum = default;
-	[SerializeField] private int SelectSetNum = 0;
 	[SerializeField] private Button[] Buttons;
 
 	private void Start()
 	{
-		if (ScriptableObject.ButtonNum != 0)
+		if (GameObject.Find("TutorialButton") != null)
 		{
-			ScriptableObject.ButtonNum = 0;
+			for (int i = 0; i < Buttons.Length; i++)
+			{
+				Buttons[i].enabled = true;
+			}
 		}
-
-		for (int i = 0; i < Buttons.Length; i++)
+		else
 		{
-			Buttons[i].enabled = true;
+			for (int i = 0; i < Buttons.Length - 1; i++)
+			{
+				Buttons[i].enabled = true;
+			}
 		}
 	}
 
@@ -79,16 +83,27 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public void SetSelectNum()
-	{
-		ScriptableObject.ButtonNum = SelectSetNum;
-	}
-
 	public void SetButtonEnable()
 	{
-		for (int i = 0; i < Buttons.Length; i++)
+		if (GameObject.Find("TutorialButton") != null)
 		{
-			Buttons[i].enabled = false;
+			for (int i = 0; i < Buttons.Length; i++)
+			{
+				Buttons[i].enabled = false;
+			}
 		}
+		else
+		{
+			for (int i = 0; i < Buttons.Length - 1; i++)
+			{
+				Buttons[i].enabled = false;
+			}
+		}
+	}
+
+	public void ResetTutorial()
+	{
+		ScriptableObject.textIndex = 0;
+		ScriptableObject.tutorialClear = false;
 	}
 }
