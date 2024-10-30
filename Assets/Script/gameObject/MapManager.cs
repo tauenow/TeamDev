@@ -224,8 +224,6 @@ public class MapManager : MonoBehaviour
 
                             mapObjects.Add(floor5);
 							
-
-
 							break;
 						case 6:
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;

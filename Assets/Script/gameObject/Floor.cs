@@ -735,19 +735,25 @@ public class Floor : MonoBehaviour
         GameObject obj3 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x - 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
         GameObject obj4 = parentMap.GetGameObjectList().Find(match => match.GetComponent<Floor>().GetMapPosition().x == GetComponent<Floor>().GetMapPosition().x + 1 && match.GetComponent<Floor>().GetMapPosition().z == GetComponent<Floor>().GetMapPosition().z);
 
-        GameObject linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
-        GameObject linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
-        GameObject linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
-        GameObject linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
-        
-
-        if (obj1 != null) linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-        if(obj2 != null) linkEffectBottom.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        if (obj3 != null) linkEffectLeft.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-        if (obj4 != null) linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+        GameObject linkEffectTop = null;
+        GameObject linkEffectRight = null;
+        GameObject linkEffectBottom = null;
+        GameObject linkEffectLeft = null;
 
 
+        if (obj1 != null) if(obj1.GetComponent<Floor>().GetFloorState() is  "player" or "goal") obj1 = null;
+        if (obj2 != null) if (obj2.GetComponent<Floor>().GetFloorState() is "player" or "goal") obj2 = null;
+        if (obj3 != null) if (obj3.GetComponent<Floor>().GetFloorState() is "player" or "goal") obj3 = null;
+        if (obj4 != null) if (obj4.GetComponent<Floor>().GetFloorState() is "player" or "goal") obj4 = null;
 
+        if (obj1 != null) linkEffectTop = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + side), Quaternion.identity) as GameObject;
+        if (obj2 != null) linkEffectBottom = Instantiate(linkEffectObject, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z - side), Quaternion.identity) as GameObject;
+        if (obj3 != null) linkEffectLeft = Instantiate(linkEffectObject, new Vector3(transform.position.x - side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
+        if (obj4 != null) linkEffectRight = Instantiate(linkEffectObject, new Vector3(transform.position.x + side, transform.position.y + 0.5f, transform.position.z), Quaternion.identity) as GameObject;
 
+        if (linkEffectTop != null) linkEffectTop.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        if (linkEffectBottom != null) linkEffectBottom.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        if (linkEffectLeft != null) linkEffectLeft.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+        if (linkEffectRight != null) linkEffectRight.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
     }
 }
