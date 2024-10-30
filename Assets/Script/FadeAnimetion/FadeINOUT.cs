@@ -38,6 +38,8 @@ public class FadeINOUT : MonoBehaviour
 
     private bool doOnce = false;
 
+    public static bool buttonTap = true;
+
     // フェードアウトをトリガーする方法の選択肢
     public enum FadeTriggerMode { Tap, Button }
 
@@ -49,7 +51,7 @@ public class FadeINOUT : MonoBehaviour
     void Start()
     {
         doOnce = false;
-
+        buttonTap = false;
         // フェードインのコルーチンを開始
         StartCoroutine(BeginTransitionIn());
 
@@ -76,14 +78,9 @@ public class FadeINOUT : MonoBehaviour
     void Update()
     {
         // 画面タップモードが選択されている場合、タップでフェードアウトを開始
-        if(doOnce == false)
+        if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
         {
-            if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
-            {
-                SEManager.Instance.PlaySE("Select");
-                HandleTapTransition();
-                doOnce = true;
-            }
+            Invoke(nameof(HandleTapTransition), 0.5f);
         }
     }
 
@@ -100,20 +97,28 @@ public class FadeINOUT : MonoBehaviour
 
     private void HandleTapTransition()
     {
-        if (scriptableObject.tutorialClear == true)
+        if (buttonTap == false)
         {
-            // 最初のシーン名を使ってフェードアウトを開始
-            if (sceneNames.Count > 0)
+            if (doOnce == false)
             {
-                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
-            }
-        }
-        else if(scriptableObject.tutorialClear == false)
-        {
-            // 最初のシーン名を使ってフェードアウトを開始
-            if (sceneNames.Count > 0)
-            {
-                StartCoroutine(BeginTransitionOut(sceneNames[1])); // 例として最初のシーン名を使用
+                if (scriptableObject.tutorialClear == true)
+                {
+                    // 最初のシーン名を使ってフェードアウトを開始
+                    if (sceneNames.Count > 0)
+                    {
+                        StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+                    }
+                }
+                else if (scriptableObject.tutorialClear == false)
+                {
+                    // 最初のシーン名を使ってフェードアウトを開始
+                    if (sceneNames.Count > 0)
+                    {
+                        StartCoroutine(BeginTransitionOut(sceneNames[1])); // 例として最初のシーン名を使用
+                    }
+                }
+                SEManager.Instance.PlaySE("Select");
+                doOnce = true;
             }
         }
     }
@@ -175,7 +180,7 @@ public class FadeINOUT : MonoBehaviour
         material.SetFloat("_Alpha", 1);
     }
 
-    public void FadeToChangeScene()
+    public void FadeToChangeScene(int num)
     {
         if(doOnce == false)
         {
@@ -185,7 +190,7 @@ public class FadeINOUT : MonoBehaviour
                 SEManager.Instance.PlaySE("Select");
                 doOnce = true;
 
-                StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+                StartCoroutine(BeginTransitionOut(sceneNames[num])); // 例として最初のシーン名を使用
             }
         }
     }

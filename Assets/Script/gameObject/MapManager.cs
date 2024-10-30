@@ -37,6 +37,7 @@ public class MapManager : MonoBehaviour
 	[Header("ゴールのオブジェクト")]
 	[SerializeField]
 	private GameObject Goal;
+	private GameObject goalObject = null;
 	[SerializeField]
 	private GameObject centerObject;
 	[SerializeField]
@@ -224,8 +225,9 @@ public class MapManager : MonoBehaviour
 
                             mapObjects.Add(floor5);
 
-							Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y + 1, transform.position.z - i), Quaternion.identity);
-							
+							goalObject = Instantiate(Goal, new Vector3(transform.position.x + j, transform.position.y + 0.5f, transform.position.z - i), Quaternion.identity) as GameObject;
+							goalObject.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
 							break;
 						case 6:
 							GameObject floor6 = Instantiate(Floor, new Vector3(transform.position.x + j, transform.position.y, transform.position.z - i), Quaternion.identity) as GameObject;
@@ -279,12 +281,19 @@ public class MapManager : MonoBehaviour
 		
         if (onGoal == true)
         {
-
+			//操作はオフ画面遷移はオン
             GetComponent<CursorManager>().enabled = false;
             GetComponent<TouchControl>().enabled = false;
 			GetComponent<ClickSceneControl>().enabled = true;
 			GetComponent<TouchSceneControl>().enabled = true;
 
+			//ゴールのポジションを少しずらす
+			Vector3 goalPos = goalObject.transform.position;
+            goalPos.x -= 0.2f;
+            goalPos.z += 0.2f;
+			
+			goalObject.transform.position = goalPos;
+			//エフェクト用ゴールのルートを格納
             List<Floor> goalRootFloor = new();
             parentManager.isClear = true;
             Debug.Log(parentManager.isClear);
