@@ -142,9 +142,16 @@ public class StageSelectManager : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "SampleScene")
 		{
 			StageObj.isClearList[selecetStageNum - 1] = true;
-		}
-		// フェードイン・アウトを実行
-		fade.GetComponent<FadeINOUT>().FadeToChangeScene();
+            // フェードイン・アウトを実行
+            fade.GetComponent<FadeINOUT>().FadeToChangeScene(0);
+        }
+        // ステージをクリアしたかどうかを設定
+        else if (SceneManager.GetActiveScene().name == "TutorialScene")
+        {
+            // フェードイン・アウトを実行
+            fade.GetComponent<FadeINOUT>().FadeToChangeScene(1);
+        }
+        
 
 	}
 }

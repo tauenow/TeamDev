@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        tutorialClear = false;
     }
 
     // Update is called once per frame
@@ -55,7 +55,6 @@ public class TutorialManager : MonoBehaviour
         {
             if (tutorialClear == false)
             {
-
                 MapObject.GetComponent<CursorManager>().enabled = true;
                 MapObject.GetComponent<TouchControl>().enabled = true;
 
@@ -63,9 +62,7 @@ public class TutorialManager : MonoBehaviour
                 {
 
                     obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.9f;
-
                 }
-
                 tutorialClear = true;
             }
 
