@@ -85,10 +85,10 @@ public class TextDraw : MonoBehaviour
 
 	void AddTextIndex()
 	{
-		if (Input.touchCount <= 0)
-		{ return; }
+		//if (Input.touchCount <= 0)
+		//{ return; }
 
-		Touch touch = Input.GetTouch(0);
+		//Touch touch = Input.GetTouch(0);
 		if (scriptableObject.textIndex == 2 && Faze2 == true)
 		{
 			if (showCoroutine == null && scriptableObject.textIndex < 7)
@@ -99,7 +99,7 @@ public class TextDraw : MonoBehaviour
 		}
 		else if (scriptableObject.textIndex != 1)
 		{
-			if (touch.phase == TouchPhase.Began || Input.GetMouseButtonDown(0))
+			if (/*touch.phase == TouchPhase.Began ||*/ Input.GetMouseButtonDown(0))
 			{
 				if (showCoroutine == null && scriptableObject.textIndex < 7)
 				{

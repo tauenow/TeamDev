@@ -6645,6 +6645,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1941355947892674965, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
   m_PrefabInstance: {fileID: 1681116241}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1646882360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646882354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb33fcf916268404caeb82a2742c7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1681116241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6733,6 +6745,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1646882360}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MapReset
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OnBottonResetMap, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240716341632704487, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
       propertyPath: m_Name
       value: RetryButton
@@ -6744,6 +6784,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1646882357}
+    - targetCorrespondingSourceObject: {fileID: 9174097068705160290, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1646882360}
   m_SourcePrefab: {fileID: 100100000, guid: cf776b6d2d8d32b468d69aa010648658, type: 3}
 --- !u!224 &1814192285 stripped
 RectTransform:

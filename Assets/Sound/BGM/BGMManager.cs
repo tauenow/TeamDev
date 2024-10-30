@@ -23,6 +23,7 @@ public class BGMManager : MonoBehaviour
     }
 
     public AudioSource titleBGM;
+    public AudioSource tutorialBGM;
     public AudioSource stageSelectBGM;
     public AudioSource clearBGM;
     public AudioSource easyBGM;
@@ -60,6 +61,11 @@ public class BGMManager : MonoBehaviour
         {
             currentBGM = titleBGM;
         }
+        else if (sceneName == "TutorialScene")
+        {
+            currentBGM = tutorialBGM;
+        }
+
         else if (sceneName == "StageSelect")
         {
             currentBGM = stageSelectBGM;
