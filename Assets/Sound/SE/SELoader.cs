@@ -32,6 +32,6 @@ public class AudioLoader : MonoBehaviour
         SEManager.Instance.AddAudioClip("Block_Completion", BlockCompletionClip);
         SEManager.Instance.AddAudioClip("Congratulation", CongratulationClip);
         SEManager.Instance.AddAudioClip("Player_walk", PlayerwalkClip);
-        SEManager.Instance.AddAudioClip("Scene-Flashback04-1(Mid)", RetryClip);
+        SEManager.Instance.AddAudioClip("Retry", RetryClip);
     }
 }
