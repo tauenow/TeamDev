@@ -239,7 +239,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2136462777161450886, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
   m_PrefabInstance: {fileID: 1069266676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1069266677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5d8a3132074e73458d1800da657ed58, type: 3}
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
   m_PrefabInstance: {fileID: 1069266676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1069266677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -5749,7 +5749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5758,14 +5758,14 @@ PrefabInstance:
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1069266678}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DestroyOption
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: StartFade
+      value: BackScene
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5773,7 +5773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: FadeManager, Assembly-CSharp
+      value: TutorialBackScene, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1233715575853857770, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6018,8 +6018,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5636210760352566968, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1069266678}
   m_SourcePrefab: {fileID: 100100000, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+--- !u!1 &1069266677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5636210760352566968, guid: 9d9b88023fabcd145a0b83775d9b94ff, type: 3}
+  m_PrefabInstance: {fileID: 1069266676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1069266678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069266677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90698cfda5c050f4abfbf3b8ca246cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
+  fade: {fileID: 1814192286}
 --- !u!1001 &1237898260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7061,7 +7083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: transitionButtons.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3937567048281205324, guid: 13f31cdc509def54e867b28793df1b0e, type: 3}
       propertyPath: transitionButtons.Array.data[0]
@@ -7482,6 +7504,6 @@ SceneRoots:
   - {fileID: 943004044}
   - {fileID: 1870058527}
   - {fileID: 549153198}
-  - {fileID: 397383113}
   - {fileID: 1069266676}
   - {fileID: 1540891743}
+  - {fileID: 397383113}

@@ -77,11 +77,13 @@ public class FadeINOUT : MonoBehaviour
     // フレームごとの処理で、画面タップでフェードアウトを開始
     void Update()
     {
+        Debug.Log(scriptableObject.oldSceneName);
         if (buttonTap == false)
         {
             // 画面タップモードが選択されている場合、タップでフェードアウトを開始
             if (fadeTriggerMode == FadeTriggerMode.Tap && Input.GetMouseButtonDown(0))
             {
+                scriptableObject.oldSceneName = SceneManager.GetActiveScene().name;
                 Invoke(nameof(HandleTapTransition), 0.2f);
             }
         }
@@ -90,13 +92,10 @@ public class FadeINOUT : MonoBehaviour
     // ボタンからのフェードアウト処理をまとめたメソッド
     private void HandleButtonTransition(int index)
     {
-        if (SceneManager.GetActiveScene().name == "TutorialScene")
-        {
-
-        }
             // SEを再生
         SEManager.Instance.PlaySE("Select");
 
+        scriptableObject.oldSceneName = SceneManager.GetActiveScene().name;
         // 対応するシーンに切り替え
         StartCoroutine(BeginTransitionOut(sceneNames[index])); // 対応するシーンに切り替え
     }
@@ -195,7 +194,7 @@ public class FadeINOUT : MonoBehaviour
             {
                 SEManager.Instance.PlaySE("Select");
                 doOnce = true;
-
+                scriptableObject.oldSceneName = SceneManager.GetActiveScene().name;
                 StartCoroutine(BeginTransitionOut(sceneNames[num])); // 例として最初のシーン名を使用
             }
         }
