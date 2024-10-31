@@ -61,7 +61,7 @@ public class TutorialManager : MonoBehaviour
                 foreach (GameObject obj in MapObject.GetComponent<MapManager>().GetGameObjectList())
                 {
 
-                    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.9f;
+                    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.86f;
                 }
                 tutorialClear = true;
             }
