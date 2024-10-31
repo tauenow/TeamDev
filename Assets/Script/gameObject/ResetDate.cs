@@ -7,15 +7,6 @@ public class ResetDate : MonoBehaviour
     //ã§í ÉfÅ[É^
     [SerializeField]
     private StageScriptableObject stageScriptableObject;
-    void Start()
-    {
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnResetdate()
     {
@@ -25,6 +16,8 @@ public class ResetDate : MonoBehaviour
         stageScriptableObject.textIndex = 0;
 
         stageScriptableObject.tutorialClear = false;
+        stageScriptableObject.colorName = "None";
+        stageScriptableObject.oldSceneName = "None";
         for(int i = 0;i < stageScriptableObject.isClearList.Count;i++)
         {
             stageScriptableObject.isClearList[i] = false;
