@@ -15,9 +15,9 @@ MonoBehaviour:
   StageNum: 1
   DifficultyIndex: 1
   oldIsClear: 000000000000000000
-  isClearList: 010000000000000000
-  tutorialClear: 1
+  isClearList: 000000000000000000
+  tutorialClear: 0
   ButtonNum: 0
   colorName: red
-  textIndex: 7
+  textIndex: 1
   oldSceneName: TutorialScene
