@@ -147,11 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   option: {fileID: 1991140989491613638, guid: 580b2ba0ee5e9a944bb4306448745aac, type: 3}
-  Button1: {fileID: 0}
-  Button2: {fileID: 0}
-  Button3: {fileID: 0}
-  OptButton: {fileID: 4812483847751954362}
-  map: {fileID: 0}
+  buttons: []
 --- !u!1 &7148231466286125244
 GameObject:
   m_ObjectHideFlags: 0

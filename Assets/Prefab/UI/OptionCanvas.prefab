@@ -1329,9 +1329,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8922382065053206776}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 5454832117355884005}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_MethodName: DestroyOption
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
