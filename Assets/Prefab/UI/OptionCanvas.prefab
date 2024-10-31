@@ -777,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c52c478386916449978103a897f5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scriptableObject: {fileID: 11400000, guid: 860b4ea71fad14b488853e13d6242ab4, type: 2}
   button: {fileID: 1233715575853857770}
   changeSprites:
   - {fileID: 21300000, guid: 1be3a10aaa48dd043a2ffe453ab0b771, type: 3}

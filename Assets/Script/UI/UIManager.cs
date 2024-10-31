@@ -106,4 +106,9 @@ public class UIManager : MonoBehaviour
 		ScriptableObject.textIndex = 0;
 		ScriptableObject.tutorialClear = false;
 	}
+
+	public void SetSceneName()
+	{
+		ScriptableObject.oldSceneName = "StageSelect";
+	}
 }
