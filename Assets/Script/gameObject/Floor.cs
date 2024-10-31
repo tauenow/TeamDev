@@ -242,7 +242,7 @@ public class Floor : MonoBehaviour
             }
             currentTime += Time.deltaTime;
 
-            if (motionCount < changeMotionCount * 2)
+            if (motionCount < changeMotionCount * 3)
             {
                 if (currentTime >= motionFrame)
                 {
@@ -255,20 +255,20 @@ public class Floor : MonoBehaviour
                             Vector3 transformPos = transform.position;
                             transformPos.y += 0.1f;
                             transform.position = transformPos;
-                            transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
+                            //transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
                         }
-                        //else if (motionCount < changeMotionCount * 2)
-                        //{
-                        //    SEManager.Instance.PlaySE("ColorChange");
-                        //    transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
-
-                        //}
                         else if (motionCount < changeMotionCount * 2)
+                        {
+                            SEManager.Instance.PlaySE("ColorChange");
+                            transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
+
+                        }
+                        else if (motionCount < changeMotionCount * 3)
                         {
                             Vector3 transformPos = transform.position;
                             transformPos.y -= 0.1f;
                             transform.position = transformPos;
-                            transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
+                            //transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
                         }
                         motionCount++;
                         currentTime = 0.0f;
@@ -283,53 +283,53 @@ public class Floor : MonoBehaviour
                             transformPos.y += 0.1f;
                             transform.position = transformPos;
 
+                            //if (faceCount >= 4)
+                            //{
+                            //    Debug.Log("z軸");
+                            //    SEManager.Instance.PlaySE("ColorChange");
+                            //    transform.Rotate(0.0f, 0.0f, (90.0f * 1.0f / changeMotionCount) / 2);
+                            //}
+                            //else if (faceCount >= 1)
+                            //{
+                            //    Debug.Log("x軸");
+                            //    SEManager.Instance.PlaySE("ColorChange");
+                            //    transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
+                            //}
+
+                        }
+                        else if (motionCount < changeMotionCount * 2)
+                        {
                             if (faceCount >= 4)
                             {
                                 Debug.Log("z軸");
                                 SEManager.Instance.PlaySE("ColorChange");
-                                transform.Rotate(0.0f, 0.0f, (90.0f * 1.0f / changeMotionCount) / 2);
+                                transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
                             }
                             else if (faceCount >= 1)
                             {
                                 Debug.Log("x軸");
                                 SEManager.Instance.PlaySE("ColorChange");
-                                transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
+                                transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
                             }
 
                         }
-                        //else if (motionCount < changeMotionCount * 2)
-                        //{
-                        //    if (faceCount >= 4)
-                        //    {
-                        //        Debug.Log("z軸");
-                        //        SEManager.Instance.PlaySE("ColorChange");
-                        //        transform.Rotate(0.0f, 0.0f, 90.0f * 1.0f / changeMotionCount);
-                        //    }
-                        //    else if (faceCount >= 1)
-                        //    {
-                        //        Debug.Log("x軸");
-                        //        SEManager.Instance.PlaySE("ColorChange");
-                        //        transform.Rotate(90.0f * 1.0f / changeMotionCount, 0.0f, 0.0f);
-                        //    }
-
-                        //}
                         else if (motionCount < changeMotionCount * 3)
                         {
                             Vector3 transformPos = transform.position;
                             transformPos.y -= 0.1f;
                             transform.position = transformPos;
-                            if (faceCount >= 4)
-                            {
-                                Debug.Log("z軸");
-                                SEManager.Instance.PlaySE("ColorChange");
-                                transform.Rotate(0.0f, 0.0f, (90.0f * 1.0f / changeMotionCount) / 2);
-                            }
-                            else if (faceCount >= 1)
-                            {
-                                Debug.Log("x軸");
-                                SEManager.Instance.PlaySE("ColorChange");
-                                transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
-                            }
+                            //if (faceCount >= 4)
+                            //{
+                            //    Debug.Log("z軸");
+                            //    SEManager.Instance.PlaySE("ColorChange");
+                            //    transform.Rotate(0.0f, 0.0f, (90.0f * 1.0f / changeMotionCount) / 2);
+                            //}
+                            //else if (faceCount >= 1)
+                            //{
+                            //    Debug.Log("x軸");
+                            //    SEManager.Instance.PlaySE("ColorChange");
+                            //    transform.Rotate((90.0f * 1.0f / changeMotionCount) / 2, 0.0f, 0.0f);
+                            //}
                         }
                         motionCount++;
                         currentTime = 0.0f;
@@ -338,7 +338,7 @@ public class Floor : MonoBehaviour
                 }
             }
         }
-        if (motionCount >= changeMotionCount * 2)
+        if (motionCount >= changeMotionCount * 3)
         {
             //モーションが終わったらマップをチェック
             parentMap.CheckMap();
