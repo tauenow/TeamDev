@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveDalete : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class SaveDalete : MonoBehaviour
 				OnComplete(() =>
 				{
 					Destroy(GameObject.Find("DeleteBack(Clone)"));
+					GameObject.Find("SaveDelete").GetComponent<Button>().enabled = true;
 				});
 		}
 		else
@@ -31,6 +33,7 @@ public class SaveDalete : MonoBehaviour
 				OnComplete(() =>
 				{
 					Destroy(GameObject.Find("Complete(Clone)"));
+					GameObject.Find("SaveDelete").GetComponent<Button>().enabled = true;
 				});
 		}
 	}

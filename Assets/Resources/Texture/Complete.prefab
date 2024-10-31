@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 5916277214783909961}
   - component: {fileID: 6079900927563017451}
   - component: {fileID: 918685851798495521}
+  - component: {fileID: 3164790282217292091}
   m_Layer: 5
   m_Name: OK
   m_TagString: Untagged
@@ -358,6 +359,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3164790282217292091}
+        m_TargetAssemblyTypeName: TitleTapManager, Assembly-CSharp
+        m_MethodName: TapOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &918685851798495521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +384,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  canvas: {fileID: 0}
+--- !u!114 &3164790282217292091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3234479646140034522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6627904fb00d12442bce1fad6f4c2fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8668999841268603351
 GameObject:
   m_ObjectHideFlags: 0

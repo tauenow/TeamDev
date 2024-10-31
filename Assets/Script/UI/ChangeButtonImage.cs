@@ -15,7 +15,6 @@ public class ChangeButtonImage : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		// ボタンのテキストを獲得
 		buttonImage = button.GetComponentInChildren<Image>();
 	}
 
@@ -26,7 +25,7 @@ public class ChangeButtonImage : MonoBehaviour
 		{
 			buttonImage.sprite = changeSprites[0];
 		}
-		else if (SceneManager.GetActiveScene().name == "SampleScene")
+		else if (SceneManager.GetActiveScene().name == "SampleScene" || SceneManager.GetActiveScene().name == "TutorialScene")
 		{
 			buttonImage.sprite = changeSprites[1];
 		}

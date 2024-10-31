@@ -18,6 +18,10 @@ public class ChangeLockEnable : MonoBehaviour
 	private void Start()
 	{
 		SetLock();
+		for (int i = 0; i < scriptableObj.isClearList.Count; i++)
+		{
+			Debug.Log(scriptableObj.isClearList[i]);
+		}
 	}
 
 	public void SetLock()
