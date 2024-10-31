@@ -597,6 +597,9 @@ public class MapManager : MonoBehaviour
 	//マップのリセット
     public void MapReset()
 	{
+
+		SEManager.Instance.PlaySE("Scene-Flashback04-1(Mid)");
+
 		foreach(GameObject obj in mapObjects)
 		{
 			Destroy(obj);
