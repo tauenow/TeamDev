@@ -18,6 +18,6 @@ MonoBehaviour:
   isClearList: 000000000000000000
   tutorialClear: 0
   ButtonNum: 0
-  colorName: red
-  textIndex: 1
-  oldSceneName: TutorialScene
+  colorName: None
+  textIndex: 7
+  oldSceneName: None

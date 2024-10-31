@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
             {
                 if(obj.GetComponent<Floor>().GetMapPosition() == new Vector3(1.0f,0.0f,1.0f))
                 {
-                    obj.GetComponent<MeshRenderer>().material.color = Color.white;
+                    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.9f;
                 }
             }
             
@@ -61,7 +61,7 @@ public class TutorialManager : MonoBehaviour
                 foreach (GameObject obj in MapObject.GetComponent<MapManager>().GetGameObjectList())
                 {
 
-                    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.9f;
+                    obj.GetComponent<MeshRenderer>().material.color = Color.white * 0.86f;
                 }
                 tutorialClear = true;
             }

@@ -16,6 +16,8 @@ public class AudioLoader : MonoBehaviour
     [SerializeField]
     private AudioClip PlayerwalkClip;
     [SerializeField]
+    private AudioClip RetryClip;
+    [SerializeField]
     private AudioMixerGroup audioMixerGroup; // èoóÕêÊÇÃAudioMixerGroup
 
 
@@ -30,5 +32,6 @@ public class AudioLoader : MonoBehaviour
         SEManager.Instance.AddAudioClip("Block_Completion", BlockCompletionClip);
         SEManager.Instance.AddAudioClip("Congratulation", CongratulationClip);
         SEManager.Instance.AddAudioClip("Player_walk", PlayerwalkClip);
+        SEManager.Instance.AddAudioClip("Retry", RetryClip);
     }
 }
