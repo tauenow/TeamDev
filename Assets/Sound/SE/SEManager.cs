@@ -44,8 +44,6 @@ public class SEManager : MonoBehaviour
     {
         if (audioClips.TryGetValue(clipName, out AudioClip clip))
         {
-            //audioSource.PlayOneShot(clip); // 常に再生
-
             // フラグを設定し、コルーチンを開始
             if (clipName == "ColorChange")
             {

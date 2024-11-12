@@ -8,8 +8,6 @@ public class Audio : MonoBehaviour
 {
     [SerializeField] AudioMixer audioMixer;
 
-    //それぞれのスライダーを入れるとこです。
-    //多い場合は配列にしてもいいですね。
     [SerializeField] Slider BGMSlider;
     [SerializeField] Slider SESlider;
 
