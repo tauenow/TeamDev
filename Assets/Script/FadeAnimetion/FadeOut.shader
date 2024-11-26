@@ -1,4 +1,4 @@
-Shader "Unlit/transition"
+Shader "Unlit/FadeOut"
 {
 	Properties
 	{
@@ -60,11 +60,15 @@ Shader "Unlit/transition"
 				return OUT;
 			}
 
-			// 通常のフラグメントシェーダー
+			// フラグメントシェーダー
 			fixed4 frag(v2f IN) : SV_Target
 			{
+				// テクスチャのα値をalphaに格納する
 				half alpha = tex2D(_MainTex, IN.texcoord).a;
+
+				// saturateで計算結果を0, 1の範囲に制限する
 				alpha = saturate(alpha + (_Alpha * 2 - 1));
+
 				return fixed4(_Color.r, _Color.g, _Color.b, alpha);
 			}
 			ENDCG

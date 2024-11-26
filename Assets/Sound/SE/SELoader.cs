@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioLoader : MonoBehaviour
+public class SELoader : MonoBehaviour
 {
     [SerializeField]
     private AudioClip selectClip; // "Select"‚Ì‰¹ºƒNƒŠƒbƒv

@@ -1,10 +1,11 @@
 Shader "Unlit/FadeIN"
 {
 	Properties
-	{
-		[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-		_Color("Tint", Color) = (1,1,1,1)
-		_Alpha ("Time", Range(0, 1)) = 0
+
+	{	
+		[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}	// テクスチャを指定
+		_Color("Tint", Color) = (1,1,1,1)								// テクスチャに適用する色
+		_Alpha ("Time", Range(0, 1)) = 0								// フェードを制御するための変数(0 : 透明, 1 : 不透明)
 	}
 
 	SubShader
@@ -48,23 +49,30 @@ Shader "Unlit/FadeIN"
 			uniform fixed _Alpha;
 			sampler2D _MainTex;
 
-			// 頂点シェーダーの基本
+			// 頂点シェーダー
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
+				// オブジェクト空間の頂点位置をスクリーン空間に変換
 				OUT.vertex = UnityObjectToClipPos(IN.vertex);
+				
+				// 各頂点に定められたUV設定
 				OUT.texcoord = IN.texcoord;
-#ifdef UNITY_HALF_TEXEL_OFFSET
+#ifdef UNITY_HALF_TEXEL_OFFSET	// テクスチャのズレを補正するマクロ
 				OUT.vertex.xy += (_ScreenParams.zw - 1.0) * float2(-1,1);
 #endif
 				return OUT;
 			}
 
-			// 通常のフラグメントシェーダー
+			// フラグメントシェーダー
 			fixed4 frag(v2f IN) : SV_Target
 			{
+				// テクスチャのα値をalphaに格納する
 				half alpha = tex2D(_MainTex, IN.texcoord).a;
-				alpha = saturate(1 - alpha - (_Alpha * 2 - 1));
+				
+				// saturateで計算結果を0, 1の範囲に制限する
+				alpha = saturate(1 - alpha - (_Alpha * 2 - 1));		
+
 				return fixed4(_Color.r, _Color.g, _Color.b, alpha);
 			}
 			ENDCG

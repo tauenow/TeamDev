@@ -40,7 +40,7 @@ public class FadeINOUT : MonoBehaviour
 
     public static bool buttonTap = true;
 
-    // フェードアウトをトリガーする方法の選択肢
+    // フェードアウトをトリガーする方法の選択肢(タップorボタン)
     public enum FadeTriggerMode { Tap, Button }
 
     // 現在のトリガー方法をインスペクターで設定
@@ -62,7 +62,7 @@ public class FadeINOUT : MonoBehaviour
             {
                 Button button = transitionButtons[i];
                 // ボタンがクリックされたときに対応するシーンに切り替えるリスナーを追加
-                if (button != null && i < sceneNames.Count) // sceneNamesの数もチェック
+                if (button != null && i < sceneNames.Count)
                 {
                     int index = i; // ローカル変数でキャプチャ
                     button.onClick.AddListener(() =>
@@ -92,12 +92,13 @@ public class FadeINOUT : MonoBehaviour
     // ボタンからのフェードアウト処理をまとめたメソッド
     private void HandleButtonTransition(int index)
     {
-            // SEを再生
+        // SEを再生
         SEManager.Instance.PlaySE("Select");
 
         scriptableObject.oldSceneName = SceneManager.GetActiveScene().name;
+
         // 対応するシーンに切り替え
-        StartCoroutine(BeginTransitionOut(sceneNames[index])); // 対応するシーンに切り替え
+        StartCoroutine(BeginTransitionOut(sceneNames[index]));
     }
 
     private void HandleTapTransition()
@@ -111,7 +112,7 @@ public class FadeINOUT : MonoBehaviour
                     // 最初のシーン名を使ってフェードアウトを開始
                     if (sceneNames.Count > 0)
                     {
-                        StartCoroutine(BeginTransitionOut(sceneNames[0])); // 例として最初のシーン名を使用
+                        StartCoroutine(BeginTransitionOut(sceneNames[0]));
                     }
                 }
                 else if (scriptableObject.tutorialClear == false)
@@ -119,9 +120,10 @@ public class FadeINOUT : MonoBehaviour
                     // 最初のシーン名を使ってフェードアウトを開始
                     if (sceneNames.Count > 0)
                     {
-                        StartCoroutine(BeginTransitionOut(sceneNames[1])); // 例として最初のシーン名を使用
+                        StartCoroutine(BeginTransitionOut(sceneNames[1]));
                     }
                 }
+                // SE再生
                 SEManager.Instance.PlaySE("Select");
                 doOnce = true;
             }
@@ -195,7 +197,7 @@ public class FadeINOUT : MonoBehaviour
                 SEManager.Instance.PlaySE("Select");
                 doOnce = true;
                 scriptableObject.oldSceneName = SceneManager.GetActiveScene().name;
-                StartCoroutine(BeginTransitionOut(sceneNames[num])); // 例として最初のシーン名を使用
+                StartCoroutine(BeginTransitionOut(sceneNames[num]));
             }
         }
     }
